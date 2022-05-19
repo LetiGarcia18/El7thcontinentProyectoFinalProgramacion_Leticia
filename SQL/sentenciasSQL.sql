@@ -13,5 +13,17 @@ create table cartaTerreno(
 SELECT * FROM the7thcontinent.cartaterreno;
 
 INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
-VALUES (1, 'cuadrados/blue.jpg', 1, 20, 100);
+VALUES (1, 'cuadrados/blue.jpg', 1, 0, 0);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (2, 'cuadrados/green.jpg', 2, 0, 1);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (3, 'cuadrados/pink.jpg', 3, 1, 1);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (4, 'cuadrados/red.jpg', 4, 1, 0);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (5, 'cuadrados/yellow.jpg', 5, 2, 1);
 
