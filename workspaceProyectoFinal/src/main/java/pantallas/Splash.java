@@ -11,7 +11,6 @@ public class Splash extends JDialog {
 	private JLabel SplashScreen;
 	private JProgressBar barraProgreso;
 	private JLabel porcentaje;
-	private JLabel porcentaje2;
 
 	public Splash() {
 		inicializar();
@@ -34,7 +33,7 @@ public class Splash extends JDialog {
 						barraProgreso.setValue(x);
 						porcentaje.setText(x + "%");
 						x++;
-						Thread.sleep(100);
+						Thread.sleep(35);
 					}
 					
 					dispose();

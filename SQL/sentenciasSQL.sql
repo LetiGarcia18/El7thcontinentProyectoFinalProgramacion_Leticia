@@ -10,7 +10,16 @@ create table cartaTerreno(
     posicionY numeric(3)
 );
 
+create table accion(
+	id numeric(10) primary key,
+	 tipo varchar(100) not null,
+	 descripcion varchar(250) not null,
+     carta_id numeric(10) not null,
+     foreign key(carta_id) references cartaTerreno(id)
+);
+
 SELECT * FROM the7thcontinent.cartaterreno;
+SELECT * FROM the7thcontinent.accion;
 
 INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
 VALUES (1, 'cuadrados/blue.jpg', 1, 0, 0);
@@ -26,4 +35,18 @@ VALUES (4, 'cuadrados/red.jpg', 4, 1, 0);
 
 INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
 VALUES (5, 'cuadrados/yellow.jpg', 5, 2, 1);
+
+INSERT INTO accion (id, tipo, descripcion, carta_id)
+VALUES (1, 'MOVE', 'Move to another terrain', 1);
+
+INSERT INTO accion (id, tipo, descripcion, carta_id)
+VALUES (2, 'INVESTIGATE', 'Investigate a terrain', 1);
+
+INSERT INTO accion (id, tipo, descripcion, carta_id)
+VALUES (3, 'MOVE', 'Move two terrains away', 2);
+
+INSERT INTO accion (id, tipo, descripcion, carta_id)
+VALUES (4, 'INVESTIGATE', 'Investigate things', 4);
+
+
 

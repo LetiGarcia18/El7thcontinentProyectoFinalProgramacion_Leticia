@@ -1,11 +1,17 @@
 package clases;
 
 import java.io.File;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 
+import enums.TipoAccion;
 import utils.UtilsDB;
 
 public class CartaTerreno {
@@ -15,6 +21,8 @@ public class CartaTerreno {
 	private short numeroCarta;
 	private byte posicionX;
 	private byte posicionY;
+	private HashMap<Integer, Accion> accionesTerreno;
+	
 	
 	public CartaTerreno(int id, String rutaCarta, short numeroCarta, byte posicionX, byte posicionY) {
 		this.id = id;
@@ -22,6 +30,25 @@ public class CartaTerreno {
 		this.numeroCarta = numeroCarta;
 		this.posicionX = posicionX;
 		this.posicionY = posicionY;
+		this.accionesTerreno = new HashMap<Integer, Accion>();
+		
+	}
+	
+	public CartaTerreno(int id) throws SQLException {
+		Statement query = UtilsDB.conectarBD();
+		ResultSet cursor = query.executeQuery("select * from cartaTerreno where id = '" + id + "'");
+		if(cursor.next()) {
+			this.id = cursor.getInt("id");
+			this.rutaCarta = cursor.getString("ruta");
+			this.numeroCarta = cursor.getShort("numeroCarta");
+			this.posicionX = cursor.getByte("posicionX");
+			this.posicionY = cursor.getByte("posicionY");
+		}else {
+			throw new SQLException("No se ha podido consultar");
+		}
+		UtilsDB.desconectarBD();
+
+		
 	}
 	
 	
@@ -84,8 +111,46 @@ public class CartaTerreno {
 		this.posicionY = posicionY;
 	}
 	
+	
+	public HashMap<Integer, Accion> getAccionesTerreno() {
+		return accionesTerreno;
+	}
+
+	public void cargarAccionesTerreno() {
+		Statement smt = UtilsDB.conectarBD();
+		HashMap<Integer, Accion> ret = new HashMap<Integer, Accion>();
+		
+		try {
+			ResultSet cursor = smt.executeQuery("select * from accion where carta_id = '" + this.id + "'");
+			while(cursor.next()) {
+				
+				int id = cursor.getInt("id");
+				String tipoAccion = cursor.getString("tipo");
+				String descripcion = cursor.getString("descripcion");
+				int carta_id = cursor.getInt("carta_id");
+				
+				Accion actual = new Accion(id, TipoAccion.valueOf(tipoAccion), descripcion, carta_id);
+				
+				ret.put(actual.getId(), actual);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		UtilsDB.desconectarBD();
+		
+		this.accionesTerreno = ret;
+		
+	}
+	
 	public String toString() {
-		return "id: " + this.id + " ruta: " + this.rutaCarta;
+		String accionesTexto = "";
+		Iterator<Integer> iterador = this.accionesTerreno.keySet().iterator();
+		while(iterador.hasNext()) {
+			Integer key = (Integer)iterador.next();
+			Accion accion = this.accionesTerreno.get(key);
+			accionesTexto += accion.toString() + "\t";
+		}
+		return "[" + this.id + "] ruta: " + this.rutaCarta + " Acciones: " + accionesTexto;
 	}
 
 

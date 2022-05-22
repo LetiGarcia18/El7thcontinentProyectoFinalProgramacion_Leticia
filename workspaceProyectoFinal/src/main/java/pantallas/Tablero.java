@@ -19,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JScrollBar;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,10 +28,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import clases.Accion;
 import clases.CartaTerreno;
 
 import javax.swing.JSeparator;
@@ -47,6 +52,7 @@ import java.awt.FlowLayout;
 import java.awt.Button;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 
 public class Tablero extends JPanel {
 
@@ -57,33 +63,51 @@ public class Tablero extends JPanel {
 
 	public Tablero(Ventana v) {
 
+		this.ventana = v;
 		setLayout(null);
 
-		JLabel lblTitulo = new JLabel("Mi mapa beta");
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTitulo.setBounds(margenDerecho, 20, 150, 13);
-		add(lblTitulo);
+		JLabel labelTitulo = new JLabel("Mi mapa beta");
+		labelTitulo.setBounds(0, 0, 140, 19);
+		labelTitulo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		add(labelTitulo);
+
+		JLabel labelPersonaje = new JLabel("Character");
+		labelPersonaje.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelPersonaje.setIcon(new ImageIcon("iconos\\duck.png"));
+		labelPersonaje.setBounds(1050, 20, 200, 50);
+		labelPersonaje.setFont(new Font("Sylfaen", Font.PLAIN, 27));
+		add(labelPersonaje);
+
+		JButton botonAccion = new JButton("Ok");
+		/*botonAccion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla("registro"); //Con esto ya podemos cambiar a otra pantalla dándole al botón de registro
+			}
+		});*/
 		
 		
 		ArrayList<CartaTerreno> cartasTerreno = dameCartasTerreno();
-		
+		for (CartaTerreno cartaTerreno : cartasTerreno) {
+			System.out.println(cartaTerreno);
+		}
+
 		int anchoCasilla = 100;
 		int margenIzquierdo = 20;
 		int margenSuperior = 40;
 		dibujaTerrenos(cartasTerreno, anchoCasilla, margenIzquierdo, margenSuperior);
-		
+		dibujarAcciones(cartasTerreno.get(0));
+
 		// Test dibujar fondo
 		/*
-		JLabel imagen = new JLabel(new ImageIcon("cuadrados/grey.jpg"));
-		int posicionX = margenIzquierdo;
-		int posicionY = margenSuperior;
-		imagen.setBounds(posicionX, posicionY, anchoCasilla * 3, anchoCasilla * 3); 
-		add(imagen);
-		*/
-		
-		
+		 * JLabel imagen = new JLabel(new ImageIcon("cuadrados/grey.jpg")); int
+		 * posicionX = margenIzquierdo; int posicionY = margenSuperior;
+		 * imagen.setBounds(posicionX, posicionY, anchoCasilla * 3, anchoCasilla * 3);
+		 * add(imagen);
+		 */
+
 	}
-	
+
 	private ArrayList<CartaTerreno> dameCartasTerreno() {
 		String rutaImagen = "";
 		int id = 0;
@@ -103,7 +127,7 @@ public class Tablero extends JPanel {
 				numeroCarta = cursor.getShort("numeroCarta");
 				posicionX = cursor.getByte("posicionX");
 				posicionY = cursor.getByte("posicionY");
-				
+
 				cartaTerreno = new CartaTerreno(id, rutaImagen, numeroCarta, posicionX, posicionY);
 				cartasTerreno.add(cartaTerreno);
 			}
@@ -112,17 +136,50 @@ public class Tablero extends JPanel {
 		}
 		UtilsDB.desconectarBD();
 		
+		for (CartaTerreno carta : cartasTerreno) {
+			carta.cargarAccionesTerreno();
+		}
+
 		return cartasTerreno;
 	}
-	
-	public void dibujaTerrenos(ArrayList<CartaTerreno> cartasTerreno, int anchoCasilla, int margenIzquierdo, int margenSuperior) {
-		for(int i = 0; i < cartasTerreno.size(); i ++ ) {
+
+	public void dibujaTerrenos(ArrayList<CartaTerreno> cartasTerreno, int anchoCasilla, int margenIzquierdo,
+			int margenSuperior) {
+		for (int i = 0; i < cartasTerreno.size(); i++) {
 			CartaTerreno carta = cartasTerreno.get(i);
-			JLabel imagen = new JLabel(new ImageIcon(carta.getRutaCarta()));
 			int posicionX = (carta.getPosicionX() * anchoCasilla) + margenIzquierdo;
 			int posicionY = (carta.getPosicionY() * anchoCasilla) + margenSuperior;
-			imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla); 
-			add(imagen);
+			dibujaTerreno(carta, posicionX, posicionY, anchoCasilla);
 		}
+	}
+	
+	public void dibujaTerreno(CartaTerreno carta, int posicionX, int posicionY, int anchoCasilla) {
+		JLabel imagen = new JLabel(new ImageIcon(carta.getRutaCarta()));
+		imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
+		add(imagen);
+	}
+	
+	public void dibujarAcciones(CartaTerreno carta) {
+		HashMap<Integer, Accion> acciones = carta.getAccionesTerreno();
+		int posicionY = 600;
+		int altoBoton = 35;
+		int anchoBoton = 130;
+		int margenEntreBotones = 40;
+		Iterator iterador = acciones.keySet().iterator(); 
+		while(iterador.hasNext()) {
+			int key = (Integer)iterador.next();
+			Accion accion = acciones.get(key);
+			posicionY = posicionY + margenEntreBotones;
+			dibujarAccion(accion, posicionY, anchoBoton, altoBoton) ;
+		}
+	}
+	
+	public void dibujarAccion(Accion accion, int posicionY, int anchoBoton, int altoBoton) {
+		JButton botonAccion = new JButton();
+		int posicionX = 1010;
+		botonAccion.setText(accion.getTipoAccion().toString());
+		botonAccion.setBounds(posicionX, posicionY, anchoBoton, altoBoton);
+		botonAccion.setToolTipText(accion.getDescripcion());
+		add(botonAccion);
 	}
 }
