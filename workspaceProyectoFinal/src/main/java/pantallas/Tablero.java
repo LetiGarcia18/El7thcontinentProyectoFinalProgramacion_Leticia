@@ -36,6 +36,7 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Accion;
 import clases.CartaTerreno;
+import clases.Personaje;
 
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -158,6 +159,24 @@ public class Tablero extends JPanel {
 		imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
 		add(imagen);
 	}
+	
+	public void dibujaEnMapaPersonaje(Personaje personaje, int anchoCasilla, int margenIzquierdo,
+			int margenSuperior) {
+		Personaje personaje = new Personaje("Peter",)
+		for (int i = 0; i < cartasTerreno.size(); i++) {
+			CartaTerreno carta = cartasTerreno.get(i);
+			int posicionX = (carta.getPosicionX() * anchoCasilla) + margenIzquierdo;
+			int posicionY = (carta.getPosicionY() * anchoCasilla) + margenSuperior;
+			dibujaTerreno(carta, posicionX, posicionY, anchoCasilla);
+		}
+	}
+	
+	public void dibujaPersonaje(int numeroCasilla, Personaje tokenPersonaje,int posicionX, int posicionY) {
+		JLabel imagen = new JLabel(new ImageIcon(tokenPersonaje.getRutaCarta()));
+		imagen.setBounds(posicionX, posicionY, 50, 50);
+		add(imagen);
+	}
+	
 	
 	public void dibujarAcciones(CartaTerreno carta) {
 		HashMap<Integer, Accion> acciones = carta.getAccionesTerreno();
