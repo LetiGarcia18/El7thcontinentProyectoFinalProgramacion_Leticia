@@ -7,12 +7,14 @@ public class Personaje {
 	private String nombre;
 	private int numeroCartaPosicionado;
 	private ArrayList<CartaObjeto> inventario;
+	private ArrayList<CartaEstados> estadosPersonaje;
 	private short contadorEnergia;
 
 	public Personaje(String nombre, int numeroCartaPosicionado, short contadorEnergia) {
 		this.nombre = nombre;
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
 		this.contadorEnergia = contadorEnergia;
+		
 	}
 
 	public String getNombre() {
