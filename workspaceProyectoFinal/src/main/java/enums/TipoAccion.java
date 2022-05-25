@@ -2,9 +2,19 @@ package enums;
 
 public enum TipoAccion {
 	
+	EAT,
 	MOVE, 
-	INVESTIGATE
+	INVESTIGATE,
+	CLIMB,
+	SEARCH,
+	OBSERVE,
+	HUNT,
+	SWIM,
+	PULL,
+	BALANCE,
+	HANDLE,
+	THINK,
+	HEAL,
+	SING
 	
-	
-
 }
