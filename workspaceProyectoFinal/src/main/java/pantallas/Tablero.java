@@ -96,8 +96,10 @@ public class Tablero extends JPanel {
 		int anchoCasilla = 100;
 		int margenIzquierdo = 20;
 		int margenSuperior = 40;
+		dibujaEnMapaPersonaje(cartasTerreno.get(1), anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujaTerrenos(cartasTerreno, anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujarAcciones(cartasTerreno.get(0));
+		
 
 		// Test dibujar fondo
 		/*
@@ -160,20 +162,17 @@ public class Tablero extends JPanel {
 		add(imagen);
 	}
 	
-	public void dibujaEnMapaPersonaje(Personaje personaje, int anchoCasilla, int margenIzquierdo,
-			int margenSuperior) {
-		Personaje personaje = new Personaje("Peter",)
-		for (int i = 0; i < cartasTerreno.size(); i++) {
-			CartaTerreno carta = cartasTerreno.get(i);
-			int posicionX = (carta.getPosicionX() * anchoCasilla) + margenIzquierdo;
-			int posicionY = (carta.getPosicionY() * anchoCasilla) + margenSuperior;
-			dibujaTerreno(carta, posicionX, posicionY, anchoCasilla);
-		}
+	public void dibujaEnMapaPersonaje(CartaTerreno carta, int anchoCasilla, int margenIzquierdo, int margenSuperior) {
+		int posicionX = (carta.getPosicionX() * anchoCasilla) + margenIzquierdo;
+		int posicionY = (carta.getPosicionY()* anchoCasilla) + margenSuperior;
+		Personaje personaje = new Personaje("Peter", 2, (short) 100, "cuadrados/personaje.png");
+		dibujaPersonaje(personaje, posicionX, posicionY, anchoCasilla);
 	}
 	
-	public void dibujaPersonaje(int numeroCasilla, Personaje tokenPersonaje,int posicionX, int posicionY) {
-		JLabel imagen = new JLabel(new ImageIcon(tokenPersonaje.getRutaCarta()));
-		imagen.setBounds(posicionX, posicionY, 50, 50);
+	
+	public void dibujaPersonaje(Personaje personaje, int posicionX, int posicionY, int anchoCasilla) {
+		JLabel imagen = new JLabel(new ImageIcon(personaje.getRutaCarta()));
+		imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
 		add(imagen);
 	}
 	

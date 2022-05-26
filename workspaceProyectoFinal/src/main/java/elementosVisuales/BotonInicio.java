@@ -15,6 +15,7 @@ public class BotonInicio extends JButton{
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				setForeground(new Color(131, 94, 0));
 				setBackground(new Color(255,195,0));
 				setFont(new Font("Vladimir Script", Font.PLAIN, 40));
 				setSize(50,50);
@@ -25,11 +26,10 @@ public class BotonInicio extends JButton{
 			}
 		});
 	}
-	
 	private void estiloPorDefecto() {
-		this.setForeground(new Color(211, 47, 12));
+		this.setForeground(new Color(247, 224, 138));
 		this.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
-		this.setBackground(new Color(255, 160, 122));
+		this.setBackground(new Color(131, 94, 0));
 		this.setSize(50,37);
 		
 	}

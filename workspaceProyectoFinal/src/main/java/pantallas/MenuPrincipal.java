@@ -2,25 +2,32 @@ package pantallas;
 
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-
 import elementosVisuales.BotonInicio;
-
 import java.awt.GridBagLayout;
+
+import javax.swing.DebugGraphics;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Graphics;
 
 public class MenuPrincipal extends JPanel{
 	
 	private Ventana ventana;
+	private Image imagenFondo;
+	
 
 	
 	public MenuPrincipal(Ventana v) {
 		
 		this.ventana = v;
+		
+		imagenFondo = new ImageIcon("./imagenesFondo/isla.jpg").getImage();
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		
@@ -40,7 +47,7 @@ public class MenuPrincipal extends JPanel{
 		botonStart.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
 		GridBagConstraints gbc_botonStart = new GridBagConstraints();
 		gbc_botonStart.fill = GridBagConstraints.BOTH;
-		gbc_botonStart.insets = new Insets(100, 300, 0, 300);
+		gbc_botonStart.insets = new Insets(550, 300, 0, 300);
 		gbc_botonStart.gridx = 9;
 		gbc_botonStart.gridy = 15;
 		add(botonStart, gbc_botonStart);
@@ -49,7 +56,7 @@ public class MenuPrincipal extends JPanel{
 		botonExit.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
 		GridBagConstraints gbc_botonExit = new GridBagConstraints();
 		gbc_botonExit.fill = GridBagConstraints.BOTH;
-		gbc_botonExit.insets = new Insets(250, 300, 75, 300);
+		gbc_botonExit.insets = new Insets(50, 300, 75, 300);
 		gbc_botonExit.gridx = 9;
 		gbc_botonExit.gridy = 20;
 		add(botonExit, gbc_botonExit);
@@ -61,6 +68,10 @@ public class MenuPrincipal extends JPanel{
 			}
 		});
 		
+	}
+	
+	public void paintComponent(Graphics g) {
+		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null); 
 	}
 
 
