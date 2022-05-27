@@ -97,7 +97,7 @@ public class Tablero extends JPanel {
 		int margenIzquierdo = 20;
 		int margenSuperior = 40;
 		Personaje personaje = new Personaje("Peter", 2, (short) 100, "cuadrados/personaje.png");
-		dibujaEnMapaPersonaje(personaje, cartasTerreno.get(3), anchoCasilla, margenIzquierdo, margenSuperior);
+		dibujaEnMapaPersonaje(personaje, cartasTerreno.get(0), anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujaTerrenos(cartasTerreno, anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujarAcciones(cartasTerreno.get(0));
 		
