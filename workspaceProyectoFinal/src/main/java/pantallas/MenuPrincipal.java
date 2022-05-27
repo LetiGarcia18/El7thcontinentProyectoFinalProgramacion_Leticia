@@ -41,7 +41,8 @@ public class MenuPrincipal extends JPanel{
 		botonStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("tablero"); //Con esto ya podemos cambiar a otra pantalla dándole al botón de registro
+				ventana.dibujaTablero();
+				//ventana.cambiarAPantalla("tablero"); //Con esto ya podemos cambiar a otra pantalla dándole al botón de registro
 			}
 		});
 		botonStart.setFont(new Font("Vladimir Script", Font.PLAIN, 40));

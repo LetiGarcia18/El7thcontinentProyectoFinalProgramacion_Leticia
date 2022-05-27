@@ -71,9 +71,12 @@ public class Tablero extends JPanel {
 	Personaje personaje;
 	JComboBox comboBoxNumeroCarta;
 
-	public Tablero(Ventana v) {
+	public Tablero(Ventana v, ArrayList<CartaTerreno> cartasTerreno, Personaje personaje) {
 
 		this.ventana = v;
+		this.cartasTerreno = cartasTerreno;
+		this.personaje = personaje;
+		
 		setLayout(null);
 
 		JLabel labelTitulo = new JLabel("Mi mapa beta");
@@ -91,15 +94,13 @@ public class Tablero extends JPanel {
 		comboBoxNumeroCarta = new JComboBox();
 		add(comboBoxNumeroCarta);
 		
-		
-		cartasTerreno = dameCartasTerreno();
-		for (CartaTerreno cartaTerreno : cartasTerreno) {
-			System.out.println(cartaTerreno);
-		}
-
-		personaje = new Personaje("Peter", (short)1, (short) 100, "cuadrados/personaje.png");
-		System.out.println(personaje);
-		dibujaTablero(cartasTerreno, personaje);
+		CartaTerreno cartaActual = dameCartaTerrenoConNumero(personaje.getNumeroCartaPosicionado());
+		int anchoCasilla = 200;
+		int margenIzquierdo = 20;
+		int margenSuperior = 40;
+		dibujaEnMapaPersonaje(personaje, cartaActual, anchoCasilla, margenIzquierdo, margenSuperior);
+		dibujaTerrenos(cartasTerreno, anchoCasilla, margenIzquierdo, margenSuperior);
+		dibujarAcciones(cartaActual);
 		
 		
 
@@ -111,54 +112,6 @@ public class Tablero extends JPanel {
 		 * add(imagen);
 		 */
 		//System.out.println(cartasTerreno);
-	}
-
-	private ArrayList<CartaTerreno> dameCartasTerreno() {
-		String rutaImagen = "";
-		int id = 0;
-		short numeroCarta = 0;
-		byte posicionX = 0;
-		byte posicionY = 0;
-		CartaTerreno cartaTerreno;
-		ArrayList<CartaTerreno> cartasTerreno = new ArrayList<CartaTerreno>();
-		Statement smt = UtilsDB.conectarBD();
-
-		try {
-			ResultSet cursor = smt.executeQuery("select id, ruta, numeroCarta, posicionX, posicionY from cartaTerreno");
-
-			while (cursor.next()) {
-				id = cursor.getInt("id");
-				rutaImagen = cursor.getString("ruta");
-				numeroCarta = cursor.getShort("numeroCarta");
-				posicionX = cursor.getByte("posicionX");
-				posicionY = cursor.getByte("posicionY");
-
-				cartaTerreno = new CartaTerreno(id, rutaImagen, numeroCarta, posicionX, posicionY);
-				cartasTerreno.add(cartaTerreno);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		UtilsDB.desconectarBD();
-		
-		for (CartaTerreno carta : cartasTerreno) {
-			carta.cargarAccionesTerreno();
-		}
-
-		return cartasTerreno;
-	}
-	
-	public void dibujaTablero(ArrayList<CartaTerreno> cartasTerreno, Personaje personaje) {
-		//this.ventana.getContentPane().repaint();
-		this.repaint(getVisibleRect());
-		CartaTerreno cartaActual = dameCartaTerrenoConNumero(personaje.getNumeroCartaPosicionado());
-		int anchoCasilla = 200;
-		int margenIzquierdo = 20;
-		int margenSuperior = 40;
-		dibujaEnMapaPersonaje(personaje, cartaActual, anchoCasilla, margenIzquierdo, margenSuperior);
-		dibujaTerrenos(cartasTerreno, anchoCasilla, margenIzquierdo, margenSuperior);
-		dibujarAcciones(cartaActual);
-		
 	}
 
 	public void dibujaTerrenos(ArrayList<CartaTerreno> cartasTerreno, int anchoCasilla, int margenIzquierdo,
@@ -230,12 +183,10 @@ public class Tablero extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				short numeroCartaSeleccionado = (Short) comboBoxNumeroCarta.getSelectedItem();
 				personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
-				System.out.println(personaje);
-				
+				ventana.dibujaTablero();
 			}
 		});
 		if (tipoAccion == TipoAccion.MOVE) {
-			comboBoxNumeroCarta.removeAllItems();
 			short cartaPosicionPersonaje = (short)personaje.getNumeroCartaPosicionado();
 			for (int i = 0; i < cartasTerreno.size(); i++) {
 				short numeroCarta = cartasTerreno.get(i).getNumeroCarta();
