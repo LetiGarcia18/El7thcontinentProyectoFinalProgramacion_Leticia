@@ -150,7 +150,7 @@ public class CartaTerreno {
 			Accion accion = this.accionesTerreno.get(key);
 			accionesTexto += accion.toString() + "\t";
 		}
-		return "[" + this.id + "] ruta: " + this.rutaCarta + " Acciones: " + accionesTexto;
+		return "[" + this.numeroCarta + "] ruta: " + this.rutaCarta + " Acciones: " + accionesTexto;
 	}
 
 

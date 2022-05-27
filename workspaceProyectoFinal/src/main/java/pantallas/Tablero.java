@@ -65,12 +65,11 @@ import java.awt.GridBagConstraints;
 
 public class Tablero extends JPanel {
 
-	// private CartaTerreno[][] terrenos;
-
 	private Ventana ventana;
 	private int margenDerecho = 20;
 	ArrayList<CartaTerreno> cartasTerreno;
 	Personaje personaje;
+	JComboBox comboBoxNumeroCarta;
 
 	public Tablero(Ventana v) {
 
@@ -89,13 +88,8 @@ public class Tablero extends JPanel {
 		labelPersonaje.setFont(new Font("Sylfaen", Font.PLAIN, 27));
 		add(labelPersonaje);
 
-		JButton botonAccion = new JButton("Ok");
-		/*botonAccion.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("registro"); //Con esto ya podemos cambiar a otra pantalla dándole al botón de registro
-			}
-		});*/
+		comboBoxNumeroCarta = new JComboBox();
+		add(comboBoxNumeroCarta);
 		
 		
 		cartasTerreno = dameCartasTerreno();
@@ -103,13 +97,10 @@ public class Tablero extends JPanel {
 			System.out.println(cartaTerreno);
 		}
 
-		int anchoCasilla = 200;
-		int margenIzquierdo = 20;
-		int margenSuperior = 40;
-		personaje = new Personaje("Peter", 2, (short) 100, "cuadrados/personaje.png");
-		dibujaEnMapaPersonaje(personaje, cartasTerreno.get(0), anchoCasilla, margenIzquierdo, margenSuperior);
-		dibujaTerrenos(cartasTerreno, anchoCasilla, margenIzquierdo, margenSuperior);
-		dibujarAcciones(cartasTerreno.get(0));
+		personaje = new Personaje("Peter", (short)1, (short) 100, "cuadrados/personaje.png");
+		System.out.println(personaje);
+		dibujaTablero(cartasTerreno, personaje);
+		
 		
 
 		// Test dibujar fondo
@@ -119,7 +110,7 @@ public class Tablero extends JPanel {
 		 * imagen.setBounds(posicionX, posicionY, anchoCasilla * 3, anchoCasilla * 3);
 		 * add(imagen);
 		 */
-
+		//System.out.println(cartasTerreno);
 	}
 
 	private ArrayList<CartaTerreno> dameCartasTerreno() {
@@ -156,6 +147,19 @@ public class Tablero extends JPanel {
 
 		return cartasTerreno;
 	}
+	
+	public void dibujaTablero(ArrayList<CartaTerreno> cartasTerreno, Personaje personaje) {
+		//this.ventana.getContentPane().repaint();
+		this.repaint(getVisibleRect());
+		CartaTerreno cartaActual = dameCartaTerrenoConNumero(personaje.getNumeroCartaPosicionado());
+		int anchoCasilla = 200;
+		int margenIzquierdo = 20;
+		int margenSuperior = 40;
+		dibujaEnMapaPersonaje(personaje, cartaActual, anchoCasilla, margenIzquierdo, margenSuperior);
+		dibujaTerrenos(cartasTerreno, anchoCasilla, margenIzquierdo, margenSuperior);
+		dibujarAcciones(cartaActual);
+		
+	}
 
 	public void dibujaTerrenos(ArrayList<CartaTerreno> cartasTerreno, int anchoCasilla, int margenIzquierdo,
 			int margenSuperior) {
@@ -181,11 +185,19 @@ public class Tablero extends JPanel {
 	
 	
 	public void dibujaPersonaje(Personaje personaje, int posicionX, int posicionY, int anchoCasilla) {
-		JLabel imagen = new JLabel(new ImageIcon(personaje.getRutaCarta()));
+		JLabel imagen = new JLabel(new ImageIcon(personaje.getRutaImagen()));
 		imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
 		add(imagen);
 		
-		
+	}
+	
+	private CartaTerreno dameCartaTerrenoConNumero (short numero) {
+		for(int i = 0; i < cartasTerreno.size(); i++ ) {
+			if(cartasTerreno.get(i).getNumeroCarta() == numero) {
+				return cartasTerreno.get(i);
+			}
+		}
+		return null;
 	}
 	
 	
@@ -216,22 +228,24 @@ public class Tablero extends JPanel {
 		botonAccion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showConfirmDialog(ventana, "You clicked the action button " + tipoAccion.toString() + ". Are you sure about this decision?", "TESTING", JOptionPane.YES_NO_CANCEL_OPTION);
+				short numeroCartaSeleccionado = (Short) comboBoxNumeroCarta.getSelectedItem();
+				personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
+				System.out.println(personaje);
+				
 			}
 		});
 		if (tipoAccion == TipoAccion.MOVE) {
-			JComboBox numeroCartaMoverse = new JComboBox();
+			comboBoxNumeroCarta.removeAllItems();
+			short cartaPosicionPersonaje = (short)personaje.getNumeroCartaPosicionado();
 			for (int i = 0; i < cartasTerreno.size(); i++) {
 				short numeroCarta = cartasTerreno.get(i).getNumeroCarta();
-				numeroCartaMoverse.addItem(numeroCarta);
+				if(numeroCarta != cartaPosicionPersonaje) {
+					comboBoxNumeroCarta.addItem(numeroCarta);
+				}
+				
 			}
-			numeroCartaMoverse.setBounds(posicionX + 170, posicionY, anchoJComboBox, altoJComboBox);
-			
-			add(numeroCartaMoverse);
+			comboBoxNumeroCarta.setBounds(posicionX + 170, posicionY, anchoJComboBox, altoJComboBox);
 		}
-		
-			
-			
 
 		add(botonAccion);
 			

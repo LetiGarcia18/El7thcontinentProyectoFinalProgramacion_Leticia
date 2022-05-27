@@ -25,6 +25,7 @@ public class Ventana extends JFrame{
 			pantallas = new HashMap<String, JPanel>();
 			pantallas.put("menuInicio", new MenuPrincipal(this));
 			pantallas.put("tablero", new Tablero(this));
+			pantallas.put("tablero2", new Tablero(this));
 			
 			
 			this.setSize(1400,850); 

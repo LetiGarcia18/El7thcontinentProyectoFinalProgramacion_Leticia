@@ -8,18 +8,18 @@ import javax.swing.JLabel;
 public class Personaje {
 	
 	private String nombre;
-	private int numeroCartaPosicionado;
+	private short numeroCartaPosicionado;
 	private ArrayList<CartaObjeto> inventario;
 	private ArrayList<CartaEstado> estadosPersonaje;
 	private short contadorEnergia;
-	private String rutaCarta;
+	private String rutaImagen;
 
 
-	public Personaje(String nombre, int numeroCartaPosicionado, short contadorEnergia, String rutaCarta) {
+	public Personaje(String nombre, short numeroCartaPosicionado, short contadorEnergia, String rutaImagen) {
 		this.nombre = nombre;
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
 		this.contadorEnergia = contadorEnergia;
-		this.rutaCarta = rutaCarta;
+		this.rutaImagen = rutaImagen;
 	}
 
 	public String getNombre() {
@@ -30,11 +30,11 @@ public class Personaje {
 		this.nombre = nombre;
 	}
 
-	public int getNumeroCartaPosicionado() {
+	public short getNumeroCartaPosicionado() {
 		return numeroCartaPosicionado;
 	}
 
-	public void setNumeroCartaPosicionado(int numeroCartaPosicionado) {
+	public void setNumeroCartaPosicionado(short numeroCartaPosicionado) {
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
 	}
 
@@ -63,15 +63,17 @@ public class Personaje {
 		this.estadosPersonaje = estadosPersonaje;
 	}
 
-	public String getRutaCarta() {
-		return rutaCarta;
+	public String getRutaImagen() {
+		return rutaImagen;
 	}
 
-	public void setRutaCarta(String rutaCarta) {
-		this.rutaCarta = rutaCarta;
+	public void setRutaImagen(String rutaImagen) {
+		this.rutaImagen = rutaImagen;
 	}
 
-		
+	public String toString() {
+		return "Nuestro personaje " + this.getNombre() + " está en la carta número " + this.getNumeroCartaPosicionado();
+	}
 	
 	
 	
