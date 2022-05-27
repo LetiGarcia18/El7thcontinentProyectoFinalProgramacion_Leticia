@@ -37,10 +37,13 @@ import javax.swing.table.DefaultTableModel;
 import clases.Accion;
 import clases.CartaTerreno;
 import clases.Personaje;
+import enums.TipoAccion;
 
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+
 import java.awt.Insets;
 import java.awt.Panel;
 import java.awt.GridBagLayout;
@@ -195,9 +198,19 @@ public class Tablero extends JPanel {
 	public void dibujarAccion(Accion accion, int posicionY, int anchoBoton, int altoBoton) {
 		JButton botonAccion = new JButton();
 		int posicionX = 1010;
-		botonAccion.setText(accion.getTipoAccion().toString());
+		final TipoAccion tipoAccion = accion.getTipoAccion();
+		botonAccion.setText(tipoAccion.toString());
 		botonAccion.setBounds(posicionX, posicionY, anchoBoton, altoBoton);
 		botonAccion.setToolTipText(accion.getDescripcion());
+		botonAccion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showConfirmDialog(ventana, "You clicked the action button " + tipoAccion.toString() + ". Are you sure about this decision?", "TESTING", JOptionPane.YES_NO_CANCEL_OPTION);
+			}
+		});
+		if (tipoAccion == TipoAccion.MOVE) {
+			
+		}
 		add(botonAccion);
 	}
 }
