@@ -93,10 +93,11 @@ public class Tablero extends JPanel {
 			System.out.println(cartaTerreno);
 		}
 
-		int anchoCasilla = 100;
+		int anchoCasilla = 200;
 		int margenIzquierdo = 20;
 		int margenSuperior = 40;
-		dibujaEnMapaPersonaje(cartasTerreno.get(1), anchoCasilla, margenIzquierdo, margenSuperior);
+		Personaje personaje = new Personaje("Peter", 2, (short) 100, "cuadrados/personaje.png");
+		dibujaEnMapaPersonaje(personaje, cartasTerreno.get(3), anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujaTerrenos(cartasTerreno, anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujarAcciones(cartasTerreno.get(0));
 		
@@ -162,10 +163,9 @@ public class Tablero extends JPanel {
 		add(imagen);
 	}
 	
-	public void dibujaEnMapaPersonaje(CartaTerreno carta, int anchoCasilla, int margenIzquierdo, int margenSuperior) {
+	public void dibujaEnMapaPersonaje(Personaje personaje, CartaTerreno carta, int anchoCasilla, int margenIzquierdo, int margenSuperior) {
 		int posicionX = (carta.getPosicionX() * anchoCasilla) + margenIzquierdo;
 		int posicionY = (carta.getPosicionY()* anchoCasilla) + margenSuperior;
-		Personaje personaje = new Personaje("Peter", 2, (short) 100, "cuadrados/personaje.png");
 		dibujaPersonaje(personaje, posicionX, posicionY, anchoCasilla);
 	}
 	
