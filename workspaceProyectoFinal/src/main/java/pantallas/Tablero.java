@@ -11,12 +11,17 @@ import java.awt.BorderLayout;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollBar;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -30,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-
+import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -64,6 +69,8 @@ public class Tablero extends JPanel {
 
 	private Ventana ventana;
 	private int margenDerecho = 20;
+	ArrayList<CartaTerreno> cartasTerreno;
+	Personaje personaje;
 
 	public Tablero(Ventana v) {
 
@@ -91,7 +98,7 @@ public class Tablero extends JPanel {
 		});*/
 		
 		
-		ArrayList<CartaTerreno> cartasTerreno = dameCartasTerreno();
+		cartasTerreno = dameCartasTerreno();
 		for (CartaTerreno cartaTerreno : cartasTerreno) {
 			System.out.println(cartaTerreno);
 		}
@@ -99,7 +106,7 @@ public class Tablero extends JPanel {
 		int anchoCasilla = 200;
 		int margenIzquierdo = 20;
 		int margenSuperior = 40;
-		Personaje personaje = new Personaje("Peter", 2, (short) 100, "cuadrados/personaje.png");
+		personaje = new Personaje("Peter", 2, (short) 100, "cuadrados/personaje.png");
 		dibujaEnMapaPersonaje(personaje, cartasTerreno.get(0), anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujaTerrenos(cartasTerreno, anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujarAcciones(cartasTerreno.get(0));
@@ -177,6 +184,8 @@ public class Tablero extends JPanel {
 		JLabel imagen = new JLabel(new ImageIcon(personaje.getRutaCarta()));
 		imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
 		add(imagen);
+		
+		
 	}
 	
 	
@@ -198,6 +207,8 @@ public class Tablero extends JPanel {
 	public void dibujarAccion(Accion accion, int posicionY, int anchoBoton, int altoBoton) {
 		JButton botonAccion = new JButton();
 		int posicionX = 1010;
+		int anchoJComboBox = 150;
+		int altoJComboBox = 25;
 		final TipoAccion tipoAccion = accion.getTipoAccion();
 		botonAccion.setText(tipoAccion.toString());
 		botonAccion.setBounds(posicionX, posicionY, anchoBoton, altoBoton);
@@ -209,8 +220,22 @@ public class Tablero extends JPanel {
 			}
 		});
 		if (tipoAccion == TipoAccion.MOVE) {
+			JComboBox numeroCartaMoverse = new JComboBox();
+			for (int i = 0; i < cartasTerreno.size(); i++) {
+				short numeroCarta = cartasTerreno.get(i).getNumeroCarta();
+				numeroCartaMoverse.addItem(numeroCarta);
+			}
+			numeroCartaMoverse.setBounds(posicionX + 170, posicionY, anchoJComboBox, altoJComboBox);
 			
+			add(numeroCartaMoverse);
 		}
+		
+			
+			
+
 		add(botonAccion);
+			
 	}
+		
+	
 }
