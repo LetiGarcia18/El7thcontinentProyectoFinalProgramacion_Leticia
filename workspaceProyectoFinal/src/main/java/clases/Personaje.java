@@ -70,6 +70,11 @@ public class Personaje {
 	public void setRutaImagen(String rutaImagen) {
 		this.rutaImagen = rutaImagen;
 	}
+	
+	public void reduceEnergia(Accion accion) {
+		short costeEnergia = accion.getCosteAccion();
+		this.contadorEnergia -= costeEnergia;
+	}
 
 	public String toString() {
 		return "Nuestro personaje " + this.getNombre() + " está en la carta número " + this.getNumeroCartaPosicionado();

@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Random;
+
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -70,12 +72,14 @@ public class Tablero extends JPanel {
 	ArrayList<CartaTerreno> cartasTerreno;
 	Personaje personaje;
 	JComboBox comboBoxNumeroCarta;
+	Random random;
 
 	public Tablero(Ventana v, ArrayList<CartaTerreno> cartasTerreno, Personaje personaje) {
 
 		this.ventana = v;
 		this.cartasTerreno = cartasTerreno;
 		this.personaje = personaje;
+		random = new Random();
 		
 		setLayout(null);
 
@@ -176,7 +180,6 @@ public class Tablero extends JPanel {
 	}
 	
 	public void dibujarAccion(final Accion accion, int posicionY, int anchoBoton, int altoBoton) {
-		
 		final JButton botonAccion = new JButton();
 		JLabel labelDificultadAccion = new JLabel("Dificultad: " + accion.getDificultadAccion());
 		JLabel labelCosteAccion = new JLabel("Coste: " + accion.getCosteAccion());
@@ -199,23 +202,10 @@ public class Tablero extends JPanel {
 		botonAccion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				short numeroCartaSeleccionado = (Short) comboBoxNumeroCarta.getSelectedItem();
-				short energiaPersonaje = personaje.getContadorEnergia();
-				short costeAccion = accion.getCosteAccion();
-				switch (tipoAccion) {
-				case MOVE:
-					personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
-					energiaPersonaje -= costeAccion;
-					break;
-				case INVESTIGATE:
-					energiaPersonaje -= costeAccion;
-					break;
-				}
-				
-				personaje.setContadorEnergia(energiaPersonaje);
-				ventana.dibujaTablero();
+				resolverAccion(accion);
 			}
 		});
+		
 		if (tipoAccion == TipoAccion.MOVE) {
 			
 			short cartaPosicionPersonaje = (short)personaje.getNumeroCartaPosicionado();
@@ -231,9 +221,35 @@ public class Tablero extends JPanel {
 		}
 
 		add(botonAccion);
+	}
+	
+	public void resolverAccion(Accion accion) {
+		personaje.reduceEnergia(accion);
 		
+		short dificultadAccion = accion.getDificultadAccion();
+		short tirada = obtenerTiradaDificultad();
+		TipoAccion tipoAccion = accion.getTipoAccion();
 		
+		if (tirada >= dificultadAccion) {
+			// EXITO
+			JOptionPane.showMessageDialog(ventana,  "Dificultad superada satisfactoriamente con: " + tirada, "TIRADA DIFICULTAD", JOptionPane.INFORMATION_MESSAGE);
 			
+			switch (tipoAccion) {
+				case MOVE:
+					short numeroCartaSeleccionado = (Short) comboBoxNumeroCarta.getSelectedItem();
+					personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
+					break;
+			}
+		} else {
+			// FRACASO
+			JOptionPane.showMessageDialog(ventana,  "Dificultad no superada con: " +  tirada, "TIRADA DIFICULTAD", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		ventana.dibujaTablero();
+	}
+	
+	public short obtenerTiradaDificultad() {
+		return (short) (random.nextInt(6) + 1);
 	}
 	
 	
