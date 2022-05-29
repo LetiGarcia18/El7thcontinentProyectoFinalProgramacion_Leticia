@@ -127,9 +127,11 @@ public class CartaTerreno {
 				int id = cursor.getInt("id");
 				String tipoAccion = cursor.getString("tipo");
 				String descripcion = cursor.getString("descripcion");
+				short costeAccion = cursor.getShort("costeAccion");
+				short dificultadAccion = cursor.getShort("dificultadAccion");
 				int carta_id = cursor.getInt("carta_id");
 				
-				Accion actual = new Accion(id, TipoAccion.valueOf(tipoAccion), descripcion, carta_id);
+				Accion actual = new Accion(id, TipoAccion.valueOf(tipoAccion), descripcion, costeAccion, dificultadAccion, carta_id);
 				
 				ret.put(actual.getId(), actual);
 			}

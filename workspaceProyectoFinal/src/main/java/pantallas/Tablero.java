@@ -175,12 +175,24 @@ public class Tablero extends JPanel {
 		}
 	}
 	
-	public void dibujarAccion(Accion accion, int posicionY, int anchoBoton, int altoBoton) {
+	public void dibujarAccion(final Accion accion, int posicionY, int anchoBoton, int altoBoton) {
+		
 		final JButton botonAccion = new JButton();
+		JLabel labelDificultadAccion = new JLabel("Dificultad: " + accion.getDificultadAccion());
+		JLabel labelCosteAccion = new JLabel("Coste: " + accion.getCosteAccion());
 		int posicionX = 1010;
 		int anchoJComboBox = 150;
 		int altoJComboBox = 25;
 		final TipoAccion tipoAccion = accion.getTipoAccion();
+		labelDificultadAccion.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		labelDificultadAccion.setBounds(910, posicionY, 183, 29);
+		add(labelDificultadAccion);
+		
+		labelCosteAccion.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		labelCosteAccion.setBounds(850, posicionY, 183, 29);
+		add(labelCosteAccion);
+		
+		
 		botonAccion.setText(tipoAccion.toString());
 		botonAccion.setBounds(posicionX, posicionY, anchoBoton, altoBoton);
 		botonAccion.setToolTipText(accion.getDescripcion());
@@ -189,12 +201,14 @@ public class Tablero extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				short numeroCartaSeleccionado = (Short) comboBoxNumeroCarta.getSelectedItem();
 				short energiaPersonaje = personaje.getContadorEnergia();
-				energiaPersonaje -=1;
+				short costeAccion = accion.getCosteAccion();
 				switch (tipoAccion) {
 				case MOVE:
 					personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
+					energiaPersonaje -= costeAccion;
 					break;
 				case INVESTIGATE:
+					energiaPersonaje -= costeAccion;
 					break;
 				}
 				
