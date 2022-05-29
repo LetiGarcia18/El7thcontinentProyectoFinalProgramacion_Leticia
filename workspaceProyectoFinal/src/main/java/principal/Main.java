@@ -7,6 +7,7 @@ import clases.Accion;
 import clases.CartaTerreno;
 import pantallas.Splash;
 import pantallas.Ventana;
+import pantallas.VentanaMenus;
 
 public class Main {
 
@@ -43,6 +44,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		*/
+		VentanaMenus ventanaMenu = new VentanaMenus();
 		
 		Ventana ventana = new Ventana();
 		

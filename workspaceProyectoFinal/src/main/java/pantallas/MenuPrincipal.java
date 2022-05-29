@@ -18,14 +18,14 @@ import java.awt.Graphics;
 
 public class MenuPrincipal extends JPanel{
 	
-	private VentanaMenus ventana;
+	private VentanaMenus ventanaMenuInicio;
 	private Image imagenFondo;
 	
 
 	
 	public MenuPrincipal(VentanaMenus v) {
 		
-		this.ventana = v;
+		this.ventanaMenuInicio = v;
 		
 		imagenFondo = new ImageIcon("./imagenesFondo/isla.jpg").getImage();
 		
@@ -41,8 +41,7 @@ public class MenuPrincipal extends JPanel{
 		botonStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.dibujaTablero();
-				//ventana.cambiarAPantalla("tablero"); //Con esto ya podemos cambiar a otra pantalla dándole al botón de registro
+				ventanaMenuInicio.cambiarAPantalla("tablero"); //Con esto ya podemos cambiar a otra pantalla dándole al botón de registro
 			}
 		});
 		botonStart.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
