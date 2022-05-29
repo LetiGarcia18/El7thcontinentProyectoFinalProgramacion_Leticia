@@ -38,6 +38,23 @@ public class Ventana extends JFrame{
 		personaje = new Personaje("Peter", (short)1, (short) 100, "cuadrados/personaje.png");
 		System.out.println(personaje);
 		
+		pantallas = new HashMap<String, JPanel>();
+		pantallas.put("menuInicio", new MenuPrincipal(this));
+		
+		
+		this.setSize(1400,850); 
+		this.setLocationRelativeTo(null);
+		this.setTitle("The 7th continent");
+		this.setIconImage(new ImageIcon("./iconos/iconoIsla.png").getImage());
+		this.setAlwaysOnTop(true);
+		//this.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("./iconos/cursor.png").getImage(),new Point(0,0),"custom cursor"));
+		this.setResizable(false); //No deja cambiar el tamaño de la ventana
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		this.setContentPane(new MenuPrincipal(this));
+		this.setContentPane(this.pantallas.get("menuInicio")); 
+		
+		this.setVisible(true);
 	}
 	
 	public void cambiarAPantalla(String nombrePantalla) {
