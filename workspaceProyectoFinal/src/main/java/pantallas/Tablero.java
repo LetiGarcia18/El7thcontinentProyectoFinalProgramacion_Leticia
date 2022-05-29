@@ -103,6 +103,7 @@ public class Tablero extends JPanel {
 		dibujarAcciones(cartaActual);
 		
 		
+		
 
 		// Test dibujar fondo
 		/*
@@ -142,6 +143,11 @@ public class Tablero extends JPanel {
 		imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
 		add(imagen);
 		
+		JLabel energiaPersonaje = new JLabel("Energía: " + personaje.getContadorEnergia());
+		energiaPersonaje.setFont(new Font("Tahoma", Font.BOLD, 18));
+		energiaPersonaje.setBounds(600, 5, 183, 29);
+		add(energiaPersonaje);
+		
 	}
 	
 	private CartaTerreno dameCartaTerrenoConNumero (short numero) {
@@ -170,7 +176,7 @@ public class Tablero extends JPanel {
 	}
 	
 	public void dibujarAccion(Accion accion, int posicionY, int anchoBoton, int altoBoton) {
-		JButton botonAccion = new JButton();
+		final JButton botonAccion = new JButton();
 		int posicionX = 1010;
 		int anchoJComboBox = 150;
 		int altoJComboBox = 25;
@@ -182,11 +188,22 @@ public class Tablero extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				short numeroCartaSeleccionado = (Short) comboBoxNumeroCarta.getSelectedItem();
-				personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
+				short energiaPersonaje = personaje.getContadorEnergia();
+				energiaPersonaje -=1;
+				switch (tipoAccion) {
+				case MOVE:
+					personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
+					break;
+				case INVESTIGATE:
+					break;
+				}
+				
+				personaje.setContadorEnergia(energiaPersonaje);
 				ventana.dibujaTablero();
 			}
 		});
 		if (tipoAccion == TipoAccion.MOVE) {
+			
 			short cartaPosicionPersonaje = (short)personaje.getNumeroCartaPosicionado();
 			for (int i = 0; i < cartasTerreno.size(); i++) {
 				short numeroCarta = cartasTerreno.get(i).getNumeroCarta();
@@ -195,12 +212,15 @@ public class Tablero extends JPanel {
 				}
 				
 			}
+			
 			comboBoxNumeroCarta.setBounds(posicionX + 170, posicionY, anchoJComboBox, altoJComboBox);
 		}
 
 		add(botonAccion);
+		
+		
 			
 	}
-		
+	
 	
 }
