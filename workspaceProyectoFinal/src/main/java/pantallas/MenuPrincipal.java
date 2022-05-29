@@ -18,12 +18,12 @@ import java.awt.Graphics;
 
 public class MenuPrincipal extends JPanel{
 	
-	private Ventana ventana;
+	private VentanaMenus ventana;
 	private Image imagenFondo;
 	
 
 	
-	public MenuPrincipal(Ventana v) {
+	public MenuPrincipal(VentanaMenus v) {
 		
 		this.ventana = v;
 		
