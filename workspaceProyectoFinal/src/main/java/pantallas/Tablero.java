@@ -99,7 +99,7 @@ public class Tablero extends JPanel {
 		add(comboBoxNumeroCarta);
 		
 		CartaTerreno cartaActual = dameCartaTerrenoConNumero(personaje.getNumeroCartaPosicionado());
-		int anchoCasilla = 100;
+		int anchoCasilla = 150;
 		int margenIzquierdo = 20;
 		int margenSuperior = 40;
 		dibujaEnMapaPersonaje(personaje, cartaActual, anchoCasilla, margenIzquierdo, margenSuperior);
@@ -246,6 +246,11 @@ public class Tablero extends JPanel {
 		}
 		
 		ventana.dibujaTablero();
+		
+		if(personaje.getContadorEnergia() <= 0) {
+			JOptionPane.showMessageDialog(ventana, "Has desfallecido. Te has quedado sin energía...", "Fin de la partida", JOptionPane.CLOSED_OPTION);
+			ventana.cambiarAPantalla("game over");
+		}
 	}
 	
 	public short obtenerTiradaDificultad() {

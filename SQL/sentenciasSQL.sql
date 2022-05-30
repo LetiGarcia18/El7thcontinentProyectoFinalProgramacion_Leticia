@@ -60,7 +60,43 @@ INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
 VALUES (12, 'cuadrados/hardPink.jpg', 12, 1, 4);
 
 INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
-VALUES (13, 'cuadrados/darkBlue.jpg', 13, 4, 4);
+VALUES (13, 'cuadrados/darkBlue.jpg', 13, 0, 2);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (14, 'cuadrados/black.jpg', 14, 0, 3);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (15, 'cuadrados/turquesa.jpg', 15, 0, 4);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (16, 'cuadrados/gold.jpg', 16, 2, 0);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (17, 'cuadrados/babyRed.jpg', 17, 3, 0);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (18, 'cuadrados/darkGreen.jpg', 18, 4, 0);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (19, 'cuadrados/darkGrey.jpg', 19, 4, 2);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (20, 'cuadrados/white.jpg', 20, 3, 2);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (21, 'cuadrados/babyPurple.jpg', 21, 2, 3);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (22, 'cuadrados/darkPurple.jpg', 22, 2, 4);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (23, 'cuadrados/red.jpg', 23, 3, 4);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (24, 'cuadrados/green.jpg', 24, 4, 3);
+
+INSERT INTO cartaTerreno (id, ruta, numeroCarta, posicionX, posicionY)
+VALUES (25, 'cuadrados/blue.jpg', 25, 4, 4);
 
 INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, carta_id)
 VALUES (1, 'MOVE', 'Move to another terrain', 1, 2, 1);

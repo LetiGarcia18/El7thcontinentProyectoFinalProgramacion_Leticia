@@ -35,14 +35,15 @@ public class Ventana extends JFrame{
 		for (CartaTerreno cartaTerreno : cartasTerreno) {
 			System.out.println(cartaTerreno);
 		}
-		personaje = new Personaje("Peter", (short)1, (short) 100, "cuadrados/personaje.png");
+		personaje = new Personaje("Peter", (short)1, (short) 10, "cuadrados/personaje.png");
 		System.out.println(personaje);
 		
 		pantallas = new HashMap<String, JPanel>();
 		pantallas.put("menuInicio", new MenuPrincipal(this));
+		pantallas.put("game over", new PantallaGameOver(this));
 		
-		
-		this.setSize(1500,900); 
+		this.setUndecorated(true);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
 		this.setTitle("The 7th continent");
 		this.setIconImage(new ImageIcon("./iconos/iconoIsla.png").getImage());

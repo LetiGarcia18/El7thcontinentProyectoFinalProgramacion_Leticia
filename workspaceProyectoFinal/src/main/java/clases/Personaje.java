@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Personaje {
 	
@@ -74,6 +75,7 @@ public class Personaje {
 	public void reduceEnergia(Accion accion) {
 		short costeEnergia = accion.getCosteAccion();
 		this.contadorEnergia -= costeEnergia;
+		
 	}
 
 	public String toString() {
