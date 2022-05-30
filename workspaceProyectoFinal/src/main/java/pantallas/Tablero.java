@@ -44,6 +44,8 @@ import javax.swing.table.DefaultTableModel;
 import clases.Accion;
 import clases.CartaTerreno;
 import clases.Personaje;
+import elementosVisuales.BotonInicio;
+import elementosVisuales.BotonSalir;
 import enums.TipoAccion;
 
 import javax.swing.JSeparator;
@@ -83,23 +85,24 @@ public class Tablero extends JPanel {
 		
 		setLayout(null);
 
-		JLabel labelTitulo = new JLabel("Mi mapa beta");
-		labelTitulo.setBounds(0, 0, 140, 19);
-		labelTitulo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		add(labelTitulo);
+		JButton botonSalir = new BotonSalir("Exit");
+		add(botonSalir);
+		
 
 		JLabel labelPersonaje = new JLabel("Character");
 		labelPersonaje.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelPersonaje.setIcon(new ImageIcon("iconos\\duck.png"));
 		labelPersonaje.setBounds(1050, 20, 200, 50);
-		labelPersonaje.setFont(new Font("Sylfaen", Font.PLAIN, 27));
+		labelPersonaje.setFont(new Font("Rockwell", Font.PLAIN, 27));
 		add(labelPersonaje);
 
 		comboBoxNumeroCarta = new JComboBox();
 		add(comboBoxNumeroCarta);
 		
+		
+		
 		CartaTerreno cartaActual = dameCartaTerrenoConNumero(personaje.getNumeroCartaPosicionado());
-		int anchoCasilla = 150;
+		int anchoCasilla = 163;
 		int margenIzquierdo = 20;
 		int margenSuperior = 40;
 		dibujaEnMapaPersonaje(personaje, cartaActual, anchoCasilla, margenIzquierdo, margenSuperior);
@@ -148,7 +151,7 @@ public class Tablero extends JPanel {
 		add(imagen);
 		
 		JLabel energiaPersonaje = new JLabel("Energía: " + personaje.getContadorEnergia());
-		energiaPersonaje.setFont(new Font("Tahoma", Font.BOLD, 18));
+		energiaPersonaje.setFont(new Font("Rockwell", Font.BOLD, 18));
 		energiaPersonaje.setBounds(600, 5, 183, 29);
 		add(energiaPersonaje);
 		
@@ -183,20 +186,21 @@ public class Tablero extends JPanel {
 		final JButton botonAccion = new JButton();
 		JLabel labelDificultadAccion = new JLabel("Dificultad: " + accion.getDificultadAccion());
 		JLabel labelCosteAccion = new JLabel("Coste: " + accion.getCosteAccion());
-		int posicionX = 1010;
+		int posicionX = 1200;
 		int anchoJComboBox = 150;
 		int altoJComboBox = 25;
 		final TipoAccion tipoAccion = accion.getTipoAccion();
-		labelDificultadAccion.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		labelDificultadAccion.setBounds(910, posicionY, 183, 29);
+		labelDificultadAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
+		labelDificultadAccion.setBounds(1120, posicionY, 183, 29);
 		add(labelDificultadAccion);
 		
-		labelCosteAccion.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		labelCosteAccion.setBounds(850, posicionY, 183, 29);
+		labelCosteAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
+		labelCosteAccion.setBounds(1060, posicionY, 183, 29);
 		add(labelCosteAccion);
 		
 		
 		botonAccion.setText(tipoAccion.toString());
+		botonAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		botonAccion.setBounds(posicionX, posicionY, anchoBoton, altoBoton);
 		botonAccion.setToolTipText(accion.getDescripcion());
 		botonAccion.addMouseListener(new MouseAdapter() {
