@@ -27,7 +27,7 @@ public class MenuPrincipal extends JPanel{
 		
 		this.ventana = v;
 		
-		imagenFondo = new ImageIcon("./imagenesFondo/isla.jpg").getImage();
+		imagenFondo = new ImageIcon("./imagenesFondo/mapa.jpg").getImage();
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		

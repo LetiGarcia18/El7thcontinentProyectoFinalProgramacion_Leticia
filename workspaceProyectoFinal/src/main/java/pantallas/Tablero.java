@@ -99,7 +99,7 @@ public class Tablero extends JPanel {
 		add(comboBoxNumeroCarta);
 		
 		CartaTerreno cartaActual = dameCartaTerrenoConNumero(personaje.getNumeroCartaPosicionado());
-		int anchoCasilla = 200;
+		int anchoCasilla = 100;
 		int margenIzquierdo = 20;
 		int margenSuperior = 40;
 		dibujaEnMapaPersonaje(personaje, cartaActual, anchoCasilla, margenIzquierdo, margenSuperior);

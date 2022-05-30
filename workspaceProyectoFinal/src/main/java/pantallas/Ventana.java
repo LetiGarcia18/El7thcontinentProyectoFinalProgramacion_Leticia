@@ -42,7 +42,7 @@ public class Ventana extends JFrame{
 		pantallas.put("menuInicio", new MenuPrincipal(this));
 		
 		
-		this.setSize(1400,850); 
+		this.setSize(1500,900); 
 		this.setLocationRelativeTo(null);
 		this.setTitle("The 7th continent");
 		this.setIconImage(new ImageIcon("./iconos/iconoIsla.png").getImage());
