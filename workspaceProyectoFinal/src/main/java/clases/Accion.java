@@ -2,6 +2,7 @@ package clases;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import enums.TipoAccion;
 import utils.UtilsDB;
@@ -13,6 +14,8 @@ public class Accion {
 	private short costeAccion;
 	private short dificultadAccion;
 	private int carta_id;
+	private ArrayList<Consecuencia> consecuenciasPositivas;
+	private ArrayList<Consecuencia> consecuenciasNegativas;
 	
 	
 	public Accion(int id, TipoAccion tipoAccion, String descripcion, short costeAccion, short dificultadAccion, int carta_id) {
@@ -22,6 +25,8 @@ public class Accion {
 		this.costeAccion = costeAccion;
 		this.dificultadAccion = dificultadAccion;
 		this.carta_id = carta_id;
+		this.consecuenciasPositivas = new ArrayList<Consecuencia>();
+		this.consecuenciasNegativas = new ArrayList<Consecuencia>();
 		
 	}
 	
@@ -53,10 +58,39 @@ public class Accion {
 	public void setDificultadAccion(short dificultadAccion) {
 		this.dificultadAccion = dificultadAccion;
 	}
+	
+	
+	public ArrayList<Consecuencia> getConsecuenciasPositivas() {
+		return consecuenciasPositivas;
+	}
+
+	public void agregaConsecuenciaPositiva(Consecuencia consecuencia) {
+		this.consecuenciasPositivas.add(consecuencia);
+	}
+
+	public ArrayList<Consecuencia> getConsecuenciasNegativas() {
+		return consecuenciasNegativas;
+	}
+
+	public void agregaConsecuenciaNegativa(Consecuencia consecuencia) {
+		this.consecuenciasNegativas.add(consecuencia);
+	}
 
 	@Override
 	public String toString() {
-		return "[" + id + "][" + tipoAccion + "] '" + descripcion + "'";
+		String consecuenciasPositivasString = "";
+		for (int i = 0; i < consecuenciasPositivas.size(); i++){
+			Consecuencia consecuencia = consecuenciasPositivas.get(i);
+			consecuenciasPositivasString += consecuencia.toString() + "\t";
+		}
+		String consecuenciasNegativasString = "";
+		for (int i = 0; i < consecuenciasNegativas.size(); i++){
+			Consecuencia consecuencia = consecuenciasNegativas.get(i);
+			consecuenciasNegativasString += consecuencia.toString() + "\t";
+		}
+		return "[" + id + "][" + tipoAccion + "] '" + descripcion + "'" + "\n" + "Consecuencias positivas: " 
+		+ consecuenciasPositivasString+ "\n" + "Consecuencias negativas: " 
+		+ consecuenciasNegativasString;
 	}
 
 

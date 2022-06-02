@@ -77,6 +77,10 @@ public class Personaje {
 		this.contadorEnergia -= costeEnergia;
 		
 	}
+	
+	public void aumentaEnergia(short energia) {
+		this.contadorEnergia += energia;
+	}
 
 	public String toString() {
 		return "Nuestro personaje " + this.getNombre() + " está en la carta número " + this.getNumeroCartaPosicionado();

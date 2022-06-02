@@ -32,11 +32,7 @@ public class Ventana extends JFrame{
 		
 	public Ventana() {
 		cartasTerreno = dameCartasTerreno();
-		for (CartaTerreno cartaTerreno : cartasTerreno) {
-			System.out.println(cartaTerreno);
-		}
-		personaje = new Personaje("Peter", (short)1, (short) 10, "cuadrados/personaje.png");
-		System.out.println(personaje);
+		personaje = new Personaje("Peter", (short) 10, (short) 10, "cartasPersonaje/characterToken.png");
 		
 		pantallas = new HashMap<String, JPanel>();
 		pantallas.put("menuInicio", new MenuPrincipal(this));
@@ -54,6 +50,7 @@ public class Ventana extends JFrame{
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 		this.setContentPane(new MenuPrincipal(this));
 		this.setContentPane(this.pantallas.get("menuInicio")); 
+	
 		
 		this.setVisible(true);
 	}

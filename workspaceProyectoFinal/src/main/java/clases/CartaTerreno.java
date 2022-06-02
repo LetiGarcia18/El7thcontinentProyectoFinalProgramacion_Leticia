@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import enums.TipoAccion;
+import enums.TipoConsecuencia;
 import utils.UtilsDB;
 
 public class CartaTerreno {
@@ -22,6 +23,9 @@ public class CartaTerreno {
 	private byte posicionX;
 	private byte posicionY;
 	private HashMap<Integer, Accion> accionesTerreno;
+	//private String rutaCartaQueTeTraeLaAccion;
+
+
 	
 	
 	public CartaTerreno(int id, String rutaCarta, short numeroCarta, byte posicionX, byte posicionY) {
@@ -31,6 +35,7 @@ public class CartaTerreno {
 		this.posicionX = posicionX;
 		this.posicionY = posicionY;
 		this.accionesTerreno = new HashMap<Integer, Accion>();
+		
 		
 	}
 	
@@ -132,15 +137,46 @@ public class CartaTerreno {
 				int carta_id = cursor.getInt("carta_id");
 				
 				Accion actual = new Accion(id, TipoAccion.valueOf(tipoAccion), descripcion, costeAccion, dificultadAccion, carta_id);
-				
 				ret.put(actual.getId(), actual);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		Iterator iterador = ret.keySet().iterator(); 
+		while(iterador.hasNext()) {
+			int key = (Integer)iterador.next();
+			Accion accion = ret.get(key);
+			
+			// CARGAR CONSECUENCIAS PARA LA ACCION (buenas y/o malas)
+			
+			try {
+				ResultSet cursorConsecuencias;
+				cursorConsecuencias = smt.executeQuery("select * from consecuencia where accion_id = '" + accion.getId() + "'");
+				while(cursorConsecuencias.next()) {
+					int idConsecuencia = cursorConsecuencias.getInt("id");
+					String tipoConsecuencia = cursorConsecuencias.getString("tipo");
+					int accion_id = cursorConsecuencias.getInt("accion_id");
+					byte esPositiva = cursorConsecuencias.getByte("esPositiva");
+					int cartaObjetivo = cursorConsecuencias.getInt("cartaObjetivo");
+					
+					Consecuencia consecuenciaActual = new Consecuencia(idConsecuencia, TipoConsecuencia.valueOf(tipoConsecuencia), (byte) accion_id, esPositiva, cartaObjetivo);
+					
+					if(esPositiva == 1) {
+						accion.agregaConsecuenciaPositiva(consecuenciaActual);
+					}else {
+						accion.agregaConsecuenciaNegativa(consecuenciaActual);
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		UtilsDB.desconectarBD();
 		
 		this.accionesTerreno = ret;
+		
+		
 		
 	}
 	
