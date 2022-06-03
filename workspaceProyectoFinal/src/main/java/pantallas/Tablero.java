@@ -143,7 +143,7 @@ public class Tablero extends JPanel {
 	}
 
 	public void dibujaTerreno(CartaTerreno carta, int posicionX, int posicionY, int anchoCasilla) {
-		ImageIcon icon = new ImageIcon(carta.getRutaCarta());
+		ImageIcon icon = new ImageIcon(carta.getRutaImagen());
 		Image imagenIcon = icon.getImage();
 		Image imagenIconConTamanio = imagenIcon.getScaledInstance(anchoCasilla, anchoCasilla,  java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(imagenIconConTamanio);
@@ -188,7 +188,7 @@ public class Tablero extends JPanel {
 	}
 
 	public void dibujarAcciones(CartaTerreno carta) {
-		HashMap<Integer, Accion> acciones = carta.getAccionesTerreno();
+		HashMap<Integer, Accion> acciones = carta.getAcciones();
 		int posicionY = 600;
 		int altoBoton = 35;
 		int anchoBoton = 130;
@@ -237,7 +237,6 @@ public class Tablero extends JPanel {
 				if (numeroCarta != cartaPosicionPersonaje) {
 					comboBoxNumeroCarta.addItem(numeroCarta);
 				}
-
 			}
 
 			comboBoxNumeroCarta.setBounds(posicionX + 170, posicionY, anchoJComboBox, altoJComboBox);
@@ -255,8 +254,6 @@ public class Tablero extends JPanel {
 
 		if (tirada >= dificultadAccion) {
 			// EXITO
-			JOptionPane.showMessageDialog(ventana, "Dificultad superada satisfactoriamente con: " + tirada,
-					"TIRADA DIFICULTAD", JOptionPane.INFORMATION_MESSAGE);
 			resolverConsecuencias(accion.getConsecuenciasPositivas());
 
 		} else {
@@ -295,7 +292,14 @@ public class Tablero extends JPanel {
 			break;
 			case RESTAURAR:
 				personaje.aumentaEnergia((short)12);
-			break;		
+			break;	
+			case TRAER_CARTA:
+				
+			break;
+			case QUITAR_CARTA:
+			
+			break;
+				
 
 			}
 		}
