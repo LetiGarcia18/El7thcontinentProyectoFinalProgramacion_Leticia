@@ -6,9 +6,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Personaje {
+public class Personaje extends EntidadConNombre{
 	
-	private String nombre;
 	private short numeroCartaPosicionado;
 	private ArrayList<CartaObjeto> inventario;
 	private ArrayList<CartaEstado> estadosPersonaje;
@@ -17,18 +16,10 @@ public class Personaje {
 
 
 	public Personaje(String nombre, short numeroCartaPosicionado, short contadorEnergia, String rutaImagen) {
-		this.nombre = nombre;
+		super(nombre);
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
 		this.contadorEnergia = contadorEnergia;
 		this.rutaImagen = rutaImagen;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public short getNumeroCartaPosicionado() {

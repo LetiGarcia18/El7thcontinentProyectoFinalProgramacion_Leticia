@@ -33,6 +33,7 @@ public class Ventana extends JFrame{
 	public Ventana() {
 		cartasTerreno = dameCartasTerreno();
 		personaje = new Personaje("Peter", (short) 10, (short) 10, "cartasPersonaje/characterToken.png");
+		System.out.println(personaje);
 		
 		pantallas = new HashMap<String, JPanel>();
 		pantallas.put("menuInicio", new MenuPrincipal(this));
