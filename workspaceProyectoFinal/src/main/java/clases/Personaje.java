@@ -87,6 +87,16 @@ public class Personaje {
 		this.contadorEnergia = this.energiaInicial;
 	}
 	
+	public short dameCosteExtra() {
+		short costeExtra = 0;
+		for (CartaEstado cartaEstado : estadosPersonaje) {
+			if(cartaEstado.estaEnMesa()) {
+				costeExtra += 1;
+			}
+		}
+		return costeExtra;
+	}
+	
 	
 	public ArrayList<CartaEstado> getEstadosPersonaje() {
 		return estadosPersonaje;
@@ -105,8 +115,9 @@ public class Personaje {
 	}
 	
 	public void reduceEnergia(Accion accion) {
+		short costeExtra = this.dameCosteExtra();
 		short costeEnergia = accion.getCosteAccion();
-		this.contadorEnergia -= costeEnergia;
+		this.contadorEnergia -= (costeEnergia + costeExtra);
 		
 	}
 	

@@ -263,7 +263,12 @@ public class Tablero extends JPanel {
 			this.posicionYBotones += this.margenEntreBotones;
 			final JButton botonAccion = new JButton();
 			JLabel labelDificultadAccion = new JLabel("Dificultad: " + accion.getDificultadAccion());
-			JLabel labelCosteAccion = new JLabel("Coste: " + accion.getCosteAccion());
+			short costeExtra = personaje.dameCosteExtra();
+			String textoLabelCosteAccion = "Coste: " + accion.getCosteAccion();
+			if(costeExtra > 0) {
+				textoLabelCosteAccion += " + " + costeExtra;
+			}
+			JLabel labelCosteAccion = new JLabel(textoLabelCosteAccion);
 			int posicionX = 1200;
 			int anchoJComboBox = 150;
 			int altoJComboBox = 25;
@@ -273,7 +278,7 @@ public class Tablero extends JPanel {
 			add(labelDificultadAccion);
 
 			labelCosteAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
-			labelCosteAccion.setBounds(1060, this.posicionYBotones, 183, 29);
+			labelCosteAccion.setBounds(1040, this.posicionYBotones, 183, 29);
 			add(labelCosteAccion);
 
 			botonAccion.setText(tipoAccion.toString());
