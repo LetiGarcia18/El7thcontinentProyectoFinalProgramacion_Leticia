@@ -1,10 +1,14 @@
 package clases;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import utils.UtilsDB;
 
 public class Personaje {
 	
@@ -21,6 +25,33 @@ public class Personaje {
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
 		this.contadorEnergia = contadorEnergia;
 		this.rutaImagen = rutaImagen;
+	}
+	
+	
+	private void cargaCartasEstado() {
+
+		Statement smt = UtilsDB.conectarBD();
+
+		try {
+			ResultSet cursorCartaEstado = smt
+					.executeQuery("select id, numeroCarta, rutaImagen, posicionX, posicionY, incialmenteVisible from cartasEstado");
+
+			while (cursorCartaEstado.next()) {
+				int id = cursorCartaEstado.getInt("id");
+				String numeroCarta = cursorCartaEstado.getString("numeroCarta");
+				String rutaImagen = cursorCartaEstado.getString("rutaImagen");
+				byte posicionX = cursorCartaEstado.getByte("posicionX");
+				byte posicionY = cursorCartaEstado.getByte("posicionY");
+				boolean estaIncialmenteVisible = cursorCartaEstado.getBoolean("incialmenteVisible");
+
+				CartaEstado cartaEstado = new CartaEstado(id, numeroCarta, rutaImagen, posicionX, posicionY);
+				estadosPersonaje.add(cartaEstado);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		UtilsDB.desconectarBD();
+
 	}
 	
 	

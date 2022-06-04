@@ -44,6 +44,7 @@ import javax.swing.table.DefaultTableModel;
 import clases.Accion;
 import clases.Carta;
 import clases.CartaEnMapa;
+import clases.CartaEstado;
 import clases.CartaEvento;
 import clases.CartaTerreno;
 import clases.Consecuencia;
@@ -170,6 +171,8 @@ public class Tablero extends JPanel {
 		energiaPersonaje.setFont(new Font("Rockwell", Font.BOLD, 18));
 		energiaPersonaje.setBounds(600, 5, 183, 29);
 		add(energiaPersonaje);
+		
+		
 
 	}
 
@@ -197,8 +200,9 @@ public class Tablero extends JPanel {
 		
 		// Cartas de estado
 		
+		}
 		// Cartas de inventario
-	}
+	
 	
 	public void dibujarAccionesDeCarta(CartaEnMapa carta, ArrayList<CartaEnMapa> cartasAdyacentes) {
 		HashMap<Integer, Accion> acciones = carta.getAcciones();
@@ -356,7 +360,6 @@ public class Tablero extends JPanel {
 			
 			break;
 				
-
 			}
 		}
 	}

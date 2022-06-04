@@ -48,7 +48,7 @@ public class MenuPrincipal extends JPanel{
 		botonStart.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
 		GridBagConstraints gbc_botonStart = new GridBagConstraints();
 		gbc_botonStart.fill = GridBagConstraints.BOTH;
-		gbc_botonStart.insets = new Insets(550, 300, 0, 300);
+		gbc_botonStart.insets = new Insets(90, 100, -9, 100);
 		gbc_botonStart.gridx = 9;
 		gbc_botonStart.gridy = 15;
 		add(botonStart, gbc_botonStart);
@@ -57,15 +57,31 @@ public class MenuPrincipal extends JPanel{
 		botonExit.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
 		GridBagConstraints gbc_botonExit = new GridBagConstraints();
 		gbc_botonExit.fill = GridBagConstraints.BOTH;
-		gbc_botonExit.insets = new Insets(50, 300, 75, 300);
+		gbc_botonExit.insets = new Insets(90, 100, 40, 100);
 		gbc_botonExit.gridx = 9;
 		gbc_botonExit.gridy = 20;
 		add(botonExit, gbc_botonExit);
-	 
+		
 		botonExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.exit(0); 
+				System.exit (0);
+			}
+		});
+		
+		JButton botonReglas = new BotonInicio("Reglas del juego");
+		botonReglas.setFont(new Font("Vladimir Script", Font.PLAIN, 30));
+		GridBagConstraints gbc_botonReglas = new GridBagConstraints();
+		gbc_botonReglas.fill = GridBagConstraints.BOTH;
+		gbc_botonReglas.insets = new Insets(0, 0, 0, 0);
+		gbc_botonReglas.gridx = 9;
+		gbc_botonReglas.gridy = 0;
+		add(botonReglas, gbc_botonReglas);
+	 
+		botonReglas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla("reglas");
 			}
 		});
 		
