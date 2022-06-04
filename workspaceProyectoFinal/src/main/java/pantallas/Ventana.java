@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import java.awt.Component;
 import javax.swing.JTree;
 
+import clases.CartaEvento;
 import clases.CartaTerreno;
 import clases.Personaje;
 import utils.UtilsDB;
@@ -28,15 +29,18 @@ import javax.swing.JProgressBar;
 public class Ventana extends JFrame{
 	private HashMap<String, JPanel> pantallas;
 	private ArrayList<CartaTerreno> cartasTerreno;
+	private ArrayList<CartaEvento> cartasEvento;
 	private Personaje personaje;
 		
 	public Ventana() {
 		cartasTerreno = dameCartasTerreno();
+		cartasEvento = dameCartasEvento();
 		personaje = new Personaje("Peter", "010", (short) 10, "cartasPersonaje/characterToken.png");
 		
 		pantallas = new HashMap<String, JPanel>();
 		pantallas.put("menuInicio", new MenuPrincipal(this));
 		pantallas.put("game over", new PantallaGameOver(this));
+		
 		
 		this.setUndecorated(true);
 		this.setSize(1500,800);
@@ -74,7 +78,7 @@ public class Ventana extends JFrame{
 			actual.setVisible(false);
 		}
 		
-		pantallas.put("tablero", new Tablero(this, cartasTerreno, personaje));
+		pantallas.put("tablero", new Tablero(this, cartasTerreno, cartasEvento, personaje));
 		this.pantallas.get("tablero").setVisible(true);
 		this.setContentPane(this.pantallas.get("tablero"));
 	}
@@ -113,6 +117,44 @@ public class Ventana extends JFrame{
 
 		return cartasTerreno;
 	}
+	
+	private ArrayList<CartaEvento> dameCartasEvento(){
+		int id = 0;
+		String numeroCarta = "";
+		String rutaImagen = "";
+		int posicionX = 0;
+		int posicionY = 0;
+		int id_cartaAsociada = 0;
+		int id_accionDesactivada = 0;
+		CartaEvento cartaEvento;
+		ArrayList<CartaEvento> cartasEvento = new ArrayList<CartaEvento>();
+		Statement smt = UtilsDB.conectarBD();
+		
+		try {
+			ResultSet cursorCartaEvento = smt.executeQuery("select id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada from cartasEvento");
 
+			while (cursorCartaEvento.next()) {
+				id = cursorCartaEvento.getInt("id");
+				numeroCarta = cursorCartaEvento.getString("numeroCarta");
+				rutaImagen = cursorCartaEvento.getString("rutaImagen");
+				posicionX = cursorCartaEvento.getInt("posicionX");
+				posicionY = cursorCartaEvento.getInt("posicionY");
+				id_cartaAsociada = cursorCartaEvento.getInt("id_cartaAsociada");
+				id_accionDesactivada = cursorCartaEvento.getInt("id_accionDesactivada");
+
+				cartaEvento = new CartaEvento(id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada);
+				cartasEvento.add(cartaEvento);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		UtilsDB.desconectarBD();
+		
+		for (CartaEvento carta : cartasEvento) {
+			carta.cargarAcciones();
+		}
+
+		return cartasEvento;
+	}
 
 }

@@ -42,6 +42,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Accion;
+import clases.Carta;
+import clases.CartaEvento;
 import clases.CartaTerreno;
 import clases.Consecuencia;
 import clases.Personaje;
@@ -77,15 +79,17 @@ public class Tablero extends JPanel {
 	private Ventana ventana;
 	private int margenDerecho = 20;
 	ArrayList<CartaTerreno> cartasTerreno;
+	ArrayList<CartaEvento> cartasEvento;
 	Personaje personaje;
 	JComboBox comboBoxNumeroCarta;
 	Random random;
 	private Image imagenFondo;
 
-	public Tablero(Ventana v, ArrayList<CartaTerreno> cartasTerreno, Personaje personaje) {
+	public Tablero(Ventana v, ArrayList<CartaTerreno> cartasTerreno, ArrayList<CartaEvento> cartasEvento, Personaje personaje) {
 
 		this.ventana = v;
 		this.cartasTerreno = cartasTerreno;
+		this.cartasEvento = cartasEvento;
 		this.personaje = personaje;
 		random = new Random();
 		imagenFondo = new ImageIcon("./imagenesFondo/mar.png").getImage();
@@ -106,12 +110,14 @@ public class Tablero extends JPanel {
 		add(comboBoxNumeroCarta);
 
 		CartaTerreno cartaActual = dameCartaTerrenoConNumero(this.personaje.getNumeroCartaPosicionado());
+		
 		int anchoCasilla = 170;
 		int tamanioPersonaje = anchoCasilla / 3;
 		int margenIzquierdo = 0;
 		int margenSuperior = 0;
 		dibujaEnMapaPersonaje(cartaActual, anchoCasilla, tamanioPersonaje, margenIzquierdo, margenSuperior);
 		dibujaCartasTerrenoIniciales(anchoCasilla, margenIzquierdo, margenSuperior);
+		//dibujaCartasEvento(anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujarAcciones(cartaActual);
 
 		// Test dibujar fondo
@@ -152,6 +158,25 @@ public class Tablero extends JPanel {
 		add(imagen);
 
 	}
+	
+	public void dibujaCartasEvento(int anchoCasilla, int margenIzquierdo, int margenSuperior) {
+		for (int i = 0; i < this.cartasEvento.size(); i++) {
+			CartaEvento cartaEvento = this.cartasEvento.get(i);
+			int posicionX = (cartaEvento.getPosicionX() * anchoCasilla) + margenIzquierdo;
+			int posicionY = (cartaEvento.getPosicionY() * anchoCasilla) + margenSuperior;
+				dibujaCartaEvento(cartaEvento, posicionX, posicionY, anchoCasilla);
+			}
+	}
+	
+	public void dibujaCartaEvento(CartaEvento cartaEvento, int posicionX, int posicionY, int anchoCasilla) {
+		ImageIcon icon = new ImageIcon(cartaEvento.getRutaImagen());
+		Image imagenIcon = icon.getImage();
+		Image imagenIconConTamanio = imagenIcon.getScaledInstance(anchoCasilla, anchoCasilla,  java.awt.Image.SCALE_SMOOTH);
+		icon = new ImageIcon(imagenIconConTamanio);
+		JLabel imagen = new JLabel(icon);
+		imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
+		add(imagen);
+	}
 
 	public void dibujaEnMapaPersonaje(CartaTerreno cartaTerreno, int anchoCasilla, int tamanioPersonaje, int margenIzquierdo,
 			int margenSuperior) {
@@ -182,6 +207,15 @@ public class Tablero extends JPanel {
 		for (int i = 0; i < cartasTerreno.size(); i++) {
 			if (cartasTerreno.get(i).getNumeroCarta().equals(numeroCarta)) {
 				return cartasTerreno.get(i);
+			}
+		}
+		return null;
+	}
+	
+	private CartaEvento dameCartaEventoConNumero(String numeroCarta) {
+		for (int i = 0; i < cartasEvento.size(); i++) {
+			if (cartasEvento.get(i).getNumeroCarta().equals(numeroCarta)) {
+				return cartasEvento.get(i);
 			}
 		}
 		return null;
@@ -281,6 +315,7 @@ public class Tablero extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
+	
 
 	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) {
 		
@@ -297,7 +332,9 @@ public class Tablero extends JPanel {
 				personaje.aumentaEnergia((short)12);
 			break;	
 			case TRAER_CARTA:
+				/*String numeroCarta = consecuencia.getCartaObjetivo();
 				
+				dibujaCartaEvento(cartaEvento, 200, 0, 0);*/
 			break;
 			case QUITAR_CARTA:
 			

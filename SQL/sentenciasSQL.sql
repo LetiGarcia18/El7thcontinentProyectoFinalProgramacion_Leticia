@@ -33,6 +33,8 @@ create table cartasEvento(
 	id numeric(10) primary key,
 	numeroCarta varchar(5),
     rutaImagen varchar(500) not null,
+    posicionX numeric(3),
+    posicionY numeric(3),
     id_cartaAsociada numeric(10) not null,
     id_accionDesactivada numeric(10) not null,
     foreign key(id_cartaAsociada) references cartasTerreno(id),
@@ -42,6 +44,11 @@ create table cartasEvento(
 SELECT * FROM the7thcontinent.cartasterreno;
 SELECT * FROM the7thcontinent.accion;
 SELECT * FROM the7thcontinent.consecuencia;
+SELECT * FROM the7thcontinent.cartasevento;
+
+INSERT INTO cartasEvento (id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada)
+VALUES (1, '005', 'cartasEvento/005.png', 4, 2, 5, 11);
+
 
 INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo)
 VALUES (1, 'DESPLAZARSE', 1, 1, null);
