@@ -89,7 +89,7 @@ public class Tablero extends JPanel {
 	int altoBoton = 35;
 	int anchoBoton = 130;
 	int margenEntreBotones = 40;
-	int posicionYBotones = 600;
+	int posicionYBotones = 400;
 
 	public Tablero(Ventana v, ArrayList<CartaEnMapa> cartasEnMapa, Personaje personaje) {
 
@@ -133,13 +133,16 @@ public class Tablero extends JPanel {
 			int posicionY = (cartaMapa.getPosicionY() * anchoCasilla) + margenSuperior;
 			dibujaCarta(cartaMapa, posicionX, posicionY, anchoCasilla);
 		}
+		
 		ArrayList<CartaEstado> cartasEstado = personaje.getEstadosPersonaje();
 		int posicionXCartaEstado = 875;
-		int tamanioCartaEstado = anchoCasilla / 2; 
+		int tamanioCartaEstado = (int) (anchoCasilla / 1.5); 
 		for(int i = 0; i < cartasEstado.size(); i++) {
 			CartaEstado cartaEstado = cartasEstado.get(i);
-			dibujaCarta(cartaEstado, posicionXCartaEstado, 150, tamanioCartaEstado);
-			posicionXCartaEstado += tamanioCartaEstado + 10;
+			if(cartaEstado.estaEnMesa()) {
+				dibujaCarta(cartaEstado, posicionXCartaEstado, 150, tamanioCartaEstado);
+				posicionXCartaEstado += tamanioCartaEstado + 10;
+			}
 		}
 	}
 
@@ -182,12 +185,22 @@ public class Tablero extends JPanel {
 		
 
 	}
-
+	
 	private CartaEnMapa dameCartaEnMapaConNumero(String numeroCarta) {
 		for (int i = 0; i < cartasEnMapa.size(); i++) {
 			CartaEnMapa cartaEnMapa = cartasEnMapa.get(i);
 			if (cartaEnMapa.getNumeroCarta().equals(numeroCarta)) {
-				return cartasEnMapa.get(i);
+				return cartaEnMapa;
+			}
+		}
+		return null;
+	}
+
+	private Carta dameCartaEnPersonajeConNumero(String numeroCarta) {
+		ArrayList<CartaEstado> estadosPersonaje = personaje.getEstadosPersonaje();
+		for (CartaEstado cartaEstado : estadosPersonaje) {
+			if (cartaEstado.getNumeroCarta().equals(numeroCarta)) {
+				return cartaEstado;
 			}
 		}
 		return null;
@@ -208,7 +221,9 @@ public class Tablero extends JPanel {
 		// Cartas de estado
 		ArrayList<CartaEstado> estadosPersonaje = personaje.getEstadosPersonaje();
 		for(Carta carta : estadosPersonaje) {
-			dibujarAccionesDeCarta(carta, null);
+			if (carta.estaEnMesa()) {
+				dibujarAccionesDeCarta(carta, null);
+			}
 		}
 			
 		// Cartas de inventario
@@ -349,7 +364,7 @@ public class Tablero extends JPanel {
 		
 		for (Consecuencia consecuencia : consecuencias) {
 			String numeroCarta;
-			CartaEnMapa cartaMapa;
+			Carta carta;
 			TipoConsecuencia tipoConsecuencia = consecuencia.getTipoConsecuencia();
 
 			switch (tipoConsecuencia) {
@@ -362,16 +377,22 @@ public class Tablero extends JPanel {
 			break;	
 			case TRAER_CARTA:
 				numeroCarta = consecuencia.getCartaObjetivo();
-				cartaMapa = dameCartaEnMapaConNumero(numeroCarta);
-				cartaMapa.setEstaEnMesa(true);
-				if(cartaMapa.getClass() == CartaTerreno.class) {
+				carta = dameCartaEnMapaConNumero(numeroCarta);
+				if (carta == null ) {
+					carta = dameCartaEnPersonajeConNumero(numeroCarta);
+				}
+				carta.setEstaEnMesa(true);
+				if(carta.getClass() == CartaTerreno.class) {
 					personaje.setNumeroCartaPosicionado(numeroCarta);
 				}
 			break;
 			case QUITAR_CARTA:
 				numeroCarta = consecuencia.getCartaObjetivo();
-				cartaMapa = dameCartaEnMapaConNumero(numeroCarta);
-				cartaMapa.setEstaEnMesa(false);
+				carta = dameCartaEnMapaConNumero(numeroCarta);
+				if (carta == null ) {
+					carta = dameCartaEnPersonajeConNumero(numeroCarta);
+				}
+				carta.setEstaEnMesa(false);
 			
 			break;
 				

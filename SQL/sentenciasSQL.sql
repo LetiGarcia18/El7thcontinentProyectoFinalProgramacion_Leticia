@@ -44,14 +44,11 @@ create table cartasEvento(
 create table cartasEstado(
 	id numeric(10) primary key,
 	numeroCarta varchar(5),
-    rutaImagen varchar(500) not null,  
-    posicionX numeric(3),
-    posicionY numeric(3),
-    incialmenteVisible bit
+    rutaImagen varchar(500) not null
 );
 
 SELECT * FROM the7thcontinent.cartasterreno;
-SELECT * FROM the7thcontinent.accion;
+SELECT * FROM the7thcontinent.accion where carta_num = '104';
 SELECT * FROM the7thcontinent.consecuencia;
 SELECT * FROM the7thcontinent.cartasevento;
 SELECT * FROM the7thcontinent.cartasestado;
@@ -84,7 +81,8 @@ INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, carta_
 (13, 'OBSERVE', 'Observe something', 1 ,0, '006'),
 (14, 'SEARCH', 'Examine', 0 ,0, '006'),
 (15, 'CLIMB', 'Show off your physical prowess.', 1 ,7, '005'),
-(16, 'MOVE', 'Move to another terrain', 0, 0, '010g');
+(16, 'MOVE', 'Move to another terrain', 0, 0, '010g'),
+(17, 'HEAL', 'Heal yourself.', 2 ,3, '104');
 
 #Inserción de consecuencias
 INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES
@@ -106,15 +104,20 @@ INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES
 (16, 'QUITAR_CARTA', 15, 1, '005'),
 (17, 'TRAER_CARTA', 15, 1, '010g'),
 (18, 'DESPLAZARSE', 16, 1, null),
-(19, 'TRAER_CARTA', 15, 0, '104');
+(19, 'TRAER_CARTA', 15, 0, '104'),
+(20, 'QUITAR_CARTA', 17, 1, '104'),
+(21, 'TRAER_CARTA', 17, 0, '108');
 
 #Inserción cartas evento
 INSERT INTO cartasEvento (id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada) VALUES 
 (1, '005', 'cartasEvento/005.png', 4, 2, 5, 11);
 
 #Inserción cartas estado
-INSERT INTO cartasEstado (id, numeroCarta, rutaImagen, posicionX, posicionY,incialmenteVisible) VALUES 
-(1, '104', 'cartasEstado/104.png', 5, 1, 0);
+INSERT INTO cartasEstado (id, numeroCarta, rutaImagen) VALUES 
+(1, '104', 'cartasEstado/104.png'),
+(2, '102', 'cartasEstado/102.png'),
+(3, '108', 'cartasEstado/108.png');
+
 
 
 

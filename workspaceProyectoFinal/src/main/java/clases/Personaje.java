@@ -18,12 +18,13 @@ public class Personaje {
 	private ArrayList<CartaEstado> estadosPersonaje;
 	private short contadorEnergia;
 	private String rutaImagen;
+	private short energiaInicial = 10;
 
 
-	public Personaje(String nombre, String numeroCartaPosicionado, short contadorEnergia, String rutaImagen) {
+	public Personaje(String nombre, String numeroCartaPosicionado, String rutaImagen) {
 		this.nombre = nombre;
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
-		this.contadorEnergia = contadorEnergia;
+		this.contadorEnergia = energiaInicial;
 		this.rutaImagen = rutaImagen;
 		this.estadosPersonaje = new ArrayList<CartaEstado>();
 	}
@@ -80,6 +81,10 @@ public class Personaje {
 
 	public void setContadorEnergia(short contadorEnergia) {
 		this.contadorEnergia = contadorEnergia;
+	}
+	
+	public void restablecerEnergia() {
+		this.contadorEnergia = this.energiaInicial;
 	}
 	
 	

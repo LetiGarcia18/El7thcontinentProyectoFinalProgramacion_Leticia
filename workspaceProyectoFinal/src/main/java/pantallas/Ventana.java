@@ -40,11 +40,11 @@ public class Ventana extends JFrame {
 		cartas = new ArrayList<Carta>();
 		cargaCartasTerreno();
 		cargaCartasEvento();
-		cargarAcciones();
-
-		personaje = new Personaje("Peter", "010", (short) 10, "cartasPersonaje/characterToken.png");
 		
+		personaje = new Personaje("Peter", "010", "cartasPersonaje/characterToken.png");
 		personaje.cargaCartasEstado();
+		
+		cargarAcciones();
 
 		pantallas = new HashMap<String, JPanel>();
 		pantallas.put("menuInicio", new MenuPrincipal(this));
@@ -53,7 +53,7 @@ public class Ventana extends JFrame {
 
 		//this.setUndecorated(true);
 		this.setSize(1500, 800);
-		// this.setExtendedState(JFrame.MAXIMIZED_BOTH); //Para que me salga en pantalla
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); //Para que me salga en pantalla
 		// completa.
 		this.setLocationRelativeTo(null);
 		this.setTitle("The 7th continent");
@@ -78,6 +78,9 @@ public class Ventana extends JFrame {
 		}
 		this.pantallas.get(nombrePantalla).setVisible(true); // Esta nos muestra la pantalla que queremos
 		this.setContentPane(this.pantallas.get(nombrePantalla));
+		if(nombrePantalla.equals("game over")) {
+			personaje.restablecerEnergia();
+		}
 	}
 
 	public void dibujaTablero() {
@@ -122,6 +125,10 @@ public class Ventana extends JFrame {
 
 	private void cargarAcciones() {
 		for (Carta carta : cartasEnMapa) {
+			carta.cargarAcciones();
+		}
+		
+		for (Carta carta : personaje.getEstadosPersonaje()) {
 			carta.cargarAcciones();
 		}
 	}
