@@ -329,23 +329,30 @@ public class Tablero extends JPanel {
 	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) {
 		
 		for (Consecuencia consecuencia : consecuencias) {
+			String numeroCarta;
+			CartaEnMapa cartaMapa;
 			TipoConsecuencia tipoConsecuencia = consecuencia.getTipoConsecuencia();
 
 			switch (tipoConsecuencia) {
 			case DESPLAZARSE:
 				String numeroCartaSeleccionado = (String) comboBoxNumeroCarta.getSelectedItem();   
-				
 				personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
 			break;
 			case RESTAURAR:
 				personaje.aumentaEnergia((short)12);
 			break;	
 			case TRAER_CARTA:
-				String numeroCarta = consecuencia.getCartaObjetivo();
-				CartaEnMapa cartaMapa = dameCartaEnMapaConNumero(numeroCarta);
+				numeroCarta = consecuencia.getCartaObjetivo();
+				cartaMapa = dameCartaEnMapaConNumero(numeroCarta);
 				cartaMapa.setEstaEnMesa(true);
+				if(cartaMapa.getClass() == CartaTerreno.class) {
+					personaje.setNumeroCartaPosicionado(numeroCarta);
+				}
 			break;
 			case QUITAR_CARTA:
+				numeroCarta = consecuencia.getCartaObjetivo();
+				cartaMapa = dameCartaEnMapaConNumero(numeroCarta);
+				cartaMapa.setEstaEnMesa(false);
 			
 			break;
 				
