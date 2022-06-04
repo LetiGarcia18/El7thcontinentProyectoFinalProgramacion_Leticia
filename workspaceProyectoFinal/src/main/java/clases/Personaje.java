@@ -25,35 +25,29 @@ public class Personaje {
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
 		this.contadorEnergia = contadorEnergia;
 		this.rutaImagen = rutaImagen;
+		this.estadosPersonaje = new ArrayList<CartaEstado>();
 	}
 	
-	
-	private void cargaCartasEstado() {
-
+	public void cargaCartasEstado() {
 		Statement smt = UtilsDB.conectarBD();
 
 		try {
 			ResultSet cursorCartaEstado = smt
-					.executeQuery("select id, numeroCarta, rutaImagen, posicionX, posicionY, incialmenteVisible from cartasEstado");
+					.executeQuery("select id, numeroCarta, rutaImagen from cartasEstado");
 
 			while (cursorCartaEstado.next()) {
 				int id = cursorCartaEstado.getInt("id");
 				String numeroCarta = cursorCartaEstado.getString("numeroCarta");
 				String rutaImagen = cursorCartaEstado.getString("rutaImagen");
-				byte posicionX = cursorCartaEstado.getByte("posicionX");
-				byte posicionY = cursorCartaEstado.getByte("posicionY");
-				boolean estaIncialmenteVisible = cursorCartaEstado.getBoolean("incialmenteVisible");
 
-				CartaEstado cartaEstado = new CartaEstado(id, numeroCarta, rutaImagen, posicionX, posicionY);
-				estadosPersonaje.add(cartaEstado);
+				CartaEstado cartaEstado = new CartaEstado(id, numeroCarta, rutaImagen);
+				this.estadosPersonaje.add(cartaEstado);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		UtilsDB.desconectarBD();
-
 	}
-	
 	
 
 	public String getNombre() {

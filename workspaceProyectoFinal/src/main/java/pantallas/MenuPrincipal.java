@@ -69,8 +69,8 @@ public class MenuPrincipal extends JPanel{
 			}
 		});
 		
-		JButton botonReglas = new BotonInicio("Reglas del juego");
-		botonReglas.setFont(new Font("Vladimir Script", Font.PLAIN, 30));
+		JButton botonReglas = new BotonInicio("Game Rules");
+		botonReglas.setFont(new Font("Vladimir Script", Font.BOLD, 30));
 		GridBagConstraints gbc_botonReglas = new GridBagConstraints();
 		gbc_botonReglas.fill = GridBagConstraints.BOTH;
 		gbc_botonReglas.insets = new Insets(0, 0, 0, 0);

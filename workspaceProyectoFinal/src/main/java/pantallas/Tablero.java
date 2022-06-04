@@ -121,24 +121,31 @@ public class Tablero extends JPanel {
 		int margenIzquierdo = 0;
 		int margenSuperior = 0;
 		dibujaEnMapaPersonaje(cartaActual, anchoCasilla, tamanioPersonaje, margenIzquierdo, margenSuperior);
-		dibujaCartasIniciales(anchoCasilla, margenIzquierdo, margenSuperior);
-		//dibujarAcciones(cartaActual);
+		dibujaCartas(anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujarAcciones();
 
 	}
 
-	public void dibujaCartasIniciales(int anchoCasilla, int margenIzquierdo, int margenSuperior) {
+	public void dibujaCartas(int anchoCasilla, int margenIzquierdo, int margenSuperior) {
 		for (int i = 0; i < this.cartasEnMapa.size(); i++) {
 			CartaEnMapa cartaMapa = this.cartasEnMapa.get(i);
 			int posicionX = (cartaMapa.getPosicionX() * anchoCasilla) + margenIzquierdo;
 			int posicionY = (cartaMapa.getPosicionY() * anchoCasilla) + margenSuperior;
-			dibujaCartaEnMapa(cartaMapa, posicionX, posicionY, anchoCasilla);
+			dibujaCarta(cartaMapa, posicionX, posicionY, anchoCasilla);
+		}
+		ArrayList<CartaEstado> cartasEstado = personaje.getEstadosPersonaje();
+		int posicionXCartaEstado = 875;
+		int tamanioCartaEstado = anchoCasilla / 2; 
+		for(int i = 0; i < cartasEstado.size(); i++) {
+			CartaEstado cartaEstado = cartasEstado.get(i);
+			dibujaCarta(cartaEstado, posicionXCartaEstado, 150, tamanioCartaEstado);
+			posicionXCartaEstado += tamanioCartaEstado + 10;
 		}
 	}
 
-	public void dibujaCartaEnMapa(CartaEnMapa cartaMapa, int posicionX, int posicionY, int anchoCasilla) {
-		if(cartaMapa.estaEnMesa()) {
-			ImageIcon icon = new ImageIcon(cartaMapa.getRutaImagen());
+	public void dibujaCarta(Carta carta, int posicionX, int posicionY, int anchoCasilla) {
+		if(carta.estaEnMesa()) {
+			ImageIcon icon = new ImageIcon(carta.getRutaImagen());
 			Image imagenIcon = icon.getImage();
 			Image imagenIconConTamanio = imagenIcon.getScaledInstance(anchoCasilla, anchoCasilla,  java.awt.Image.SCALE_SMOOTH);
 			icon = new ImageIcon(imagenIconConTamanio);
@@ -199,12 +206,20 @@ public class Tablero extends JPanel {
 		}
 		
 		// Cartas de estado
-		
+		ArrayList<CartaEstado> estadosPersonaje = personaje.getEstadosPersonaje();
+		for(Carta carta : estadosPersonaje) {
+			dibujarAccionesDeCarta(carta, null);
 		}
+			
 		// Cartas de inventario
+
+	}
+		
+		
+		
 	
 	
-	public void dibujarAccionesDeCarta(CartaEnMapa carta, ArrayList<CartaEnMapa> cartasAdyacentes) {
+	public void dibujarAccionesDeCarta(Carta carta, ArrayList<CartaEnMapa> cartasAdyacentes) {
 		HashMap<Integer, Accion> acciones = carta.getAcciones();
 		Iterator iterador = acciones.keySet().iterator();
 		while (iterador.hasNext()) {

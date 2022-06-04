@@ -32,15 +32,19 @@ import javax.swing.JProgressBar;
 public class Ventana extends JFrame {
 	private HashMap<String, JPanel> pantallas;
 	private ArrayList<CartaEnMapa> cartasEnMapa;
+	private ArrayList<Carta> cartas;
 	private Personaje personaje;
 
 	public Ventana() {
 		cartasEnMapa = new ArrayList<CartaEnMapa>();
+		cartas = new ArrayList<Carta>();
 		cargaCartasTerreno();
 		cargaCartasEvento();
 		cargarAcciones();
 
 		personaje = new Personaje("Peter", "010", (short) 10, "cartasPersonaje/characterToken.png");
+		
+		personaje.cargaCartasEstado();
 
 		pantallas = new HashMap<String, JPanel>();
 		pantallas.put("menuInicio", new MenuPrincipal(this));
@@ -149,6 +153,8 @@ public class Ventana extends JFrame {
 		UtilsDB.desconectarBD();
 
 	}
+	
+	
 
 	
 
