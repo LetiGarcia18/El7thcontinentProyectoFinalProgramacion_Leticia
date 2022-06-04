@@ -85,7 +85,7 @@ public class Carta {
 		Statement smt = UtilsDB.conectarBD();
 		
 		try {
-			ResultSet cursorAcciones = smt.executeQuery("select * from accion where carta_id  = '" + this.id + "'");
+			ResultSet cursorAcciones = smt.executeQuery("select * from accion where carta_num  = '" + this.getNumeroCarta() + "'");
 			while(cursorAcciones.next()) {
 				
 				int id = cursorAcciones.getInt("id");
@@ -93,9 +93,9 @@ public class Carta {
 				String descripcion = cursorAcciones.getString("descripcion");
 				short costeAccion = cursorAcciones.getShort("costeAccion");
 				short dificultadAccion = cursorAcciones.getShort("dificultadAccion");
-				int idCarta = cursorAcciones.getInt("carta_id");
+				String cartaNum = cursorAcciones.getString("carta_num");
 				
-				Accion actual = new Accion(id, TipoAccion.valueOf(tipoAccion), descripcion, costeAccion, dificultadAccion, idCarta);
+				Accion actual = new Accion(id, TipoAccion.valueOf(tipoAccion), descripcion, costeAccion, dificultadAccion, cartaNum);
 				acciones.put(actual.getId(), actual);
 			}
 		} catch (SQLException e) {

@@ -84,6 +84,11 @@ public class Tablero extends JPanel {
 	JComboBox comboBoxNumeroCarta;
 	Random random;
 	private Image imagenFondo;
+	
+	int altoBoton = 35;
+	int anchoBoton = 130;
+	int margenEntreBotones = 40;
+	int posicionYBotones = 600;
 
 	public Tablero(Ventana v, ArrayList<CartaEnMapa> cartasEnMapa, Personaje personaje) {
 
@@ -116,7 +121,8 @@ public class Tablero extends JPanel {
 		int margenSuperior = 0;
 		dibujaEnMapaPersonaje(cartaActual, anchoCasilla, tamanioPersonaje, margenIzquierdo, margenSuperior);
 		dibujaCartasIniciales(anchoCasilla, margenIzquierdo, margenSuperior);
-		dibujarAcciones(cartaActual);
+		//dibujarAcciones(cartaActual);
+		dibujarAcciones();
 
 	}
 
@@ -169,50 +175,58 @@ public class Tablero extends JPanel {
 
 	private CartaEnMapa dameCartaEnMapaConNumero(String numeroCarta) {
 		for (int i = 0; i < cartasEnMapa.size(); i++) {
-			if (cartasEnMapa.get(i).getNumeroCarta().equals(numeroCarta)) {
+			CartaEnMapa cartaEnMapa = cartasEnMapa.get(i);
+			if (cartaEnMapa.getNumeroCarta().equals(numeroCarta)) {
 				return cartasEnMapa.get(i);
 			}
 		}
 		return null;
 	}
 	
-
-	public void dibujarAcciones(CartaEnMapa cartaEnMapa) {
-		HashMap<Integer, Accion> acciones = cartaEnMapa.getAcciones();
-		int posicionY = 600;
-		int altoBoton = 35;
-		int anchoBoton = 130;
-		int margenEntreBotones = 40;
+	public void dibujarAcciones() {
+		CartaEnMapa cartaActual = dameCartaEnMapaConNumero(this.personaje.getNumeroCartaPosicionado());
+		ArrayList<CartaEnMapa> cartasAdyacentes = dameCartasAdyacentes(cartaActual);
+		
+		// Carta de terreno
+		dibujarAccionesDeCarta(cartaActual, cartasAdyacentes);
+		
+		// Cartas de evento
+		for (CartaEnMapa cartaAdyacente : cartasAdyacentes) {
+			dibujarAccionesDeCarta(cartaAdyacente, null);
+		}
+		
+		// Cartas de estado
+		
+		// Cartas de inventario
+	}
+	
+	public void dibujarAccionesDeCarta(CartaEnMapa carta, ArrayList<CartaEnMapa> cartasAdyacentes) {
+		HashMap<Integer, Accion> acciones = carta.getAcciones();
 		Iterator iterador = acciones.keySet().iterator();
 		while (iterador.hasNext()) {
 			int key = (Integer) iterador.next();
 			Accion accion = acciones.get(key);
-			posicionY = posicionY + margenEntreBotones;
-			dibujarAccion(accion, cartaEnMapa, posicionY, anchoBoton, altoBoton);
+			dibujarAccion(accion, cartasAdyacentes);
 		}
 	}
 
-	public void dibujarAccion(final Accion accion, CartaEnMapa cartaActual, int posicionY, int anchoBoton, int altoBoton) {
+	public void dibujarAccion(final Accion accion, ArrayList<CartaEnMapa> cartasAdyacentes) {
+		boolean estaDesactivada = false;
 		
-		ArrayList<Integer> idAccionesDesactivadas = new ArrayList<Integer>();
-		int idAccion = accion.getId();
-		for (CartaEnMapa cartaEnMapa : cartasEnMapa) {
-			if(cartaEnMapa.getClass() == CartaEvento.class) {
-				CartaEvento cartaEvento = (CartaEvento) cartaEnMapa;
-				int idCartaAsociada = cartaEvento.getId_cartaAsociada();
-				if(cartaEvento.estaEnMesa()) {
-					if(idCartaAsociada == cartaActual.getId()) {
-						int idDesactivaAccion = cartaEvento.getId_accionDesactivada();
-						idAccionesDesactivadas.add(idDesactivaAccion);
-					}
-				}
-				
+		if (cartasAdyacentes != null) {
+			ArrayList<Integer> idAccionesDesactivadas = new ArrayList<Integer>();
+			int idAccion = accion.getId();
+			for (CartaEnMapa cartasAdyacente : cartasAdyacentes) {
+				CartaEvento cartaEvento = (CartaEvento) cartasAdyacente;
+				int idDesactivaAccion = cartaEvento.getId_accionDesactivada();
+				idAccionesDesactivadas.add(idDesactivaAccion);
 			}
+			
+			estaDesactivada = idAccionesDesactivadas.contains(idAccion);
 		}
 		
-		boolean estaDesactivada = idAccionesDesactivadas.contains(idAccion);
-		
 		if(!estaDesactivada) {
+			this.posicionYBotones += this.margenEntreBotones;
 			final JButton botonAccion = new JButton();
 			JLabel labelDificultadAccion = new JLabel("Dificultad: " + accion.getDificultadAccion());
 			JLabel labelCosteAccion = new JLabel("Coste: " + accion.getCosteAccion());
@@ -221,16 +235,16 @@ public class Tablero extends JPanel {
 			int altoJComboBox = 25;
 			final TipoAccion tipoAccion = accion.getTipoAccion();
 			labelDificultadAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
-			labelDificultadAccion.setBounds(1120, posicionY, 183, 29);
+			labelDificultadAccion.setBounds(1120, this.posicionYBotones, 183, 29);
 			add(labelDificultadAccion);
 
 			labelCosteAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
-			labelCosteAccion.setBounds(1060, posicionY, 183, 29);
+			labelCosteAccion.setBounds(1060, this.posicionYBotones, 183, 29);
 			add(labelCosteAccion);
 
 			botonAccion.setText(tipoAccion.toString());
 			botonAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
-			botonAccion.setBounds(posicionX, posicionY, anchoBoton, altoBoton);
+			botonAccion.setBounds(posicionX, this.posicionYBotones, this.anchoBoton, this.altoBoton);
 			botonAccion.setToolTipText(accion.getDescripcion());
 			botonAccion.addMouseListener(new MouseAdapter() {
 				@Override
@@ -253,7 +267,7 @@ public class Tablero extends JPanel {
 					}
 				}
 
-				comboBoxNumeroCarta.setBounds(posicionX + 170, posicionY, anchoJComboBox, altoJComboBox);
+				comboBoxNumeroCarta.setBounds(posicionX + 170, this.posicionYBotones, anchoJComboBox, altoJComboBox);
 			}
 
 			add(botonAccion);
@@ -293,6 +307,22 @@ public class Tablero extends JPanel {
 
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
+	}
+	
+	private ArrayList<CartaEnMapa> dameCartasAdyacentes(CartaEnMapa cartaActual){
+		ArrayList<CartaEnMapa> cartasAdyacentes = new ArrayList<CartaEnMapa>();
+		for (CartaEnMapa cartaEnMapa : cartasEnMapa) {
+			if(cartaEnMapa.getClass() == CartaEvento.class) {
+				CartaEvento cartaEvento = (CartaEvento) cartaEnMapa;
+				int idCartaAsociada = cartaEvento.getId_cartaAsociada();
+				if(cartaEvento.estaEnMesa()) {
+					if(idCartaAsociada == cartaActual.getId()) {
+						cartasAdyacentes.add(cartaEvento);
+					}
+				}
+			}
+		}
+		return cartasAdyacentes;
 	}
 	
 

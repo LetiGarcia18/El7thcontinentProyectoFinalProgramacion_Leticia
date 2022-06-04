@@ -11,30 +11,14 @@ create table cartasTerreno(
     incialmenteVisible bit
 );
 
-create table cartasEvento(
-	id numeric(10) primary key,
-	numeroCarta varchar(5),
-    rutaImagen varchar(500) not null,
-    posicionX numeric(3),
-    posicionY numeric(3),
-    id_cartaAsociada numeric(10) not null,
-    id_accionDesactivada numeric(10) not null,
-    foreign key(id_cartaAsociada) references cartasTerreno(id)   
-);
-
 create table accion(
 	id numeric(10) primary key,
 	 tipo varchar(100) not null,
 	 descripcion varchar(250) not null,
      costeAccion numeric(4),
      dificultadAccion numeric(5),
-     cartaTerreno_id numeric(10),
-     cartaEvento_id numeric(10),
-     foreign key(cartaTerreno_id) references cartasTerreno(id),
-     foreign key (cartaEvento_id) references cartasEvento(id)
+     carta_num varchar(5) not null
 );
-
-ALTER TABLE cartasEvento ADD CONSTRAINT fk_id_accionDesactivada FOREIGN KEY (id_accionDesactivada) REFERENCES accion(id);
 
 create table consecuencia(
 	id numeric(10) primary key,
@@ -45,11 +29,21 @@ create table consecuencia(
 	foreign key(accion_id) references accion(id)
 );
 
-
+create table cartasEvento(
+	id numeric(10) primary key,
+	numeroCarta varchar(5),
+    rutaImagen varchar(500) not null,
+    posicionX numeric(3),
+    posicionY numeric(3),
+    id_cartaAsociada numeric(10) not null,
+    id_accionDesactivada numeric(10) not null,
+    foreign key(id_cartaAsociada) references cartasTerreno(id),
+	foreign key(id_accionDesactivada) references accion(id)    
+);
 
 SELECT * FROM the7thcontinent.cartasterreno;
-SELECT * FROM the7thcontinent.accion where cartaTerreno_id = 5;
-SELECT * FROM the7thcontinent.consecuencia where accion_id = 11;
+SELECT * FROM the7thcontinent.accion;
+SELECT * FROM the7thcontinent.consecuencia;
 SELECT * FROM the7thcontinent.cartasevento;
 
 #Insercción cartas terreno*
@@ -78,50 +72,22 @@ INSERT INTO cartasTerreno (id, rutaImagen, numeroCarta, posicionX, posicionY, in
 VALUES (8, 'cartasTerreno/010g.png', '010g', 3, 2, 0);
 
 #Inserción acciones
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (1, 'MOVE', 'Move to another terrain', 2, 0, 1, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (2, 'SEARCH', 'Examine', 0, 0, 1, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (3, 'MOVE', 'Move to another terrain', 1, 0, 2, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (4, 'OBSERVE', 'Observe something', 1, 0, 2, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (5, 'MOVE', 'Move to another terrain', 1, 0, 3, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (6, 'OBSERVE', 'Observe something', 0 ,0, 3, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (7, 'INVESTIGATE', 'Explore this area', 1, 0, 3, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (8, 'MOVE', 'Move to another terrain', 2 ,0, 4, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (9, 'INVESTIGATE', 'Explore this area', 1 ,0, 4, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (10, 'MOVE', 'Move to another terrain', 1 ,0, 5, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (11, 'INVESTIGATE', 'Explore this area', 1 ,0, 5, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (12, 'MOVE', 'Move to another terrain', 2 ,0, 6, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (13, 'OBSERVE', 'Observe something', 1 ,0, 6, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartasEvento_id)
-VALUES (14, 'SEARCH', 'Examine', 0 ,0, 6, null);
-
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, cartaTerreno_id, cartaEvento_id)
-VALUES (15, 'CLIMB', 'Show off your physical prowess.', 1 ,2, null, 1);
+INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, carta_num) VALUES
+(1, 'MOVE', 'Move to another terrain', 2, 0, '015'),
+(2, 'SEARCH', 'Examine', 0, 0, '015'),
+(3, 'MOVE', 'Move to another terrain', 1, 0, '009'),
+(4, 'OBSERVE', 'Observe something', 1, 0, '009'),
+(5, 'MOVE', 'Move to another terrain', 1, 0, '007'),
+(6, 'OBSERVE', 'Observe something', 0 ,0, '007'),
+(7, 'INVESTIGATE', 'Explore this area', 1, 0, '007'),
+(8, 'MOVE', 'Move to another terrain', 2 ,0, '004'),
+(9, 'INVESTIGATE', 'Explore this area', 1 ,0, '004'),
+(10, 'MOVE', 'Move to another terrain', 1 ,0, '010'),
+(11, 'INVESTIGATE', 'Explore this area', 1 ,0, '010'),
+(12, 'MOVE', 'Move to another terrain', 2 ,0, '006'),
+(13, 'OBSERVE', 'Observe something', 1 ,0, '006'),
+(14, 'SEARCH', 'Examine', 0 ,0, '006'),
+(15, 'CLIMB', 'Show off your physical prowess.', 1 ,2, '005');
 
 #Inserción de consecuencias
 INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo)
@@ -163,8 +129,9 @@ VALUES (12, 'DESPLAZARSE', 12, 1, null);
 INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo)
 VALUES (13, 'TRAER_CARTA', 13, 1, '012');
 
-INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo)
-VALUES (14, 'TRAER_CARTA', 14, 1, '016');
+INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES
+(14, 'TRAER_CARTA', 14, 1, '016'),
+(15, 'RESTAURAR', 15, 1, null);
 
 #Inserción cartas evento
 INSERT INTO cartasEvento (id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada)
