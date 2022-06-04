@@ -8,9 +8,9 @@ public class Consecuencia {
 	private TipoConsecuencia tipoConsecuencia;
 	private byte esPositiva;
 	private int accion_id;
-	private int cartaObjetivo;
+	private String cartaObjetivo;
 	
-	public Consecuencia(int id, TipoConsecuencia tipoConsecuencia, int accion_id, byte esPositiva, int cartaObjetivo) {
+	public Consecuencia(int id, TipoConsecuencia tipoConsecuencia, int accion_id, byte esPositiva, String cartaObjetivo) {
 		this.id = id;
 		this.tipoConsecuencia = tipoConsecuencia;
 		this.esPositiva = esPositiva;
@@ -50,11 +50,11 @@ public class Consecuencia {
 		this.accion_id = accion_id;
 	}
 
-	public int getCartaObjetivo() {
+	public String getCartaObjetivo() {
 		return cartaObjetivo;
 	}
 
-	public void setCartaObjetivo(int cartaObjetivo) {
+	public void setCartaObjetivo(String cartaObjetivo) {
 		this.cartaObjetivo = cartaObjetivo;
 	}
 

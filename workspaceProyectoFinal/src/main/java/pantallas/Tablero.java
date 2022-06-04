@@ -135,15 +135,15 @@ public class Tablero extends JPanel {
 	
 	public void dibujaCartasTerrenoIniciales(int anchoCasilla, int margenIzquierdo, int margenSuperior) {
 		for (int i = 0; i < this.cartasTerreno.size(); i++) {
-			CartaTerreno carta = this.cartasTerreno.get(i);
-			int posicionX = (carta.getPosicionX() * anchoCasilla) + margenIzquierdo;
-			int posicionY = (carta.getPosicionY() * anchoCasilla) + margenSuperior;
-			dibujaTerreno(carta, posicionX, posicionY, anchoCasilla);
+			CartaTerreno cartaTerreno = this.cartasTerreno.get(i);
+			int posicionX = (cartaTerreno.getPosicionX() * anchoCasilla) + margenIzquierdo;
+			int posicionY = (cartaTerreno.getPosicionY() * anchoCasilla) + margenSuperior;
+			dibujaTerreno(cartaTerreno, posicionX, posicionY, anchoCasilla);
 		}
 	}
 
-	public void dibujaTerreno(CartaTerreno carta, int posicionX, int posicionY, int anchoCasilla) {
-		ImageIcon icon = new ImageIcon(carta.getRutaImagen());
+	public void dibujaTerreno(CartaTerreno cartaTerreno, int posicionX, int posicionY, int anchoCasilla) {
+		ImageIcon icon = new ImageIcon(cartaTerreno.getRutaImagen());
 		Image imagenIcon = icon.getImage();
 		Image imagenIconConTamanio = imagenIcon.getScaledInstance(anchoCasilla, anchoCasilla,  java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(imagenIconConTamanio);
@@ -153,10 +153,10 @@ public class Tablero extends JPanel {
 
 	}
 
-	public void dibujaEnMapaPersonaje(CartaTerreno carta, int anchoCasilla, int tamanioPersonaje, int margenIzquierdo,
+	public void dibujaEnMapaPersonaje(CartaTerreno cartaTerreno, int anchoCasilla, int tamanioPersonaje, int margenIzquierdo,
 			int margenSuperior) {
-		int posicionX = (carta.getPosicionX() * anchoCasilla) + margenIzquierdo;
-		int posicionY = (carta.getPosicionY() * anchoCasilla) + margenSuperior;
+		int posicionX = (cartaTerreno.getPosicionX() * anchoCasilla) + margenIzquierdo;
+		int posicionY = (cartaTerreno.getPosicionY() * anchoCasilla) + margenSuperior;
 		dibujaPersonaje(posicionX, posicionY, anchoCasilla, tamanioPersonaje);
 	}
 
@@ -178,17 +178,17 @@ public class Tablero extends JPanel {
 
 	}
 
-	private CartaTerreno dameCartaTerrenoConNumero(short numero) {
+	private CartaTerreno dameCartaTerrenoConNumero(String numeroCarta) {
 		for (int i = 0; i < cartasTerreno.size(); i++) {
-			if (cartasTerreno.get(i).getNumeroCarta() == numero) {
+			if (cartasTerreno.get(i).getNumeroCarta().equals(numeroCarta)) {
 				return cartasTerreno.get(i);
 			}
 		}
 		return null;
 	}
 
-	public void dibujarAcciones(CartaTerreno carta) {
-		HashMap<Integer, Accion> acciones = carta.getAcciones();
+	public void dibujarAcciones(CartaTerreno cartaTerreno) {
+		HashMap<Integer, Accion> acciones = cartaTerreno.getAcciones();
 		int posicionY = 600;
 		int altoBoton = 35;
 		int anchoBoton = 130;
@@ -231,9 +231,11 @@ public class Tablero extends JPanel {
 
 		if (tipoAccion == TipoAccion.MOVE) {
 
-			short cartaPosicionPersonaje = (short) personaje.getNumeroCartaPosicionado();
+			String cartaPosicionPersonaje = personaje.getNumeroCartaPosicionado();
 			for (int i = 0; i < cartasTerreno.size(); i++) {
-				short numeroCarta = cartasTerreno.get(i).getNumeroCarta();
+				String numeroCarta = cartasTerreno.get(i).getNumeroCarta();
+				/*int numero = Integer.parseInt(numeroCarta);
+				int numeroCartaPersonaje = Integer.parseInt(cartaPosicionPersonaje);*/
 				if (numeroCarta != cartaPosicionPersonaje) {
 					comboBoxNumeroCarta.addItem(numeroCarta);
 				}
@@ -281,13 +283,14 @@ public class Tablero extends JPanel {
 	}
 
 	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) {
-
+		
 		for (Consecuencia consecuencia : consecuencias) {
 			TipoConsecuencia tipoConsecuencia = consecuencia.getTipoConsecuencia();
 
 			switch (tipoConsecuencia) {
 			case DESPLAZARSE:
-				short numeroCartaSeleccionado = (Short) comboBoxNumeroCarta.getSelectedItem();
+				String numeroCartaSeleccionado = (String) comboBoxNumeroCarta.getSelectedItem();   
+				
 				personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
 			break;
 			case RESTAURAR:

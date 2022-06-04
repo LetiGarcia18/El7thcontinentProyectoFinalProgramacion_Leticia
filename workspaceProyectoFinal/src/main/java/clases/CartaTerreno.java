@@ -18,7 +18,7 @@ import utils.UtilsDB;
 public class CartaTerreno extends CartaEnMapa {
 	
 	
-	public CartaTerreno(int id, String rutaImagen, short numeroCarta, short posicionX, short posicionY) {
+	public CartaTerreno(int id, String rutaImagen, String numeroCarta, int posicionX, int posicionY) {
 		super(id, numeroCarta, rutaImagen, posicionX, posicionY);		
 		
 	}

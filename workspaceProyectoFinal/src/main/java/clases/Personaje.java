@@ -9,14 +9,14 @@ import javax.swing.JOptionPane;
 public class Personaje {
 	
 	private String nombre;
-	private short numeroCartaPosicionado;
+	private String numeroCartaPosicionado;
 	private ArrayList<Carta> inventario;
 	private ArrayList<CartaEstado> estadosPersonaje;
 	private short contadorEnergia;
 	private String rutaImagen;
 
 
-	public Personaje(String nombre, short numeroCartaPosicionado, short contadorEnergia, String rutaImagen) {
+	public Personaje(String nombre, String numeroCartaPosicionado, short contadorEnergia, String rutaImagen) {
 		this.nombre = nombre;
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
 		this.contadorEnergia = contadorEnergia;
@@ -33,11 +33,11 @@ public class Personaje {
 		this.nombre = nombre;
 	}
 
-	public short getNumeroCartaPosicionado() {
+	public String getNumeroCartaPosicionado() {
 		return numeroCartaPosicionado;
 	}
 
-	public void setNumeroCartaPosicionado(short numeroCartaPosicionado) {
+	public void setNumeroCartaPosicionado(String numeroCartaPosicionado) {
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
 	}
 
@@ -88,8 +88,4 @@ public class Personaje {
 		return "Nuestro personaje " + this.getNombre() + " está en la carta número " + this.getNumeroCartaPosicionado();
 	}
 	
-	
-	
-
-
 }

@@ -32,14 +32,15 @@ public class Ventana extends JFrame{
 		
 	public Ventana() {
 		cartasTerreno = dameCartasTerreno();
-		personaje = new Personaje("Peter", (short) 10, (short) 10, "cartasPersonaje/characterToken.png");
+		personaje = new Personaje("Peter", "010", (short) 10, "cartasPersonaje/characterToken.png");
 		
 		pantallas = new HashMap<String, JPanel>();
 		pantallas.put("menuInicio", new MenuPrincipal(this));
 		pantallas.put("game over", new PantallaGameOver(this));
 		
 		this.setUndecorated(true);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setSize(1500,800);
+		//this.setExtendedState(JFrame.MAXIMIZED_BOTH); //Para que me salga en pantalla completa.
 		this.setLocationRelativeTo(null);
 		this.setTitle("The 7th continent");
 		this.setIconImage(new ImageIcon("./iconos/iconoIsla.png").getImage());
@@ -81,7 +82,7 @@ public class Ventana extends JFrame{
 	private ArrayList<CartaTerreno> dameCartasTerreno() {
 		String rutaImagen = "";
 		int id = 0;
-		short numeroCarta = 0;
+		String numeroCarta = "";
 		byte posicionX = 0;
 		byte posicionY = 0;
 		CartaTerreno cartaTerreno;
@@ -89,12 +90,12 @@ public class Ventana extends JFrame{
 		Statement smt = UtilsDB.conectarBD();
 
 		try {
-			ResultSet cursor = smt.executeQuery("select id, ruta, numeroCarta, posicionX, posicionY from cartaTerreno");
+			ResultSet cursor = smt.executeQuery("select id, rutaImagen, numeroCarta, posicionX, posicionY from cartasTerreno");
 
 			while (cursor.next()) {
 				id = cursor.getInt("id");
-				rutaImagen = cursor.getString("ruta");
-				numeroCarta = cursor.getShort("numeroCarta");
+				rutaImagen = cursor.getString("rutaimagen");
+				numeroCarta = cursor.getString("numeroCarta");
 				posicionX = cursor.getByte("posicionX");
 				posicionY = cursor.getByte("posicionY");
 

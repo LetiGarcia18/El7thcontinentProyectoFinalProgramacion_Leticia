@@ -14,12 +14,12 @@ import utils.UtilsDB;
 public class Carta {
 	
 	private int id;
-	private short numeroCarta;
+	private String numeroCarta;
 	private HashMap<Integer, Accion> acciones;
 	private String rutaImagen;
 	
 	
-	public Carta(int id, short numeroCarta, String rutaImagen) {
+	public Carta(int id, String numeroCarta, String rutaImagen) {
 		super();
 		this.id = id;
 		this.numeroCarta = numeroCarta;
@@ -40,12 +40,12 @@ public class Carta {
 
 
 
-	public short getNumeroCarta() {
+	public String getNumeroCarta() {
 		return numeroCarta;
 	}
 
 
-	public void setNumeroCarta(short numeroCarta) {
+	public void setNumeroCarta(String numeroCarta) {
 		this.numeroCarta = numeroCarta;
 	}
 
@@ -105,7 +105,7 @@ public class Carta {
 					String tipoConsecuencia = cursorConsecuencias.getString("tipo");
 					int accion_id = cursorConsecuencias.getInt("accion_id");
 					byte esPositiva = cursorConsecuencias.getByte("esPositiva");
-					int cartaObjetivo = cursorConsecuencias.getInt("cartaObjetivo");
+					String cartaObjetivo = cursorConsecuencias.getString("cartaObjetivo");
 					
 					Consecuencia consecuenciaActual = new Consecuencia(idConsecuencia, TipoConsecuencia.valueOf(tipoConsecuencia), (byte) accion_id, esPositiva, cartaObjetivo);
 					

@@ -2,10 +2,10 @@ package clases;
 
 public class CartaEnMapa extends Carta{
 	
-	private short posicionX;
-	private short posicionY;
+	private int posicionX;
+	private int posicionY;
 
-	public CartaEnMapa(int id, short numeroCarta, String rutaImagen, short posicionX, short posicionY) {
+	public CartaEnMapa(int id, String numeroCarta, String rutaImagen, int posicionX, int posicionY) {
 		super(id, numeroCarta, rutaImagen);
 		this.posicionX = posicionX;
 		this.posicionY = posicionY;
@@ -15,7 +15,7 @@ public class CartaEnMapa extends Carta{
 		return posicionX;
 	}
 
-	public void setPosicionX(short posicionX) {
+	public void setPosicionX(int posicionX) {
 		this.posicionX = posicionX;
 	}
 
@@ -23,7 +23,7 @@ public class CartaEnMapa extends Carta{
 		return posicionY;
 	}
 
-	public void setPosicionY(short posicionY) {
+	public void setPosicionY(int posicionY) {
 		this.posicionY = posicionY;
 	}
 	
