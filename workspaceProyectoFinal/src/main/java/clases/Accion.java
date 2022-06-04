@@ -13,18 +13,18 @@ public class Accion {
 	private String descripcion;
 	private short costeAccion;
 	private short dificultadAccion;
-	private int carta_id;
+	private int idCarta;
 	private ArrayList<Consecuencia> consecuenciasPositivas;
 	private ArrayList<Consecuencia> consecuenciasNegativas;
 	
 	
-	public Accion(int id, TipoAccion tipoAccion, String descripcion, short costeAccion, short dificultadAccion, int carta_id) {
+	public Accion(int id, TipoAccion tipoAccion, String descripcion, short costeAccion, short dificultadAccion, int idCarta) {
 		this.id = id;
 		this.tipoAccion = tipoAccion;
 		this.descripcion = descripcion;
 		this.costeAccion = costeAccion;
 		this.dificultadAccion = dificultadAccion;
-		this.carta_id = carta_id;
+		this.idCarta = idCarta;
 		this.consecuenciasPositivas = new ArrayList<Consecuencia>();
 		this.consecuenciasNegativas = new ArrayList<Consecuencia>();
 		

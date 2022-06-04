@@ -17,14 +17,16 @@ public class Carta {
 	private String numeroCarta;
 	private HashMap<Integer, Accion> acciones;
 	private String rutaImagen;
+	private boolean estaEnMesa;
 	
 	
-	public Carta(int id, String numeroCarta, String rutaImagen) {
+	public Carta(int id, String numeroCarta, String rutaImagen, boolean estaInicialmenteEnMesa) {
 		super();
 		this.id = id;
 		this.numeroCarta = numeroCarta;
 		this.acciones = new HashMap<Integer, Accion>();
 		this.rutaImagen = rutaImagen;
+		this.estaEnMesa = estaInicialmenteEnMesa;
 	}
 
 	
@@ -69,11 +71,21 @@ public class Carta {
 		this.rutaImagen = rutaImagen;
 	}
 	
+	
+	public boolean estaEnMesa() {
+		return estaEnMesa;
+	}
+
+	public void setEstaEnMesa(boolean estaEnMesa) {
+		this.estaEnMesa = estaEnMesa;
+	}
+
+
 	public void cargarAcciones() {
 		Statement smt = UtilsDB.conectarBD();
 		
 		try {
-			ResultSet cursorAcciones = smt.executeQuery("select * from accion where carta_id = '" + this.id + "'");
+			ResultSet cursorAcciones = smt.executeQuery("select * from accion where carta_id  = '" + this.id + "'");
 			while(cursorAcciones.next()) {
 				
 				int id = cursorAcciones.getInt("id");
@@ -81,9 +93,9 @@ public class Carta {
 				String descripcion = cursorAcciones.getString("descripcion");
 				short costeAccion = cursorAcciones.getShort("costeAccion");
 				short dificultadAccion = cursorAcciones.getShort("dificultadAccion");
-				int carta_id = cursorAcciones.getInt("carta_id");
+				int idCarta = cursorAcciones.getInt("carta_id");
 				
-				Accion actual = new Accion(id, TipoAccion.valueOf(tipoAccion), descripcion, costeAccion, dificultadAccion, carta_id);
+				Accion actual = new Accion(id, TipoAccion.valueOf(tipoAccion), descripcion, costeAccion, dificultadAccion, idCarta);
 				acciones.put(actual.getId(), actual);
 			}
 		} catch (SQLException e) {

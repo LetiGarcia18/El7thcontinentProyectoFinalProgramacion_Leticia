@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import java.awt.Component;
 import javax.swing.JTree;
 
+import clases.Carta;
+import clases.CartaEnMapa;
 import clases.CartaEvento;
 import clases.CartaTerreno;
 import clases.Personaje;
@@ -28,13 +30,15 @@ import javax.swing.JProgressBar;
 
 public class Ventana extends JFrame{
 	private HashMap<String, JPanel> pantallas;
-	private ArrayList<CartaTerreno> cartasTerreno;
-	private ArrayList<CartaEvento> cartasEvento;
+	private ArrayList<CartaEnMapa> cartasEnMapa;
 	private Personaje personaje;
 		
 	public Ventana() {
-		cartasTerreno = dameCartasTerreno();
-		cartasEvento = dameCartasEvento();
+		cartasEnMapa = new ArrayList<CartaEnMapa>();
+		cargaCartasTerreno();
+		cargaCartasEvento();
+		cargarAcciones();
+		
 		personaje = new Personaje("Peter", "010", (short) 10, "cartasPersonaje/characterToken.png");
 		
 		pantallas = new HashMap<String, JPanel>();
@@ -78,83 +82,67 @@ public class Ventana extends JFrame{
 			actual.setVisible(false);
 		}
 		
-		pantallas.put("tablero", new Tablero(this, cartasTerreno, cartasEvento, personaje));
+		pantallas.put("tablero", new Tablero(this, cartasEnMapa, personaje));
 		this.pantallas.get("tablero").setVisible(true);
 		this.setContentPane(this.pantallas.get("tablero"));
 	}
 	
-	private ArrayList<CartaTerreno> dameCartasTerreno() {
-		String rutaImagen = "";
-		int id = 0;
-		String numeroCarta = "";
-		byte posicionX = 0;
-		byte posicionY = 0;
-		CartaTerreno cartaTerreno;
-		ArrayList<CartaTerreno> cartasTerreno = new ArrayList<CartaTerreno>();
+	private void cargaCartasTerreno() {
+		
 		Statement smt = UtilsDB.conectarBD();
 
 		try {
-			ResultSet cursor = smt.executeQuery("select id, rutaImagen, numeroCarta, posicionX, posicionY from cartasTerreno");
+			ResultSet cursor = smt.executeQuery("select id, rutaImagen, numeroCarta, posicionX, posicionY, incialmenteVisible from cartasTerreno");
 
 			while (cursor.next()) {
-				id = cursor.getInt("id");
-				rutaImagen = cursor.getString("rutaimagen");
-				numeroCarta = cursor.getString("numeroCarta");
-				posicionX = cursor.getByte("posicionX");
-				posicionY = cursor.getByte("posicionY");
+				int id = cursor.getInt("id");
+				String rutaImagen = cursor.getString("rutaimagen");
+				String numeroCarta = cursor.getString("numeroCarta");
+				byte posicionX = cursor.getByte("posicionX");
+				byte posicionY = cursor.getByte("posicionY");
+				boolean estaIncialmenteVisible = cursor.getBoolean("incialmenteVisible");
 
-				cartaTerreno = new CartaTerreno(id, rutaImagen, numeroCarta, posicionX, posicionY);
-				cartasTerreno.add(cartaTerreno);
+				CartaTerreno cartaTerreno = new CartaTerreno(id, rutaImagen, numeroCarta, posicionX, posicionY, estaIncialmenteVisible);
+				cartasEnMapa.add(cartaTerreno);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		UtilsDB.desconectarBD();
 		
-		for (CartaTerreno carta : cartasTerreno) {
-			carta.cargarAcciones();
-		}
-
-		return cartasTerreno;
+	
 	}
 	
-	private ArrayList<CartaEvento> dameCartasEvento(){
-		int id = 0;
-		String numeroCarta = "";
-		String rutaImagen = "";
-		int posicionX = 0;
-		int posicionY = 0;
-		int id_cartaAsociada = 0;
-		int id_accionDesactivada = 0;
-		CartaEvento cartaEvento;
-		ArrayList<CartaEvento> cartasEvento = new ArrayList<CartaEvento>();
+	private void cargarAcciones() {
+		for (Carta carta : cartasEnMapa) {
+			carta.cargarAcciones();
+		}
+	}
+	
+	private void cargaCartasEvento(){
+		
 		Statement smt = UtilsDB.conectarBD();
 		
 		try {
 			ResultSet cursorCartaEvento = smt.executeQuery("select id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada from cartasEvento");
 
 			while (cursorCartaEvento.next()) {
-				id = cursorCartaEvento.getInt("id");
-				numeroCarta = cursorCartaEvento.getString("numeroCarta");
-				rutaImagen = cursorCartaEvento.getString("rutaImagen");
-				posicionX = cursorCartaEvento.getInt("posicionX");
-				posicionY = cursorCartaEvento.getInt("posicionY");
-				id_cartaAsociada = cursorCartaEvento.getInt("id_cartaAsociada");
-				id_accionDesactivada = cursorCartaEvento.getInt("id_accionDesactivada");
+				int id = cursorCartaEvento.getInt("id");
+				String numeroCarta = cursorCartaEvento.getString("numeroCarta");
+				String rutaImagen = cursorCartaEvento.getString("rutaImagen");
+				byte posicionX = cursorCartaEvento.getByte("posicionX");
+				byte posicionY = cursorCartaEvento.getByte("posicionY");
+				byte id_cartaAsociada = cursorCartaEvento.getByte("id_cartaAsociada");
+				byte id_accionDesactivada = cursorCartaEvento.getByte("id_accionDesactivada");
 
-				cartaEvento = new CartaEvento(id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada);
-				cartasEvento.add(cartaEvento);
+				CartaEnMapa cartaEvento = new CartaEvento(id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada);
+				cartasEnMapa.add(cartaEvento);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		UtilsDB.desconectarBD();
 		
-		for (CartaEvento carta : cartasEvento) {
-			carta.cargarAcciones();
-		}
-
-		return cartasEvento;
 	}
 
 }

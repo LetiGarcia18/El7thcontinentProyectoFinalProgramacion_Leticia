@@ -2,28 +2,28 @@ package clases;
 
 public class CartaEnMapa extends Carta{
 	
-	private int posicionX;
-	private int posicionY;
+	private byte posicionX;
+	private byte posicionY;
 
-	public CartaEnMapa(int id, String numeroCarta, String rutaImagen, int posicionX, int posicionY) {
-		super(id, numeroCarta, rutaImagen);
+	public CartaEnMapa(int id, String numeroCarta, String rutaImagen, byte posicionX, byte posicionY, boolean estaInicialmenteEnMesa) {
+		super(id, numeroCarta, rutaImagen, estaInicialmenteEnMesa);
 		this.posicionX = posicionX;
 		this.posicionY = posicionY;
 	}
 
-	public int getPosicionX() {
+	public byte getPosicionX() {
 		return posicionX;
 	}
 
-	public void setPosicionX(int posicionX) {
+	public void setPosicionX(byte posicionX) {
 		this.posicionX = posicionX;
 	}
 
-	public int getPosicionY() {
+	public byte getPosicionY() {
 		return posicionY;
 	}
 
-	public void setPosicionY(int posicionY) {
+	public void setPosicionY(byte posicionY) {
 		this.posicionY = posicionY;
 	}
 	

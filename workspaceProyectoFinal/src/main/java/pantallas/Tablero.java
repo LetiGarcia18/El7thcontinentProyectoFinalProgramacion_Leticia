@@ -43,6 +43,7 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Accion;
 import clases.Carta;
+import clases.CartaEnMapa;
 import clases.CartaEvento;
 import clases.CartaTerreno;
 import clases.Consecuencia;
@@ -78,18 +79,16 @@ public class Tablero extends JPanel {
 
 	private Ventana ventana;
 	private int margenDerecho = 20;
-	ArrayList<CartaTerreno> cartasTerreno;
-	ArrayList<CartaEvento> cartasEvento;
+	ArrayList<CartaEnMapa> cartasEnMapa;
 	Personaje personaje;
 	JComboBox comboBoxNumeroCarta;
 	Random random;
 	private Image imagenFondo;
 
-	public Tablero(Ventana v, ArrayList<CartaTerreno> cartasTerreno, ArrayList<CartaEvento> cartasEvento, Personaje personaje) {
+	public Tablero(Ventana v, ArrayList<CartaEnMapa> cartasEnMapa, Personaje personaje) {
 
 		this.ventana = v;
-		this.cartasTerreno = cartasTerreno;
-		this.cartasEvento = cartasEvento;
+		this.cartasEnMapa = cartasEnMapa;
 		this.personaje = personaje;
 		random = new Random();
 		imagenFondo = new ImageIcon("./imagenesFondo/mar.png").getImage();
@@ -109,76 +108,41 @@ public class Tablero extends JPanel {
 		comboBoxNumeroCarta = new JComboBox();
 		add(comboBoxNumeroCarta);
 
-		CartaTerreno cartaActual = dameCartaTerrenoConNumero(this.personaje.getNumeroCartaPosicionado());
+		CartaEnMapa cartaActual = dameCartaEnMapaConNumero(this.personaje.getNumeroCartaPosicionado());
 		
 		int anchoCasilla = 170;
 		int tamanioPersonaje = anchoCasilla / 3;
 		int margenIzquierdo = 0;
 		int margenSuperior = 0;
 		dibujaEnMapaPersonaje(cartaActual, anchoCasilla, tamanioPersonaje, margenIzquierdo, margenSuperior);
-		dibujaCartasTerrenoIniciales(anchoCasilla, margenIzquierdo, margenSuperior);
-		//dibujaCartasEvento(anchoCasilla, margenIzquierdo, margenSuperior);
+		dibujaCartasIniciales(anchoCasilla, margenIzquierdo, margenSuperior);
 		dibujarAcciones(cartaActual);
 
-		// Test dibujar fondo
-		/*
-		 * JLabel imagen = new JLabel(new ImageIcon("cuadrados/grey.jpg")); int
-		 * posicionX = margenIzquierdo; int posicionY = margenSuperior;
-		 * imagen.setBounds(posicionX, posicionY, anchoCasilla * 3, anchoCasilla * 3);
-		 * add(imagen);
-		 */
-		// System.out.println(cartasTerreno);
 	}
 
-	/*
-	 * public void dibujaTerrenos(ArrayList<CartaTerreno> cartasTerreno, int
-	 * anchoCasilla, int margenIzquierdo, int margenSuperior) { for (int i = 0; i <
-	 * cartasTerreno.size(); i++) { CartaTerreno carta = cartasTerreno.get(i); int
-	 * posicionX = (carta.getPosicionX() * anchoCasilla) + margenIzquierdo; int
-	 * posicionY = (carta.getPosicionY() * anchoCasilla) + margenSuperior;
-	 * dibujaTerreno(carta, posicionX, posicionY, anchoCasilla); } }
-	 */
-	
-	public void dibujaCartasTerrenoIniciales(int anchoCasilla, int margenIzquierdo, int margenSuperior) {
-		for (int i = 0; i < this.cartasTerreno.size(); i++) {
-			CartaTerreno cartaTerreno = this.cartasTerreno.get(i);
-			int posicionX = (cartaTerreno.getPosicionX() * anchoCasilla) + margenIzquierdo;
-			int posicionY = (cartaTerreno.getPosicionY() * anchoCasilla) + margenSuperior;
-			dibujaTerreno(cartaTerreno, posicionX, posicionY, anchoCasilla);
+	public void dibujaCartasIniciales(int anchoCasilla, int margenIzquierdo, int margenSuperior) {
+		for (int i = 0; i < this.cartasEnMapa.size(); i++) {
+			CartaEnMapa cartaMapa = this.cartasEnMapa.get(i);
+			int posicionX = (cartaMapa.getPosicionX() * anchoCasilla) + margenIzquierdo;
+			int posicionY = (cartaMapa.getPosicionY() * anchoCasilla) + margenSuperior;
+			dibujaCartaEnMapa(cartaMapa, posicionX, posicionY, anchoCasilla);
 		}
 	}
 
-	public void dibujaTerreno(CartaTerreno cartaTerreno, int posicionX, int posicionY, int anchoCasilla) {
-		ImageIcon icon = new ImageIcon(cartaTerreno.getRutaImagen());
-		Image imagenIcon = icon.getImage();
-		Image imagenIconConTamanio = imagenIcon.getScaledInstance(anchoCasilla, anchoCasilla,  java.awt.Image.SCALE_SMOOTH);
-		icon = new ImageIcon(imagenIconConTamanio);
-		JLabel imagen = new JLabel(icon);
-		imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
-		add(imagen);
-
+	public void dibujaCartaEnMapa(CartaEnMapa cartaMapa, int posicionX, int posicionY, int anchoCasilla) {
+		if(cartaMapa.estaEnMesa()) {
+			ImageIcon icon = new ImageIcon(cartaMapa.getRutaImagen());
+			Image imagenIcon = icon.getImage();
+			Image imagenIconConTamanio = imagenIcon.getScaledInstance(anchoCasilla, anchoCasilla,  java.awt.Image.SCALE_SMOOTH);
+			icon = new ImageIcon(imagenIconConTamanio);
+			JLabel imagen = new JLabel(icon);
+			imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
+			add(imagen);
+		}
 	}
 	
-	public void dibujaCartasEvento(int anchoCasilla, int margenIzquierdo, int margenSuperior) {
-		for (int i = 0; i < this.cartasEvento.size(); i++) {
-			CartaEvento cartaEvento = this.cartasEvento.get(i);
-			int posicionX = (cartaEvento.getPosicionX() * anchoCasilla) + margenIzquierdo;
-			int posicionY = (cartaEvento.getPosicionY() * anchoCasilla) + margenSuperior;
-				dibujaCartaEvento(cartaEvento, posicionX, posicionY, anchoCasilla);
-			}
-	}
-	
-	public void dibujaCartaEvento(CartaEvento cartaEvento, int posicionX, int posicionY, int anchoCasilla) {
-		ImageIcon icon = new ImageIcon(cartaEvento.getRutaImagen());
-		Image imagenIcon = icon.getImage();
-		Image imagenIconConTamanio = imagenIcon.getScaledInstance(anchoCasilla, anchoCasilla,  java.awt.Image.SCALE_SMOOTH);
-		icon = new ImageIcon(imagenIconConTamanio);
-		JLabel imagen = new JLabel(icon);
-		imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
-		add(imagen);
-	}
 
-	public void dibujaEnMapaPersonaje(CartaTerreno cartaTerreno, int anchoCasilla, int tamanioPersonaje, int margenIzquierdo,
+	public void dibujaEnMapaPersonaje(CartaEnMapa cartaTerreno, int anchoCasilla, int tamanioPersonaje, int margenIzquierdo,
 			int margenSuperior) {
 		int posicionX = (cartaTerreno.getPosicionX() * anchoCasilla) + margenIzquierdo;
 		int posicionY = (cartaTerreno.getPosicionY() * anchoCasilla) + margenSuperior;
@@ -203,26 +167,18 @@ public class Tablero extends JPanel {
 
 	}
 
-	private CartaTerreno dameCartaTerrenoConNumero(String numeroCarta) {
-		for (int i = 0; i < cartasTerreno.size(); i++) {
-			if (cartasTerreno.get(i).getNumeroCarta().equals(numeroCarta)) {
-				return cartasTerreno.get(i);
+	private CartaEnMapa dameCartaEnMapaConNumero(String numeroCarta) {
+		for (int i = 0; i < cartasEnMapa.size(); i++) {
+			if (cartasEnMapa.get(i).getNumeroCarta().equals(numeroCarta)) {
+				return cartasEnMapa.get(i);
 			}
 		}
 		return null;
 	}
 	
-	private CartaEvento dameCartaEventoConNumero(String numeroCarta) {
-		for (int i = 0; i < cartasEvento.size(); i++) {
-			if (cartasEvento.get(i).getNumeroCarta().equals(numeroCarta)) {
-				return cartasEvento.get(i);
-			}
-		}
-		return null;
-	}
 
-	public void dibujarAcciones(CartaTerreno cartaTerreno) {
-		HashMap<Integer, Accion> acciones = cartaTerreno.getAcciones();
+	public void dibujarAcciones(CartaEnMapa cartaEnMapa) {
+		HashMap<Integer, Accion> acciones = cartaEnMapa.getAcciones();
 		int posicionY = 600;
 		int altoBoton = 35;
 		int anchoBoton = 130;
@@ -232,53 +188,76 @@ public class Tablero extends JPanel {
 			int key = (Integer) iterador.next();
 			Accion accion = acciones.get(key);
 			posicionY = posicionY + margenEntreBotones;
-			dibujarAccion(accion, posicionY, anchoBoton, altoBoton);
+			dibujarAccion(accion, cartaEnMapa, posicionY, anchoBoton, altoBoton);
 		}
 	}
 
-	public void dibujarAccion(final Accion accion, int posicionY, int anchoBoton, int altoBoton) {
-		final JButton botonAccion = new JButton();
-		JLabel labelDificultadAccion = new JLabel("Dificultad: " + accion.getDificultadAccion());
-		JLabel labelCosteAccion = new JLabel("Coste: " + accion.getCosteAccion());
-		int posicionX = 1200;
-		int anchoJComboBox = 150;
-		int altoJComboBox = 25;
-		final TipoAccion tipoAccion = accion.getTipoAccion();
-		labelDificultadAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
-		labelDificultadAccion.setBounds(1120, posicionY, 183, 29);
-		add(labelDificultadAccion);
-
-		labelCosteAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
-		labelCosteAccion.setBounds(1060, posicionY, 183, 29);
-		add(labelCosteAccion);
-
-		botonAccion.setText(tipoAccion.toString());
-		botonAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
-		botonAccion.setBounds(posicionX, posicionY, anchoBoton, altoBoton);
-		botonAccion.setToolTipText(accion.getDescripcion());
-		botonAccion.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				resolverAccion(accion);
-			}
-		});
-
-		if (tipoAccion == TipoAccion.MOVE) {
-
-			String cartaPosicionPersonaje = personaje.getNumeroCartaPosicionado();
-			for (int i = 0; i < cartasTerreno.size(); i++) {
-				String numeroCarta = cartasTerreno.get(i).getNumeroCarta();
-				/*int numero = Integer.parseInt(numeroCarta);
-				int numeroCartaPersonaje = Integer.parseInt(cartaPosicionPersonaje);*/
-				if (numeroCarta != cartaPosicionPersonaje) {
-					comboBoxNumeroCarta.addItem(numeroCarta);
+	public void dibujarAccion(final Accion accion, CartaEnMapa cartaActual, int posicionY, int anchoBoton, int altoBoton) {
+		
+		ArrayList<Integer> idAccionesDesactivadas = new ArrayList<Integer>();
+		int idAccion = accion.getId();
+		for (CartaEnMapa cartaEnMapa : cartasEnMapa) {
+			if(cartaEnMapa.getClass() == CartaEvento.class) {
+				CartaEvento cartaEvento = (CartaEvento) cartaEnMapa;
+				int idCartaAsociada = cartaEvento.getId_cartaAsociada();
+				if(cartaEvento.estaEnMesa()) {
+					if(idCartaAsociada == cartaActual.getId()) {
+						int idDesactivaAccion = cartaEvento.getId_accionDesactivada();
+						idAccionesDesactivadas.add(idDesactivaAccion);
+					}
 				}
+				
+			}
+		}
+		
+		boolean estaDesactivada = idAccionesDesactivadas.contains(idAccion);
+		
+		if(!estaDesactivada) {
+			final JButton botonAccion = new JButton();
+			JLabel labelDificultadAccion = new JLabel("Dificultad: " + accion.getDificultadAccion());
+			JLabel labelCosteAccion = new JLabel("Coste: " + accion.getCosteAccion());
+			int posicionX = 1200;
+			int anchoJComboBox = 150;
+			int altoJComboBox = 25;
+			final TipoAccion tipoAccion = accion.getTipoAccion();
+			labelDificultadAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
+			labelDificultadAccion.setBounds(1120, posicionY, 183, 29);
+			add(labelDificultadAccion);
+
+			labelCosteAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
+			labelCosteAccion.setBounds(1060, posicionY, 183, 29);
+			add(labelCosteAccion);
+
+			botonAccion.setText(tipoAccion.toString());
+			botonAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
+			botonAccion.setBounds(posicionX, posicionY, anchoBoton, altoBoton);
+			botonAccion.setToolTipText(accion.getDescripcion());
+			botonAccion.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					resolverAccion(accion);
+				}
+			});
+
+			if (tipoAccion == TipoAccion.MOVE) {
+				for (int i = 0; i < cartasEnMapa.size(); i++) {
+					CartaEnMapa cartaEnMapa = cartasEnMapa.get(i);
+					if(cartaEnMapa.getClass() == CartaTerreno.class) {
+						if(cartaEnMapa.estaEnMesa()) {
+							String numeroCarta = cartaEnMapa.getNumeroCarta();
+							String cartaPosicionPersonaje = personaje.getNumeroCartaPosicionado();
+							if(!numeroCarta.equals(cartaPosicionPersonaje)) {
+								comboBoxNumeroCarta.addItem(numeroCarta);
+							}
+						}
+					}
+				}
+
+				comboBoxNumeroCarta.setBounds(posicionX + 170, posicionY, anchoJComboBox, altoJComboBox);
 			}
 
-			comboBoxNumeroCarta.setBounds(posicionX + 170, posicionY, anchoJComboBox, altoJComboBox);
+			add(botonAccion);
 		}
-
-		add(botonAccion);
 	}
 
 	public void resolverAccion(Accion accion) {
@@ -332,9 +311,9 @@ public class Tablero extends JPanel {
 				personaje.aumentaEnergia((short)12);
 			break;	
 			case TRAER_CARTA:
-				/*String numeroCarta = consecuencia.getCartaObjetivo();
-				
-				dibujaCartaEvento(cartaEvento, 200, 0, 0);*/
+				String numeroCarta = consecuencia.getCartaObjetivo();
+				CartaEnMapa cartaMapa = dameCartaEnMapaConNumero(numeroCarta);
+				cartaMapa.setEstaEnMesa(true);
 			break;
 			case QUITAR_CARTA:
 			
