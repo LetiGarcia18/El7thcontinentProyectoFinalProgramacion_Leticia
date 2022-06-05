@@ -4,8 +4,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import clases.Accion;
 import clases.CartaTerreno;
+import excepciones.CharacterDoesNotExistException;
 import pantallas.Splash;
 import pantallas.Ventana;
 
@@ -40,7 +43,11 @@ public class Main {
 		miSplash.setVisible(true);*/
 	
 		
-		Ventana ventana = new Ventana(nombrePersonaje);
+		try {
+			Ventana ventana = new Ventana(nombrePersonaje);
+		} catch (CharacterDoesNotExistException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Character doesn't exist", JOptionPane.ERROR_MESSAGE);
+		}
 		
 
 	}

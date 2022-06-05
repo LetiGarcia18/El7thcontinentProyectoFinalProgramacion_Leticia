@@ -26,7 +26,7 @@ public class PantallaReglasJuego extends JPanel{
 	public PantallaReglasJuego(Ventana v) {
 		
 		this.ventana = v;
-		imagenFondo = new ImageIcon("./imagenesFondo/rules.png").getImage();
+		imagenFondo = new ImageIcon("./imagenesFondo/bookRules.png").getImage();
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 

@@ -54,6 +54,13 @@ create table cartasInventario(
     rutaImagen varchar(500) not null
 );
 
+create table personaje(
+	id numeric(10) primary key,
+    nombre varchar(40),
+    habilidad varchar(100),
+    rutaCartaHistoria varchar(500),
+    rutaIconoPersonaje varchar(500)
+);
 SELECT * FROM the7thcontinent.cartasterreno;
 SELECT * FROM the7thcontinent.accion where carta_num = '006';
 SELECT * FROM the7thcontinent.consecuencia;
@@ -135,6 +142,11 @@ INSERT INTO cartasInventario (id, numeroCarta, rutaImagen) VALUES
 (1, '001', 'cartasInventario/001.png'),
 (2, '016', 'cartasInventario/016.png'),
 (3, '032', 'cartasInventario/032.png');
+
+INSERT INTO personaje (id, nombre, habilidad, rutaCartaHistoria, rutaIconoPersonaje) VALUES
+(1, 'Ferdinand', 'INVESTIGATE', 'cartasPersonaje/character1Story.png', 'cartasPersonaje/characterToken2.png'),
+(2, 'duck', 'SEARCH', 'iconos/duck.png', 'iconos/duck.png');
+
 
 
 

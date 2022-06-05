@@ -8,27 +8,35 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import enums.TipoAccion;
 import utils.UtilsDB;
 
 public class Personaje {
 	
+	private int id;
 	private String nombre;
-	private String numeroCartaPosicionado;
+	private String numeroCartaPosicionado = "010";
 	private ArrayList<Carta> inventario;
 	private ArrayList<CartaEstado> estadosPersonaje;
 	private short contadorEnergia;
-	private String rutaImagen;
+	private String rutaIconoPersonaje;
+	private String rutaImagenHistoria;
 	private short energiaInicial = 10;
+	private TipoAccion habilidad; //Crear getter (si resuelve la accion de la que nuestro personaje es mejor, sumarle +1 cuando ese personaje resuelva ese tipo de acción
 
 
-	public Personaje(String nombre, String numeroCartaPosicionado, String rutaImagen) {
+	public Personaje(int id, String nombre, TipoAccion habilidad, String rutaImagenHistoria, String rutaIconoPersonaje) {
+		this.id = id;
 		this.nombre = nombre;
-		this.numeroCartaPosicionado = numeroCartaPosicionado;
+		this.habilidad = habilidad;
+		this.rutaImagenHistoria = rutaImagenHistoria;
+		this.rutaIconoPersonaje = rutaIconoPersonaje;
 		this.contadorEnergia = energiaInicial;
-		this.rutaImagen = rutaImagen;
 		this.estadosPersonaje = new ArrayList<CartaEstado>();
 		this.inventario = new ArrayList<Carta>();
 	}
+	
+	
 	
 	public void cargaCartasEstado() {
 		Statement smt = UtilsDB.conectarBD();
@@ -75,12 +83,44 @@ public class Personaje {
 	
 	
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getRutaIconoPersonaje() {
+		return rutaIconoPersonaje;
+	}
+
+	public void setRutaIconoPersonaje(String rutaIconoPersonaje) {
+		this.rutaIconoPersonaje = rutaIconoPersonaje;
+	}
+
+	public String getRutaImagenHistoria() {
+		return rutaImagenHistoria;
+	}
+
+	public void setRutaImagenHistoria(String rutaImagenHistoria) {
+		this.rutaImagenHistoria = rutaImagenHistoria;
+	}
+
+	public TipoAccion getHabilidad() {
+		return habilidad;
+	}
+
+	public void setHabilidad(TipoAccion habilidad) {
+		this.habilidad = habilidad;
 	}
 
 	public String getNumeroCartaPosicionado() {
@@ -147,13 +187,7 @@ public class Personaje {
 		this.estadosPersonaje = estadosPersonaje;
 	}
 
-	public String getRutaImagen() {
-		return rutaImagen;
-	}
-
-	public void setRutaImagen(String rutaImagen) {
-		this.rutaImagen = rutaImagen;
-	}
+	
 	
 	public void reduceEnergia(Accion accion) {
 		short costeExtra = this.dameCosteExtra();

@@ -184,7 +184,7 @@ public class Tablero extends JPanel {
 	}
 
 	public void dibujaPersonaje(int posicionXCarta, int posicionYCarta, int anchoCasilla, int tamanioPersonaje) {
-		ImageIcon icon = new ImageIcon(this.personaje.getRutaImagen());
+		ImageIcon icon = new ImageIcon(this.personaje.getRutaIconoPersonaje());
 		Image imagenIcon = icon.getImage();
 		Image imagenIconConTamanio = imagenIcon.getScaledInstance(tamanioPersonaje, tamanioPersonaje,  java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(imagenIconConTamanio);

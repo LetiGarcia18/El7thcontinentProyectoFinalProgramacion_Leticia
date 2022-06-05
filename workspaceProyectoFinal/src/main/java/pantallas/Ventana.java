@@ -3,6 +3,7 @@ package pantallas;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,8 @@ import clases.CartaEstado;
 import clases.CartaEvento;
 import clases.CartaTerreno;
 import clases.Personaje;
+import enums.TipoAccion;
+import excepciones.CharacterDoesNotExistException;
 import utils.UtilsDB;
 
 import javax.swing.JProgressBar;
@@ -35,14 +38,14 @@ public class Ventana extends JFrame {
 	private ArrayList<Carta> cartas;
 	private Personaje personaje;
 
-	public Ventana(String nombre) {
-		
+	public Ventana(String nombre) throws CharacterDoesNotExistException {
+
 		cartasEnMapa = new ArrayList<CartaEnMapa>();
 		cartas = new ArrayList<Carta>();
 		cargaCartasTerreno();
 		cargaCartasEvento();
+		cargaPersonaje(nombre);
 		
-		personaje = new Personaje(nombre, "010", "cartasPersonaje/characterToken.png");
 		personaje.cargaCartasEstado();
 		personaje.cargaCartasInventario();
 		cargarAcciones();
@@ -52,9 +55,9 @@ public class Ventana extends JFrame {
 		pantallas.put("game over", new PantallaGameOver(this));
 		pantallas.put("reglas", new PantallaReglasJuego(this));
 
-		//this.setUndecorated(true);
+		// this.setUndecorated(true);
 		this.setSize(1500, 800);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); //Para que me salga en pantalla
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Para que me salga en pantalla
 		// completa.
 		this.setLocationRelativeTo(null);
 		this.setTitle("The 7th continent");
@@ -79,7 +82,7 @@ public class Ventana extends JFrame {
 		}
 		this.pantallas.get(nombrePantalla).setVisible(true); // Esta nos muestra la pantalla que queremos
 		this.setContentPane(this.pantallas.get(nombrePantalla));
-		if(nombrePantalla.equals("game over")) {
+		if (nombrePantalla.equals("game over")) {
 			personaje.restablecerEnergia();
 		}
 	}
@@ -128,16 +131,15 @@ public class Ventana extends JFrame {
 		for (Carta carta : cartasEnMapa) {
 			carta.cargarAcciones();
 		}
-		
+
 		for (Carta carta : personaje.getEstadosPersonaje()) {
 			carta.cargarAcciones();
 		}
-		
+
 		for (Carta cartaInventario : personaje.getInventario()) {
 			cartaInventario.cargarAcciones();
 		}
-		
-		
+
 	}
 
 	private void cargaCartasEvento() {
@@ -165,10 +167,36 @@ public class Ventana extends JFrame {
 			e.printStackTrace();
 		}
 		UtilsDB.desconectarBD();
-
 	}
 	
-	
+	public void cargaPersonaje(String nombrePersonaje) throws CharacterDoesNotExistException {
+
+		Statement smt = UtilsDB.conectarBD();
+
+		try {
+			ResultSet cursorPersonaje = smt
+					.executeQuery("select id, nombre, habilidad, rutaCartaHistoria, rutaIconoPersonaje from personaje where nombre = '"+nombrePersonaje+"'");
+
+			while (cursorPersonaje.next()) {
+				int id = cursorPersonaje.getInt("id");
+				String nombre = cursorPersonaje.getString("nombre");
+				String habilidad = cursorPersonaje.getString("habilidad");
+				String rutaCartaHistoria = cursorPersonaje.getString("rutaCartaHistoria");
+				String rutaIconoPersonaje = cursorPersonaje.getString("rutaIconoPersonaje");
+
+				this.personaje = new Personaje(id, nombre, TipoAccion.valueOf(habilidad), rutaCartaHistoria,
+						rutaIconoPersonaje);
+			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		UtilsDB.desconectarBD();
+
+		if (this.personaje == null) {
+			throw new CharacterDoesNotExistException("No existe el personaje");
+		}
+	}
 
 	
 
