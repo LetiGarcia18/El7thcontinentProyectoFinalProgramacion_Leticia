@@ -37,7 +37,7 @@ public class Splash extends JDialog {
 					}
 					
 					dispose();
-					Ventana ventanaCuadros = new Ventana();
+					Ventana ventanaCuadros = new Ventana("");
 					ventanaCuadros.setVisible(true);
 				}catch (Exception e) {
 					System.out.println("Excepción " + e.getMessage());

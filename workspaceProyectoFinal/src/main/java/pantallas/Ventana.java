@@ -35,16 +35,16 @@ public class Ventana extends JFrame {
 	private ArrayList<Carta> cartas;
 	private Personaje personaje;
 
-	public Ventana() {
+	public Ventana(String nombre) {
+		
 		cartasEnMapa = new ArrayList<CartaEnMapa>();
 		cartas = new ArrayList<Carta>();
 		cargaCartasTerreno();
 		cargaCartasEvento();
 		
-		personaje = new Personaje("Peter", "010", "cartasPersonaje/characterToken.png");
+		personaje = new Personaje(nombre, "010", "cartasPersonaje/characterToken.png");
 		personaje.cargaCartasEstado();
 		personaje.cargaCartasInventario();
-		
 		cargarAcciones();
 
 		pantallas = new HashMap<String, JPanel>();

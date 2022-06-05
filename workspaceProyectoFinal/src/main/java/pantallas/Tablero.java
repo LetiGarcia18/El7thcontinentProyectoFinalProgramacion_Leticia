@@ -104,7 +104,7 @@ public class Tablero extends JPanel {
 		JButton botonSalir = new BotonSalir("Exit");
 		add(botonSalir);
 
-		JLabel labelPersonaje = new JLabel("Character");
+		JLabel labelPersonaje = new JLabel("Character: " + personaje.getNombre());
 		labelPersonaje.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelPersonaje.setIcon(new ImageIcon("cartasPersonaje\\characterToken2.png"));
 		labelPersonaje.setBounds(700, 20, 400, 80);
@@ -434,9 +434,9 @@ public class Tablero extends JPanel {
 				int contadorCartasEngranaje = personaje.dameNumeroDeEngranajes();
 				
 				if(contadorCartasEngranaje == 2) {
-					JOptionPane.showMessageDialog(ventana, "Has ganado", "Tests", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(ventana, "Congratulations, ¡You win!", "WIN", JOptionPane.INFORMATION_MESSAGE);
 				}else {
-					JOptionPane.showMessageDialog(ventana, "Sigue buscando", "Tests", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(ventana, "Oh... Keep looking", "NO WIN", JOptionPane.INFORMATION_MESSAGE);
 				}
 			break;
 				

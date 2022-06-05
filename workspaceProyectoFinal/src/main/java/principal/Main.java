@@ -2,6 +2,7 @@ package principal;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import clases.Accion;
 import clases.CartaTerreno;
@@ -11,42 +12,35 @@ import pantallas.Ventana;
 public class Main {
 
 	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String nombrePersonaje = "";
+		
+		for (byte i = 0; i < args.length; i++) {
+			if (args[i].equals("-nombre")) {
+				nombrePersonaje = args[i+1];
+			}
+			if(args[i].equals("-h") || args[i].equals("-help")) {
+				System.out.println("Argumentos disponibles:\n"
+    					+ "\t-nombre NOMBRE DEL PERSONAJE : Indica el nombre del personaje del juego");
+    			System.exit(0);
+			}
+		}
+		
+		if(nombrePersonaje!= null) {
+			System.out.println("El nombre del personaje recibido por argumentos es: " + nombrePersonaje);				
+		}else {
+			System.out.println("Dime un nombre para el personaje: ");
+			nombrePersonaje = sc.nextLine();
+		}
 		
 		
 		
 		/*Splash miSplash = new Splash();
 		miSplash.setVisible(true);*/
+	
 		
-		
-		/*
-		CartaTerreno carta1;
-		CartaTerreno carta2;
-
-		HashMap<Integer, Accion> hm = new HashMap<Integer, Accion>();
-		HashMap<Integer, Accion> hm2 = new HashMap<Integer, Accion>();
-
-		
-		
-		try {
-			carta1 = new CartaTerreno(1);
-			carta2 = new CartaTerreno(2);
-			
-
-			System.out.println(carta1.accionesCarta(hm));
-			System.out.println(carta2.accionesCarta(hm2));
-
-			
-			carta1.getTodasAcciones();
-			carta2.getTodasAcciones();
-			System.out.println("Acciones de la carta " + carta1.getNumeroCarta() +": " +carta1.getTodasAcciones());
-			System.out.println("Acciones de la carta " + carta2.getNumeroCarta() +": " +carta2.getTodasAcciones());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		
-		Ventana ventana = new Ventana();
+		Ventana ventana = new Ventana(nombrePersonaje);
 		
 
 	}
