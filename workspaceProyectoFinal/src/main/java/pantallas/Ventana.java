@@ -55,6 +55,7 @@ public class Ventana extends JFrame {
 		pantallas.put("game over", new PantallaGameOver(this));
 		pantallas.put("reglas", new PantallaReglasJuego(this));
 		pantallas.put("historiaPersonaje", new PantallaHistoriaPersonaje(this, this.personaje));
+		pantallas.put("pantallaAntesVictoria", new PantallaAntesVictoria(this));
 
 		// this.setUndecorated(true);
 		this.setSize(1500, 800);
@@ -85,6 +86,7 @@ public class Ventana extends JFrame {
 		this.setContentPane(this.pantallas.get(nombrePantalla));
 		if (nombrePantalla.equals("game over")) {
 			personaje.restablecerEnergia();
+			personaje.setNumeroCartaPosicionado("010");
 		}
 	}
 

@@ -15,7 +15,7 @@ public class Personaje {
 	
 	private int id;
 	private String nombre;
-	private String numeroCartaPosicionado = "010";
+	private String numeroCartaPosicionado = "009";
 	private ArrayList<Carta> inventario;
 	private ArrayList<CartaEstado> estadosPersonaje;
 	private short contadorEnergia;
@@ -72,7 +72,7 @@ public class Personaje {
 				String numeroCarta = cursorCartaInventario.getString("numeroCarta");
 				String rutaImagen = cursorCartaInventario.getString("rutaImagen");
 				
-				Carta cartaInventario = new Carta(id, numeroCarta, rutaImagen, false);
+				Carta cartaInventario = new Carta(id, numeroCarta, rutaImagen, true);
 				this.inventario.add(cartaInventario);
 			}
 		} catch (Exception e) {

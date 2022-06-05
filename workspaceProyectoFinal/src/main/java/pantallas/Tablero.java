@@ -438,6 +438,7 @@ public class Tablero extends JPanel {
 				
 				if(contadorCartasEngranaje == 2) {
 					JOptionPane.showMessageDialog(ventana, "Congratulations, ¡You win!", "WIN", JOptionPane.INFORMATION_MESSAGE);
+					ventana.cambiarAPantalla("pantallaAntesVictoria");
 				}else {
 					JOptionPane.showMessageDialog(ventana, "Oh... Keep looking", "NO WIN", JOptionPane.INFORMATION_MESSAGE);
 				}
