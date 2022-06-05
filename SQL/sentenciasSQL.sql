@@ -55,7 +55,7 @@ create table cartasInventario(
 );
 
 SELECT * FROM the7thcontinent.cartasterreno;
-SELECT * FROM the7thcontinent.accion where carta_num = '104';
+SELECT * FROM the7thcontinent.accion where carta_num = '006';
 SELECT * FROM the7thcontinent.consecuencia;
 SELECT * FROM the7thcontinent.cartasevento;
 SELECT * FROM the7thcontinent.cartasestado;
@@ -90,7 +90,8 @@ INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, carta_
 (15, 'CLIMB', 'Show off your physical prowess.', 1 ,7, '005'),
 (16, 'MOVE', 'Move to another terrain', 0, 0, '010g'),
 (17, 'HEAL', 'Heal yourself.', 2 ,7, '104'),
-(18, 'EAT', 'Restore your energy', 0 ,0, '001');
+(18, 'EAT', 'Restore your energy', 0 ,0, '001'),
+(19, 'SEARCH', 'TEST', 0 , 0, '010');
 
 #Inserción de consecuencias
 INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES
@@ -116,7 +117,9 @@ INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES
 (20, 'QUITAR_CARTA', 17, 1, '104'),
 (21, 'TRAER_CARTA', 17, 0, '108'),
 (22, 'RESTAURAR', 18, 1, null),
-(23, 'QUITAR_CARTA', 18, 1, '001');
+(23, 'QUITAR_CARTA', 18, 1, '001'),
+(24, 'TRAER_CARTA', 14, 1, '016'),
+(25, 'GANAR', 19, 1, null);
 
 #Inserción cartas evento
 INSERT INTO cartasEvento (id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada) VALUES 

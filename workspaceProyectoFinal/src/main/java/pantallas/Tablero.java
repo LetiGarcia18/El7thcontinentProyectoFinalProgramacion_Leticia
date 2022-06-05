@@ -430,6 +430,15 @@ public class Tablero extends JPanel {
 				carta.setEstaEnMesa(false);
 			
 			break;
+			case GANAR:
+				int contadorCartasEngranaje = personaje.dameNumeroDeEngranajes();
+				
+				if(contadorCartasEngranaje == 2) {
+					JOptionPane.showMessageDialog(ventana, "Has ganado", "Tests", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					JOptionPane.showMessageDialog(ventana, "Sigue buscando", "Tests", JOptionPane.INFORMATION_MESSAGE);
+				}
+			break;
 				
 			}
 		}

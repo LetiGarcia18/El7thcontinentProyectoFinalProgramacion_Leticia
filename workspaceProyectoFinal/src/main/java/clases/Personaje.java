@@ -123,6 +123,21 @@ public class Personaje {
 		return costeExtra;
 	}
 	
+	public int dameNumeroDeEngranajes() {
+		ArrayList<Carta> cartasInventario = this.getInventario();
+		int contadorCartasEngranaje = 0;
+		for (Carta cartaInventario : cartasInventario) {
+			if(cartaInventario.estaEnMesa() && cartaInventario.getNumeroCarta().equals("016")) {
+				contadorCartasEngranaje += 1;
+			}
+			if(cartaInventario.estaEnMesa() && cartaInventario.getNumeroCarta().equals("032")) {
+				contadorCartasEngranaje += 1;
+			}
+		}
+		
+		return contadorCartasEngranaje;
+	}
+	
 	
 	public ArrayList<CartaEstado> getEstadosPersonaje() {
 		return estadosPersonaje;
