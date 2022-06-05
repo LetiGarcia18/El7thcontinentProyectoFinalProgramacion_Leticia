@@ -153,14 +153,18 @@ public class Personaje {
 	
 	
 	
-	public short dameCosteExtra() {
-		short costeExtra = 0;
+	public short dameCosteModificado(Accion accion) {
+		short costeModificado = 0;
 		for (CartaEstado cartaEstado : estadosPersonaje) {
 			if(cartaEstado.estaEnMesa()) {
-				costeExtra += 1;
+				costeModificado += 1;
 			}
 		}
-		return costeExtra;
+		if(this.habilidad == accion.getTipoAccion()) {
+			costeModificado -= 1;
+		}
+	
+		return costeModificado;
 	}
 	
 	public int dameNumeroDeEngranajes() {
@@ -190,9 +194,13 @@ public class Personaje {
 	
 	
 	public void reduceEnergia(Accion accion) {
-		short costeExtra = this.dameCosteExtra();
+		short costeModificado = this.dameCosteModificado(accion);
 		short costeEnergia = accion.getCosteAccion();
-		this.contadorEnergia -= (costeEnergia + costeExtra);
+		short costeTotal = (short) (costeModificado + costeEnergia);
+		if(costeTotal < 0) {
+			costeTotal = 0;
+		}
+		this.contadorEnergia -= (costeTotal);
 		
 	}
 	

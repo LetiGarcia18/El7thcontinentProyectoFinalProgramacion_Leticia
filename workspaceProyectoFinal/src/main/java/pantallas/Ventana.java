@@ -54,6 +54,7 @@ public class Ventana extends JFrame {
 		pantallas.put("menuInicio", new MenuPrincipal(this));
 		pantallas.put("game over", new PantallaGameOver(this));
 		pantallas.put("reglas", new PantallaReglasJuego(this));
+		pantallas.put("historiaPersonaje", new PantallaHistoriaPersonaje(this, this.personaje));
 
 		// this.setUndecorated(true);
 		this.setSize(1500, 800);

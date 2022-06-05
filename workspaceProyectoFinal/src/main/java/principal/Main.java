@@ -41,6 +41,7 @@ public class Main {
 		
 		/*Splash miSplash = new Splash();
 		miSplash.setVisible(true);*/
+		
 	
 		
 		try {

@@ -33,12 +33,12 @@ public class Splash extends JDialog {
 						barraProgreso.setValue(x);
 						porcentaje.setText(x + "%");
 						x++;
-						Thread.sleep(35);
+						Thread.sleep(9);
 					}
 					
 					dispose();
-					Ventana ventanaCuadros = new Ventana("");
-					ventanaCuadros.setVisible(true);
+					Ventana ventana = new Ventana("");
+					ventana.setVisible(true);
 				}catch (Exception e) {
 					System.out.println("Excepción " + e.getMessage());
 				}

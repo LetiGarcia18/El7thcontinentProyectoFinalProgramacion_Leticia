@@ -293,10 +293,12 @@ public class Tablero extends JPanel {
 			this.posicionYBotones += this.margenEntreBotones;
 			final JButton botonAccion = new JButton();
 			JLabel labelDificultadAccion = new JLabel("Dificultad: " + accion.getDificultadAccion());
-			short costeExtra = personaje.dameCosteExtra();
+			short costeModificado = personaje.dameCosteModificado(accion);
 			String textoLabelCosteAccion = "Coste: " + accion.getCosteAccion();
-			if(costeExtra > 0) {
-				textoLabelCosteAccion += " + " + costeExtra;
+			if(costeModificado > 0) {
+				textoLabelCosteAccion += " + " + costeModificado;
+			}else if(costeModificado < 0){
+				textoLabelCosteAccion += " " + costeModificado;
 			}
 			JLabel labelCosteAccion = new JLabel(textoLabelCosteAccion);
 			int posicionX = 1200;
@@ -349,6 +351,7 @@ public class Tablero extends JPanel {
 		short dificultadAccion = accion.getDificultadAccion();
 		short tirada = obtenerTiradaDificultad();
 		TipoAccion tipoAccion = accion.getTipoAccion();
+		
 
 		if (tirada >= dificultadAccion) {
 			// EXITO
