@@ -44,6 +44,13 @@ create table cartasEvento(
 create table cartasEstado(
 	id numeric(10) primary key,
 	numeroCarta varchar(5),
+    rutaImagen varchar(500) not null,
+    textoEstado varchar(200)
+);
+
+create table cartasInventario(
+	id numeric(10) primary key,
+    numeroCarta varchar(5),
     rutaImagen varchar(500) not null
 );
 
@@ -82,7 +89,8 @@ INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, carta_
 (14, 'SEARCH', 'Examine', 0 ,0, '006'),
 (15, 'CLIMB', 'Show off your physical prowess.', 1 ,7, '005'),
 (16, 'MOVE', 'Move to another terrain', 0, 0, '010g'),
-(17, 'HEAL', 'Heal yourself.', 2 ,7, '104');
+(17, 'HEAL', 'Heal yourself.', 2 ,7, '104'),
+(18, 'EAT', 'Restore your energy', 0 ,0, '001');
 
 #Inserción de consecuencias
 INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES
@@ -106,17 +114,24 @@ INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES
 (18, 'DESPLAZARSE', 16, 1, null),
 (19, 'TRAER_CARTA', 15, 0, '104'),
 (20, 'QUITAR_CARTA', 17, 1, '104'),
-(21, 'TRAER_CARTA', 17, 0, '108');
+(21, 'TRAER_CARTA', 17, 0, '108'),
+(22, 'RESTAURAR', 18, 1, null),
+(23, 'QUITAR_CARTA', 18, 1, '001');
 
 #Inserción cartas evento
 INSERT INTO cartasEvento (id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada) VALUES 
 (1, '005', 'cartasEvento/005.png', 4, 2, 5, 11);
 
 #Inserción cartas estado
-INSERT INTO cartasEstado (id, numeroCarta, rutaImagen) VALUES 
-(1, '104', 'cartasEstado/104.png'),
-(2, '102', 'cartasEstado/102.png'),
-(3, '108', 'cartasEstado/108.png');
+INSERT INTO cartasEstado (id, numeroCarta, rutaImagen, textoEstado) VALUES 
+(1, '104', 'cartasEstado/104.png', 'INJURED'),
+(2, '102', 'cartasEstado/102.png', 'FREEZING'),
+(3, '108', 'cartasEstado/108.png', 'POISONED');
+
+INSERT INTO cartasInventario (id, numeroCarta, rutaImagen) VALUES 
+(1, '001', 'cartasInventario/001.png'),
+(2, '016', 'cartasInventario/016.png'),
+(3, '032', 'cartasInventario/032.png');
 
 
 

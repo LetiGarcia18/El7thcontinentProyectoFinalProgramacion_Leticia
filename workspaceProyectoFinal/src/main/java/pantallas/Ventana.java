@@ -43,6 +43,7 @@ public class Ventana extends JFrame {
 		
 		personaje = new Personaje("Peter", "010", "cartasPersonaje/characterToken.png");
 		personaje.cargaCartasEstado();
+		personaje.cargaCartasInventario();
 		
 		cargarAcciones();
 
@@ -131,6 +132,12 @@ public class Ventana extends JFrame {
 		for (Carta carta : personaje.getEstadosPersonaje()) {
 			carta.cargarAcciones();
 		}
+		
+		for (Carta cartaInventario : personaje.getInventario()) {
+			cartaInventario.cargarAcciones();
+		}
+		
+		
 	}
 
 	private void cargaCartasEvento() {

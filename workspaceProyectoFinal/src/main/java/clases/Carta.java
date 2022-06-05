@@ -20,6 +20,7 @@ public class Carta {
 	private boolean estaEnMesa;
 	
 	
+	
 	public Carta(int id, String numeroCarta, String rutaImagen, boolean estaInicialmenteEnMesa) {
 		super();
 		this.id = id;

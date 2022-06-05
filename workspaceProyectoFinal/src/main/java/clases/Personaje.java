@@ -27,6 +27,7 @@ public class Personaje {
 		this.contadorEnergia = energiaInicial;
 		this.rutaImagen = rutaImagen;
 		this.estadosPersonaje = new ArrayList<CartaEstado>();
+		this.inventario = new ArrayList<Carta>();
 	}
 	
 	public void cargaCartasEstado() {
@@ -50,6 +51,28 @@ public class Personaje {
 		}
 		UtilsDB.desconectarBD();
 	}
+	
+	
+	public void cargaCartasInventario() {
+		Statement smt = UtilsDB.conectarBD();
+
+		try {
+			ResultSet cursorCartaInventario = smt
+					.executeQuery("select id, numeroCarta, rutaImagen from cartasInventario");
+			while (cursorCartaInventario.next()) {
+				int id = cursorCartaInventario.getInt("id");
+				String numeroCarta = cursorCartaInventario.getString("numeroCarta");
+				String rutaImagen = cursorCartaInventario.getString("rutaImagen");
+				
+				Carta cartaInventario = new Carta(id, numeroCarta, rutaImagen, false);
+				this.inventario.add(cartaInventario);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		UtilsDB.desconectarBD();
+	}
+	
 	
 
 	public String getNombre() {

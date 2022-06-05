@@ -89,7 +89,7 @@ public class Tablero extends JPanel {
 	int altoBoton = 35;
 	int anchoBoton = 130;
 	int margenEntreBotones = 40;
-	int posicionYBotones = 400;
+	int posicionYBotones = 450;
 
 	public Tablero(Ventana v, ArrayList<CartaEnMapa> cartasEnMapa, Personaje personaje) {
 
@@ -144,6 +144,17 @@ public class Tablero extends JPanel {
 				posicionXCartaEstado += tamanioCartaEstado + 10;
 			}
 		}
+		
+		ArrayList<Carta> cartasInventario = personaje.getInventario();
+		int posicionXCartaInventario = 875;
+		int tamanioCartaInventario = (int) (anchoCasilla); 
+		for (Carta cartaInventario : cartasInventario) {
+			if(cartaInventario.estaEnMesa()) {
+				dibujaCarta(cartaInventario, posicionXCartaInventario, 300, tamanioCartaInventario);
+				posicionXCartaInventario += tamanioCartaInventario + 10;
+			}
+		}
+		
 	}
 
 	public void dibujaCarta(Carta carta, int posicionX, int posicionY, int anchoCasilla) {
@@ -209,6 +220,14 @@ public class Tablero extends JPanel {
 				return cartaEstado;
 			}
 		}
+		
+		ArrayList<Carta> inventarioPersonaje = personaje.getInventario();
+		for (Carta cartaInventario : inventarioPersonaje) {
+			if (cartaInventario.getNumeroCarta().equals(numeroCarta)) {
+				return cartaInventario;
+			}
+		}
+		
 		return null;
 	}
 	
@@ -233,7 +252,12 @@ public class Tablero extends JPanel {
 		}
 			
 		// Cartas de inventario
-
+		ArrayList<Carta> inventario = personaje.getInventario();
+		for (Carta cartaInventario : inventario) {
+			if(cartaInventario.estaEnMesa()) {
+				dibujarAccionesDeCarta(cartaInventario, null);
+			}
+		}
 	}
 		
 		
