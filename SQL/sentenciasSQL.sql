@@ -82,7 +82,7 @@ INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, carta_
 (14, 'SEARCH', 'Examine', 0 ,0, '006'),
 (15, 'CLIMB', 'Show off your physical prowess.', 1 ,7, '005'),
 (16, 'MOVE', 'Move to another terrain', 0, 0, '010g'),
-(17, 'HEAL', 'Heal yourself.', 2 ,3, '104');
+(17, 'HEAL', 'Heal yourself.', 2 ,7, '104');
 
 #Inserción de consecuencias
 INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES

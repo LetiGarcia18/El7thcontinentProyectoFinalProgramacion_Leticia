@@ -155,6 +155,12 @@ public class Tablero extends JPanel {
 			JLabel imagen = new JLabel(icon);
 			imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
 			add(imagen);
+			if(carta.getClass() == CartaEstado.class) {
+				CartaEstado cartaEstado = (CartaEstado) carta;
+				JLabel textoEstado = new JLabel(cartaEstado.getTextoEstado());
+				textoEstado.setBounds(posicionX + 30, (int)(posicionY - anchoCasilla/1.5), anchoCasilla, anchoCasilla);
+				add(textoEstado);
+			}
 		}
 	}
 	

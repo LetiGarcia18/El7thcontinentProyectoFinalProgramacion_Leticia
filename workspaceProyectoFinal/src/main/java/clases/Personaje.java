@@ -34,14 +34,15 @@ public class Personaje {
 
 		try {
 			ResultSet cursorCartaEstado = smt
-					.executeQuery("select id, numeroCarta, rutaImagen from cartasEstado");
+					.executeQuery("select id, numeroCarta, rutaImagen, textoEstado from cartasEstado");
 
 			while (cursorCartaEstado.next()) {
 				int id = cursorCartaEstado.getInt("id");
 				String numeroCarta = cursorCartaEstado.getString("numeroCarta");
 				String rutaImagen = cursorCartaEstado.getString("rutaImagen");
+				String textoEstado = cursorCartaEstado.getString("textoEstado");
 
-				CartaEstado cartaEstado = new CartaEstado(id, numeroCarta, rutaImagen);
+				CartaEstado cartaEstado = new CartaEstado(id, numeroCarta, rutaImagen, textoEstado);
 				this.estadosPersonaje.add(cartaEstado);
 			}
 		} catch (Exception e) {
@@ -86,6 +87,8 @@ public class Personaje {
 	public void restablecerEnergia() {
 		this.contadorEnergia = this.energiaInicial;
 	}
+	
+	
 	
 	public short dameCosteExtra() {
 		short costeExtra = 0;
