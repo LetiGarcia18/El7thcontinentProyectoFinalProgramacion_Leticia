@@ -3,28 +3,51 @@ package clases;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import enums.TipoAccion;
 import utils.UtilsDB;
 
+/**
+ * Clase Personaje, en la cual va a ser posible crear al personaje, cargar sus estados y su inventario de la BBDD
+ * @author Leticia
+ *
+ */
 public class Personaje {
-	
+	/** Variable donde se almacena el id del personaje **/
 	private int id;
+	/** Variable que va a contener el nombre del personaje **/
 	private String nombre;
+	/** Variable que va a almacenar la carta donde va a comenzar posicionado el personaje. Por defecto va a empezar 
+	 * siempre en la carta número 010 **/
 	private String numeroCartaPosicionado = "010";
+	/** ArrayList que va a almacenar todas las cartas de inventario que el personaje vaya encontrando a lo largo del juego**/
 	private ArrayList<Carta> inventario;
+	/** ArrayList que va a almacenar los estados de salud que el personaje vaya teniendo durante el juego **/
 	private ArrayList<CartaEstado> estadosPersonaje;
+	/** Variable que va a almacenar la energía del personaje **/
 	private short contadorEnergia;
+	/** Variable que almacena la ruta del icono del personaje **/
 	private String rutaIconoPersonaje;
+	/** Variable que almacena la imagen de la historia del personaje **/
 	private String rutaImagenHistoria;
+	/** Variable que indica la energía que va a tener inicialmente el personaje siempre que se inicie el juego **/
 	private short energiaInicial = 100;
-	private TipoAccion habilidad; //Crear getter (si resuelve la accion de la que nuestro personaje es mejor, sumarle +1 cuando ese personaje resuelva ese tipo de acción
+	/** Variable que va a almacenar la habilidad en la que es bueno nuestro personaje **/
+	private TipoAccion habilidad; 
 
-
+	/**
+	 * Constructor de la clase personaje. Se le pasan por parámetros el id, el nombre, la habilidad, la ruta donde se encuentra
+	 * la imagen de la historia del personaje, y la ruta del icono del mismo. En este contructor también se le asigna al contador
+	 * de energía del personaje la energía que va a tener siempre inicialmente.
+	 * También se inicializan los ArrayList de los estados del personaje y de su inventario.
+	 * @param id Variable de tipo int que almacena el id del personaje en BBDD
+	 * @param nombre Variable de tipo String que almacena el nombre del personaje.
+	 * @param habilidad Variable de tipo TipoAccion que almacena la habilidad del personaje
+	 * @param rutaImagenHistoria Variable que almacena la ruta de la imagen con la historia introductoria del personaje
+	 * @param rutaIconoPersonaje Variable que almacena el icono del personaje
+	 */
 	public Personaje(int id, String nombre, TipoAccion habilidad, String rutaImagenHistoria, String rutaIconoPersonaje) {
 		this.id = id;
 		this.nombre = nombre;
@@ -37,7 +60,9 @@ public class Personaje {
 	}
 	
 	
-	
+	/**
+	 * Método público en el cual se cargan de BBDD las cartas de estado que puede tener el personaje.
+	 */
 	public void cargaCartasEstado() {
 		Statement smt = UtilsDB.conectarBD();
 
@@ -61,7 +86,9 @@ public class Personaje {
 		UtilsDB.desconectarBD();
 	}
 	
-	
+	/**
+	 * Método público en el cual se cargan de BBDD las cartas de inventario que puede tener el personaje.
+	 */
 	public void cargaCartasInventario() {
 		Statement smt = UtilsDB.conectarBD();
 
@@ -83,12 +110,17 @@ public class Personaje {
 		UtilsDB.desconectarBD();
 	}
 	
-	
-
+	/**
+	 * Getter del id del personaje
+	 * @return Nos devuelve el id del personaje
+	 */
 	public int getId() {
 		return id;
 	}
-
+	/**
+	 * Setter del id del personaje
+	 * @param id El id del personaje
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
