@@ -30,17 +30,13 @@ public class Main {
     			System.exit(0);
 			}
 		}
-				
 		
+		if(nombrePersonaje.equals("")) {
+			nombrePersonaje = "Ferdinand";
+		}
 		
 		/*Splash miSplash = new Splash();
 		miSplash.setVisible(true);*/
-		
-		
-		//No me funciona si no le meto argumentos de programa. Me debería coger un personaje por defecto y ejecutarse el programa
-		if(nombrePersonaje == null && nombrePersonaje != "Ferdinand" && nombrePersonaje != "duck") {
-			nombrePersonaje = "Ferdinand";	
-		}
 		
 		try {
 			Ventana ventana = new Ventana(nombrePersonaje);
