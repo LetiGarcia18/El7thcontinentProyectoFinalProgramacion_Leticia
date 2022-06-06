@@ -85,6 +85,7 @@ public class Tablero extends JPanel {
 	private JComboBox comboBoxNumeroCarta;
 	private Random random;
 	private Image imagenFondo;
+	private boolean hasGanado = false;
 	
 	int altoBoton = 35;
 	int anchoBoton = 130;
@@ -357,9 +358,6 @@ public class Tablero extends JPanel {
 		if (tirada >= dificultadAccion) {
 			// EXITO
 			resolverConsecuencias(accion.getConsecuenciasPositivas());
-			/*if(personaje.dameNumeroDeEngranajes() == 2) {
-				ventana.cambiarAPantalla("pantallaHistoriaFinal");
-			}*/ //Cuando gana no sale pantalla de final
 
 		} else {
 			// FRACASO
@@ -368,12 +366,14 @@ public class Tablero extends JPanel {
 			resolverConsecuencias(accion.getConsecuenciasNegativas());
 		}
 
-		ventana.dibujaTablero();
-
-		if (personaje.getContadorEnergia() <= 0) {
-			JOptionPane.showMessageDialog(ventana, "Has desfallecido. Te has quedado sin energía...",
-					"Fin de la partida", JOptionPane.CLOSED_OPTION);
-			ventana.cambiarAPantalla("game over");
+		if (!hasGanado) {
+			ventana.dibujaTablero();
+			
+			if (personaje.getContadorEnergia() <= 0) {
+				JOptionPane.showMessageDialog(ventana, "Has desfallecido. Te has quedado sin energía...",
+						"Fin de la partida", JOptionPane.CLOSED_OPTION);
+				ventana.cambiarAPantalla("game over");
+			}
 		}
 		
 		
@@ -443,7 +443,8 @@ public class Tablero extends JPanel {
 			case GANAR:
 				if(contadorCartasEngranaje == 2) {
 					JOptionPane.showMessageDialog(ventana, "You have found the two pieces to repair the submarine! Congratulations, you win!", "YOU WIN", JOptionPane.INFORMATION_MESSAGE);
-					
+					hasGanado = true;
+					ventana.cambiarAPantalla("pantallaHistoriaFinal");
 				}else {
 					JOptionPane.showMessageDialog(ventana, "Oh... Keep looking", "NO WIN", JOptionPane.INFORMATION_MESSAGE);
 				}
