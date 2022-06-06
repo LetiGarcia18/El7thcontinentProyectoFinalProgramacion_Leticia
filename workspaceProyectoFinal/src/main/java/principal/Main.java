@@ -11,9 +11,21 @@ import clases.CartaTerreno;
 import excepciones.CharacterDoesNotExistException;
 import pantallas.Splash;
 import pantallas.Ventana;
-
+/**
+ * Clase Principal donde se encuentra el Main del programa.
+ * @author Leticia
+ *
+ */
 public class Main {
-
+	/**
+	 * Main del programa donde se le introduce como argumentos de programa al String[] args, el nombre del personaje.
+	 * El nombre se comprobará si está en BBDD, y si no lo está (o no se le dan argumentos de programa) cogerá por defecto
+	 * a uno de los personajes para que el programa se pueda seguir ejecutando.
+	 * 
+	 * En el Main también se crea el objeto Ventana, pasándole por parámetros el nombre del personaje, y este objeto es el que
+	 * hará que nuestro programa se vea visualmente.
+	 * @param args Array de String donde se le introduce como argumentos de programa el nombre del personaje del juego.
+	 */
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -31,7 +43,7 @@ public class Main {
 			}
 		}
 		
-		if(nombrePersonaje.equals("")) {
+		if(nombrePersonaje.equals("") || (!nombrePersonaje.equals("Ferdinand") || !nombrePersonaje.equals("duck"))) {
 			nombrePersonaje = "Ferdinand";
 		}
 		
