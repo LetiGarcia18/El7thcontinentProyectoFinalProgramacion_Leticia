@@ -4,8 +4,8 @@ public class CartaEstado extends Carta{
 		
 	String textoEstado;
 
-	public CartaEstado(int id, String numeroCarta, String rutaImagen, String textoEstado) {
-		super(id, numeroCarta, rutaImagen, false);
+	public CartaEstado(int id, String numeroCarta, String textoCarta, String rutaImagen, String textoEstado) {
+		super(id, numeroCarta, rutaImagen, textoCarta, false);
 		this.textoEstado = textoEstado;
 		
 	}
@@ -13,9 +13,4 @@ public class CartaEstado extends Carta{
 	public String getTextoEstado() {
 		return textoEstado;
 	}
-
-	
-	
-	
-
 }

@@ -80,10 +80,10 @@ public class Tablero extends JPanel {
 
 	private Ventana ventana;
 	private int margenDerecho = 20;
-	ArrayList<CartaEnMapa> cartasEnMapa;
-	Personaje personaje;
-	JComboBox comboBoxNumeroCarta;
-	Random random;
+	private ArrayList<CartaEnMapa> cartasEnMapa;
+	private Personaje personaje;
+	private JComboBox comboBoxNumeroCarta;
+	private Random random;
 	private Image imagenFondo;
 	
 	int altoBoton = 35;
@@ -136,7 +136,7 @@ public class Tablero extends JPanel {
 		
 		ArrayList<CartaEstado> cartasEstado = personaje.getEstadosPersonaje();
 		int posicionXCartaEstado = 875;
-		int tamanioCartaEstado = (int) (anchoCasilla / 1.5); 
+		int tamanioCartaEstado = (int) (anchoCasilla / 1.5);
 		for(int i = 0; i < cartasEstado.size(); i++) {
 			CartaEstado cartaEstado = cartasEstado.get(i);
 			if(cartaEstado.estaEnMesa()) {
@@ -165,6 +165,7 @@ public class Tablero extends JPanel {
 			icon = new ImageIcon(imagenIconConTamanio);
 			JLabel imagen = new JLabel(icon);
 			imagen.setBounds(posicionX, posicionY, anchoCasilla, anchoCasilla);
+			imagen.setToolTipText(carta.getTextoCarta()); 
 			add(imagen);
 			if(carta.getClass() == CartaEstado.class) {
 				CartaEstado cartaEstado = (CartaEstado) carta;
@@ -282,7 +283,7 @@ public class Tablero extends JPanel {
 			int idAccion = accion.getId();
 			for (CartaEnMapa cartasAdyacente : cartasAdyacentes) {
 				CartaEvento cartaEvento = (CartaEvento) cartasAdyacente;
-				int idDesactivaAccion = cartaEvento.getId_accionDesactivada();
+				int idDesactivaAccion = cartaEvento.getIdAccionDesactivada();
 				idAccionesDesactivadas.add(idDesactivaAccion);
 			}
 			
@@ -292,9 +293,9 @@ public class Tablero extends JPanel {
 		if(!estaDesactivada) {
 			this.posicionYBotones += this.margenEntreBotones;
 			final JButton botonAccion = new JButton();
-			JLabel labelDificultadAccion = new JLabel("Dificultad: " + accion.getDificultadAccion());
+			JLabel labelDificultadAccion = new JLabel("Difficulty: " + accion.getDificultadAccion());
 			short costeModificado = personaje.dameCosteModificado(accion);
-			String textoLabelCosteAccion = "Coste: " + accion.getCosteAccion();
+			String textoLabelCosteAccion = "Action cost: " + accion.getCosteAccion();
 			if(costeModificado > 0) {
 				textoLabelCosteAccion += " + " + costeModificado;
 			}else if(costeModificado < 0){
@@ -356,6 +357,9 @@ public class Tablero extends JPanel {
 		if (tirada >= dificultadAccion) {
 			// EXITO
 			resolverConsecuencias(accion.getConsecuenciasPositivas());
+			/*if(personaje.dameNumeroDeEngranajes() == 2) {
+				ventana.cambiarAPantalla("pantallaHistoriaFinal");
+			}*/ //Cuando gana no sale pantalla de final
 
 		} else {
 			// FRACASO
@@ -371,6 +375,8 @@ public class Tablero extends JPanel {
 					"Fin de la partida", JOptionPane.CLOSED_OPTION);
 			ventana.cambiarAPantalla("game over");
 		}
+		
+		
 	}
 
 	public short obtenerTiradaDificultad() {
@@ -386,7 +392,7 @@ public class Tablero extends JPanel {
 		for (CartaEnMapa cartaEnMapa : cartasEnMapa) {
 			if(cartaEnMapa.getClass() == CartaEvento.class) {
 				CartaEvento cartaEvento = (CartaEvento) cartaEnMapa;
-				int idCartaAsociada = cartaEvento.getId_cartaAsociada();
+				int idCartaAsociada = cartaEvento.getIdCartaAsociada();
 				if(cartaEvento.estaEnMesa()) {
 					if(idCartaAsociada == cartaActual.getId()) {
 						cartasAdyacentes.add(cartaEvento);
@@ -399,6 +405,7 @@ public class Tablero extends JPanel {
 	
 
 	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) {
+		int contadorCartasEngranaje = personaje.dameNumeroDeEngranajes();
 		
 		for (Consecuencia consecuencia : consecuencias) {
 			String numeroCarta;
@@ -434,17 +441,18 @@ public class Tablero extends JPanel {
 			
 			break;
 			case GANAR:
-				int contadorCartasEngranaje = personaje.dameNumeroDeEngranajes();
-				
 				if(contadorCartasEngranaje == 2) {
-					JOptionPane.showMessageDialog(ventana, "Congratulations, ¡You win!", "WIN", JOptionPane.INFORMATION_MESSAGE);
-					ventana.cambiarAPantalla("pantallaAntesVictoria");
+					JOptionPane.showMessageDialog(ventana, "You have found the two pieces to repair the submarine! Congratulations, you win!", "YOU WIN", JOptionPane.INFORMATION_MESSAGE);
+					
 				}else {
 					JOptionPane.showMessageDialog(ventana, "Oh... Keep looking", "NO WIN", JOptionPane.INFORMATION_MESSAGE);
 				}
+				
 			break;
 				
 			}
+			
 		}
+		
 	}
 }

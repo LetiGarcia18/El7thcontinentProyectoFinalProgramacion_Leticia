@@ -17,16 +17,18 @@ public class Carta {
 	private String numeroCarta;
 	private HashMap<Integer, Accion> acciones;
 	private String rutaImagen;
+	private String textoCarta;
 	private boolean estaEnMesa;
 	
 	
 	
-	public Carta(int id, String numeroCarta, String rutaImagen, boolean estaInicialmenteEnMesa) {
-		super();
+	public Carta(int id, String numeroCarta, String rutaImagen, String textoCarta, boolean estaInicialmenteEnMesa) {
+		//super();
 		this.id = id;
 		this.numeroCarta = numeroCarta;
 		this.acciones = new HashMap<Integer, Accion>();
 		this.rutaImagen = rutaImagen;
+		this.textoCarta = textoCarta;
 		this.estaEnMesa = estaInicialmenteEnMesa;
 	}
 
@@ -73,6 +75,17 @@ public class Carta {
 	}
 	
 	
+	
+	public String getTextoCarta() {
+		return textoCarta;
+	}
+
+
+	public void setTextoCarta(String textoCarta) {
+		this.textoCarta = textoCarta;
+	}
+
+
 	public boolean estaEnMesa() {
 		return estaEnMesa;
 	}

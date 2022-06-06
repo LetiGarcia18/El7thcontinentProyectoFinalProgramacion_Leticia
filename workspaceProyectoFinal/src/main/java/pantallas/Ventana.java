@@ -55,7 +55,8 @@ public class Ventana extends JFrame {
 		pantallas.put("game over", new PantallaGameOver(this));
 		pantallas.put("reglas", new PantallaReglasJuego(this));
 		pantallas.put("historiaPersonaje", new PantallaHistoriaPersonaje(this, this.personaje));
-		pantallas.put("pantallaAntesVictoria", new PantallaAntesVictoria(this));
+		pantallas.put("pantallaHistoriaFinal", new PantallaHistoriaFinal(this));
+		pantallas.put("pantallaVictoria", new PantallaVictoria(this));
 
 		// this.setUndecorated(true);
 		this.setSize(1500, 800);
@@ -109,18 +110,18 @@ public class Ventana extends JFrame {
 
 		try {
 			ResultSet cursor = smt.executeQuery(
-					"select id, rutaImagen, numeroCarta, posicionX, posicionY, incialmenteVisible from cartasTerreno");
+					"select id, rutaImagen, numeroCarta, textoCarta, posicionX, posicionY, incialmenteVisible from cartasTerreno");
 
 			while (cursor.next()) {
 				int id = cursor.getInt("id");
 				String rutaImagen = cursor.getString("rutaimagen");
 				String numeroCarta = cursor.getString("numeroCarta");
+				String textoCarta = cursor.getString("textoCarta");
 				byte posicionX = cursor.getByte("posicionX");
 				byte posicionY = cursor.getByte("posicionY");
 				boolean estaIncialmenteVisible = cursor.getBoolean("incialmenteVisible");
 
-				CartaTerreno cartaTerreno = new CartaTerreno(id, rutaImagen, numeroCarta, posicionX, posicionY,
-						estaIncialmenteVisible);
+				CartaTerreno cartaTerreno = new CartaTerreno(id, rutaImagen, numeroCarta, textoCarta, posicionX, posicionY, estaIncialmenteVisible);
 				cartasEnMapa.add(cartaTerreno);
 			}
 		} catch (Exception e) {
@@ -151,19 +152,20 @@ public class Ventana extends JFrame {
 
 		try {
 			ResultSet cursorCartaEvento = smt.executeQuery(
-					"select id, numeroCarta, rutaImagen, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada from cartasEvento");
+					"select id, numeroCarta, rutaImagen, textoCarta, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada from cartasEvento");
 
 			while (cursorCartaEvento.next()) {
 				int id = cursorCartaEvento.getInt("id");
 				String numeroCarta = cursorCartaEvento.getString("numeroCarta");
 				String rutaImagen = cursorCartaEvento.getString("rutaImagen");
+				String textoCarta = cursorCartaEvento.getString("textoCarta");
 				byte posicionX = cursorCartaEvento.getByte("posicionX");
 				byte posicionY = cursorCartaEvento.getByte("posicionY");
-				byte id_cartaAsociada = cursorCartaEvento.getByte("id_cartaAsociada");
-				byte id_accionDesactivada = cursorCartaEvento.getByte("id_accionDesactivada");
+				byte idCartaAsociada = cursorCartaEvento.getByte("id_cartaAsociada");
+				byte idAccionDesactivada = cursorCartaEvento.getByte("id_accionDesactivada");
 
-				CartaEnMapa cartaEvento = new CartaEvento(id, numeroCarta, rutaImagen, posicionX, posicionY,
-						id_cartaAsociada, id_accionDesactivada);
+				CartaEnMapa cartaEvento = new CartaEvento(id, numeroCarta, rutaImagen, textoCarta, posicionX, posicionY,
+						idCartaAsociada, idAccionDesactivada);
 				cartasEnMapa.add(cartaEvento);
 			}
 		} catch (Exception e) {
@@ -201,6 +203,15 @@ public class Ventana extends JFrame {
 		}
 	}
 
+	public HashMap<String, JPanel> getPantallas() {
+		return pantallas;
+	}
+
+	public void setPantallas(HashMap<String, JPanel> pantallas) {
+		this.pantallas = pantallas;
+	}
+
+	
 	
 
 }

@@ -23,32 +23,32 @@ public class Main {
 			if (args[i].equals("-nombre")) {
 				nombrePersonaje = args[i+1];
 			}
+			
 			if(args[i].equals("-h") || args[i].equals("-help")) {
 				System.out.println("Argumentos disponibles:\n"
     					+ "\t-nombre NOMBRE DEL PERSONAJE : Indica el nombre del personaje del juego");
     			System.exit(0);
 			}
 		}
-		
-		if(nombrePersonaje!= null) {
-			System.out.println("El nombre del personaje recibido por argumentos es: " + nombrePersonaje);				
-		}else {
-			System.out.println("Dime un nombre para el personaje: ");
-			nombrePersonaje = sc.nextLine();
-		}
-		
+				
 		
 		
 		/*Splash miSplash = new Splash();
 		miSplash.setVisible(true);*/
 		
-	
+		
+		//No me funciona si no le meto argumentos de programa. Me debería coger un personaje por defecto y ejecutarse el programa
+		if(nombrePersonaje == null && nombrePersonaje != "Ferdinand" && nombrePersonaje != "duck") {
+			nombrePersonaje = "Ferdinand";	
+		}
 		
 		try {
 			Ventana ventana = new Ventana(nombrePersonaje);
 		} catch (CharacterDoesNotExistException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Character doesn't exist", JOptionPane.ERROR_MESSAGE);
 		}
+		
+		
 		
 
 	}

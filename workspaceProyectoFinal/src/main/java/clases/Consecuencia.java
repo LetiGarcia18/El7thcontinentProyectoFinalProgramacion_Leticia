@@ -7,14 +7,14 @@ public class Consecuencia {
 	private int id;
 	private TipoConsecuencia tipoConsecuencia;
 	private byte esPositiva;
-	private int accion_id;
+	private int accionId;
 	private String cartaObjetivo;
 	
-	public Consecuencia(int id, TipoConsecuencia tipoConsecuencia, int accion_id, byte esPositiva, String cartaObjetivo) {
+	public Consecuencia(int id, TipoConsecuencia tipoConsecuencia, int accionId, byte esPositiva, String cartaObjetivo) {
 		this.id = id;
 		this.tipoConsecuencia = tipoConsecuencia;
 		this.esPositiva = esPositiva;
-		this.accion_id = accion_id;
+		this.accionId = accionId;
 		this.cartaObjetivo = cartaObjetivo;
 	}
 
@@ -42,12 +42,12 @@ public class Consecuencia {
 		this.esPositiva = esPositiva;
 	}
 
-	public int getAccion_id() {
-		return accion_id;
+	public int getAccionId() {
+		return accionId;
 	}
 
-	public void setAccion_id(int accion_id) {
-		this.accion_id = accion_id;
+	public void setAccionId(int accionId) {
+		this.accionId = accionId;
 	}
 
 	public String getCartaObjetivo() {
@@ -61,7 +61,7 @@ public class Consecuencia {
 	@Override
 	public String toString() {
 		return "Consecuencia: id: " + id + ", tipoConsecuencia: " + tipoConsecuencia + ", esPositiva: " + esPositiva
-				+ ", accion_id: " + accion_id + ", cartaObjetivo: " + cartaObjetivo;
+				+ ", accion_id: " + accionId + ", cartaObjetivo: " + cartaObjetivo;
 	}
 	
 	

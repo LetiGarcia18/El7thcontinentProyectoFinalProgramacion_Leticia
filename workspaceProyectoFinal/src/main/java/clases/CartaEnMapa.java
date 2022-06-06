@@ -5,8 +5,8 @@ public class CartaEnMapa extends Carta{
 	private byte posicionX;
 	private byte posicionY;
 
-	public CartaEnMapa(int id, String numeroCarta, String rutaImagen, byte posicionX, byte posicionY, boolean estaInicialmenteEnMesa) {
-		super(id, numeroCarta, rutaImagen, estaInicialmenteEnMesa);
+	public CartaEnMapa(int id, String numeroCarta, String rutaImagen, String textoCarta, byte posicionX, byte posicionY, boolean estaInicialmenteEnMesa) {
+		super(id, numeroCarta, rutaImagen, textoCarta, estaInicialmenteEnMesa);
 		this.posicionX = posicionX;
 		this.posicionY = posicionY;
 	}

@@ -52,7 +52,7 @@ public class Splash extends JDialog {
 	}
 
 	private void inicializar() {
-		SplashScreen = new JLabel("Pantalla de carga");
+		SplashScreen = new JLabel("Cargando...");
 		SplashScreen.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		SplashScreen.setBounds(49, 11, 147, 32);
 		getContentPane().add(SplashScreen);

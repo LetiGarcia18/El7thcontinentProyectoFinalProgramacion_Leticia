@@ -15,7 +15,7 @@ public class Personaje {
 	
 	private int id;
 	private String nombre;
-	private String numeroCartaPosicionado = "009";
+	private String numeroCartaPosicionado = "010";
 	private ArrayList<Carta> inventario;
 	private ArrayList<CartaEstado> estadosPersonaje;
 	private short contadorEnergia;
@@ -43,15 +43,16 @@ public class Personaje {
 
 		try {
 			ResultSet cursorCartaEstado = smt
-					.executeQuery("select id, numeroCarta, rutaImagen, textoEstado from cartasEstado");
+					.executeQuery("select id, numeroCarta, rutaImagen, textoCarta, textoEstado from cartasEstado");
 
 			while (cursorCartaEstado.next()) {
 				int id = cursorCartaEstado.getInt("id");
 				String numeroCarta = cursorCartaEstado.getString("numeroCarta");
 				String rutaImagen = cursorCartaEstado.getString("rutaImagen");
+				String textoCarta = cursorCartaEstado.getString("textoCarta");
 				String textoEstado = cursorCartaEstado.getString("textoEstado");
 
-				CartaEstado cartaEstado = new CartaEstado(id, numeroCarta, rutaImagen, textoEstado);
+				CartaEstado cartaEstado = new CartaEstado(id, numeroCarta, textoCarta, rutaImagen, textoEstado);
 				this.estadosPersonaje.add(cartaEstado);
 			}
 		} catch (Exception e) {
@@ -66,13 +67,14 @@ public class Personaje {
 
 		try {
 			ResultSet cursorCartaInventario = smt
-					.executeQuery("select id, numeroCarta, rutaImagen from cartasInventario");
+					.executeQuery("select id, numeroCarta, rutaImagen, textoCarta from cartasInventario");
 			while (cursorCartaInventario.next()) {
 				int id = cursorCartaInventario.getInt("id");
 				String numeroCarta = cursorCartaInventario.getString("numeroCarta");
 				String rutaImagen = cursorCartaInventario.getString("rutaImagen");
+				String textoCarta = cursorCartaInventario.getString("textoCarta");
 				
-				Carta cartaInventario = new Carta(id, numeroCarta, rutaImagen, true);
+				Carta cartaInventario = new Carta(id, numeroCarta, rutaImagen, textoCarta, false);
 				this.inventario.add(cartaInventario);
 			}
 		} catch (Exception e) {
