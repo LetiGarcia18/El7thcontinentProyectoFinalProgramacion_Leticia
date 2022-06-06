@@ -21,7 +21,7 @@ public class Personaje {
 	private short contadorEnergia;
 	private String rutaIconoPersonaje;
 	private String rutaImagenHistoria;
-	private short energiaInicial = 10;
+	private short energiaInicial = 100;
 	private TipoAccion habilidad; //Crear getter (si resuelve la accion de la que nuestro personaje es mejor, sumarle +1 cuando ese personaje resuelva ese tipo de acción
 
 

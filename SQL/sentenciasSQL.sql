@@ -65,10 +65,10 @@ create table personaje(
     rutaCartaHistoria varchar(500),
     rutaIconoPersonaje varchar(500)
 );
-SELECT * FROM the7thcontinent.cartasterreno where numeroCarta = '006';
-SELECT * FROM the7thcontinent.accion where carta_num = '006';
-SELECT * FROM the7thcontinent.consecuencia where accion_id = 14;
-SELECT * FROM the7thcontinent.cartasevento where numeroCarta = '016';
+SELECT * FROM the7thcontinent.cartasterreno where numeroCarta = '005';
+SELECT * FROM the7thcontinent.accion where carta_num = '018';
+SELECT * FROM the7thcontinent.consecuencia where accion_id = 7;
+SELECT * FROM the7thcontinent.cartasevento where numeroCarta = '018';
 SELECT * FROM the7thcontinent.cartasestado;
 SELECT * FROM the7thcontinent.personaje;
 
@@ -118,9 +118,9 @@ INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, carta_
 (12, 'MOVE', 'Move to another terrain', 2 ,0, '006'),
 (13, 'OBSERVE', 'Observe something', 1 ,0, '006'),
 (14, 'SEARCH', 'Examine', 0 ,0, '006'),
-(15, 'CLIMB', 'Show off your physical prowess.', 1 ,7, '005'),
+(15, 'CLIMB', 'Show off your physical prowess.', 1 ,2, '005'),
 (16, 'MOVE', 'Move to another terrain', 0, 0, '010g'),
-(17, 'HEAL', 'Heal yourself.', 2 ,7, '104'),
+(17, 'HEAL', 'Heal yourself.', 2 ,3, '104'),
 (18, 'EAT', 'Restore your energy', 0 ,0, '001'),
 (19, 'HANDLE', 'Take this', 1 ,0, '037'),
 (20, 'MOVE', 'Move to another terrain', 2 , 0, '024'),
@@ -196,9 +196,9 @@ INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES
 INSERT INTO cartasEvento (id, numeroCarta, rutaImagen, textoCarta, posicionX, posicionY, id_cartaAsociada, id_accionDesactivada) VALUES 
 (1, '005', 'cartasEvento/005.png', 'You stand before a nearly fifty-foot high rocky peak', 4, 2, 5, 11),
 (2, '018', 'cartasEvento/018.png', 'The many reefs that surround the island would surely wreck any crack trying to approach or leave.', 3, 0, 3, 7),
-(3, '011', 'cartasEvento/011.png', 'A man is lying face down among the rocks. Parts of the body are mutilated and the man´s skin bulges with what lokks like large egss', 1, 4, 3, 6),
-(4, '031', 'cartasEvento/031.png', 'The waves violently pound the rocks, splashing your face with the sea spray. You inch towards the body, trying not to fall into the water', 1, 4, 3, 6),
-(5, '139', 'cartasEvento/139.png', 'Judging by the insignias on his jacket, this man was once a French naval officer. You can still make out a name: "FT16 La Rochelle". Unfortunately, there is nothing else worthwhile on him.', 1, 4, 3, 6),
+(3, '011', 'cartasEvento/011.png', 'A man is lying face down among the rocks. Parts of the body are mutilated and the man´s skin bulges with what lokks like large egss', 4, 1, 3, 6),
+(4, '031', 'cartasEvento/031.png', 'The waves violently pound the rocks, splashing your face with the sea spray. You inch towards the body, trying not to fall into the water', 4, 1, 3, 6),
+(5, '139', 'cartasEvento/139.png', 'Judging by the insignias on his jacket, this man was once a French naval officer. You can still make out a name: "FT16 La Rochelle". Unfortunately, there is nothing else worthwhile on him.', 4, 1, 3, 6),
 (6, '008', 'cartasEvento/008.png', 'The surf is rough and choppy, and the salt spray from the waves is enough to tell you the water is freezing.', 4, 3, 4, 9),
 (7, '034', 'cartasEvento/034.png', 'You tear a piece of seaweed and give it a taste', 2, 1, 2, 4),
 (8, '012', 'cartasEvento/012.png', 'You hide and wait in silence', 2, 4, 6, 13),

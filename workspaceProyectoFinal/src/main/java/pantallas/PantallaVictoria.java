@@ -36,11 +36,11 @@ public class PantallaVictoria extends JPanel{
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JButton botonBye = new BotonInicio("Bye");
+		JButton botonBye = new BotonInicio("Exit");
 		botonBye.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("menuInicio"); 
+				System.exit (0); 
 			}
 		});
 		botonBye.setFont(new Font("Vladimir Script", Font.PLAIN, 40));

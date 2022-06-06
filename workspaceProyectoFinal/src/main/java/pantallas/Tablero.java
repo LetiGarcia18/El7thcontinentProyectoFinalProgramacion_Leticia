@@ -296,7 +296,7 @@ public class Tablero extends JPanel {
 			final JButton botonAccion = new JButton();
 			JLabel labelDificultadAccion = new JLabel("Difficulty: " + accion.getDificultadAccion());
 			short costeModificado = personaje.dameCosteModificado(accion);
-			String textoLabelCosteAccion = "Action cost: " + accion.getCosteAccion();
+			String textoLabelCosteAccion = "Cost: " + accion.getCosteAccion();
 			if(costeModificado > 0) {
 				textoLabelCosteAccion += " + " + costeModificado;
 			}else if(costeModificado < 0){
@@ -447,6 +447,7 @@ public class Tablero extends JPanel {
 					ventana.cambiarAPantalla("pantallaHistoriaFinal");
 				}else {
 					JOptionPane.showMessageDialog(ventana, "Oh... Keep looking", "NO WIN", JOptionPane.INFORMATION_MESSAGE);
+					
 				}
 				
 			break;
