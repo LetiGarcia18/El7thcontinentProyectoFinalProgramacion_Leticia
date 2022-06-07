@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
@@ -19,7 +18,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import java.awt.Component;
 import javax.swing.JTree;
-
 import clases.Carta;
 import clases.CartaEnMapa;
 import clases.CartaEstado;
@@ -29,7 +27,6 @@ import clases.Personaje;
 import enums.TipoAccion;
 import excepciones.CharacterDoesNotExistException;
 import utils.UtilsDB;
-
 import javax.swing.JProgressBar;
 
 public class Ventana extends JFrame {

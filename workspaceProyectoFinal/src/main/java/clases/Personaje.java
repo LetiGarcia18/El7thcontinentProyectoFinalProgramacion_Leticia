@@ -125,68 +125,133 @@ public class Personaje {
 		this.id = id;
 	}
 
+	/**
+	 * Getter del nombre del personaje
+	 * @return Nos devuelve el nombre del personaje
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Setter del nombre del personaje
+	 * @param nombre El nombre del personaje
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * Getter de la ruta del icono del personaje
+	 * @return Nos devuelve la ruta del icono del personaje
+	 */
 	public String getRutaIconoPersonaje() {
 		return rutaIconoPersonaje;
 	}
 
+	/**
+	 * Setter de la ruta del icono del Personaje
+	 * @param rutaIconoPersonaje La ruta del icono del personaje
+	 */
 	public void setRutaIconoPersonaje(String rutaIconoPersonaje) {
 		this.rutaIconoPersonaje = rutaIconoPersonaje;
 	}
 
+	/**
+	 * Getter de la ruta de la imagen de la historia del personaje
+	 * @return Nos devuelde la ruta de la imagen de la historia del personaje
+	 */
 	public String getRutaImagenHistoria() {
 		return rutaImagenHistoria;
 	}
 
+	/**
+	 * Setter de la ruta de la imagen de la historia del personaje
+	 * @param rutaImagenHistoria La ruta de la imagen de la historia del personaje
+	 */
 	public void setRutaImagenHistoria(String rutaImagenHistoria) {
 		this.rutaImagenHistoria = rutaImagenHistoria;
 	}
 
+	/**
+	 * Getter de la habilidad que tiene el personaje
+	 * @return La habilidad del personaje
+	 */
 	public TipoAccion getHabilidad() {
 		return habilidad;
 	}
 
+	/**
+	 * Setter de la habilidad que tiene el personaje
+	 * @param habilidad La habilidad del personaje
+	 */
 	public void setHabilidad(TipoAccion habilidad) {
 		this.habilidad = habilidad;
 	}
 
+	/**
+	 * Getter del número de la carta donde se va a situar el personaje
+	 * @return El número de la carta donde se va a situar el personaje
+	 */
 	public String getNumeroCartaPosicionado() {
 		return numeroCartaPosicionado;
 	}
 
+	/**
+	 * Setter del número de carta donde se va a situar el personaje
+	 * @param numeroCartaPosicionado La carta donde se va a situar el personaje
+	 */
 	public void setNumeroCartaPosicionado(String numeroCartaPosicionado) {
 		this.numeroCartaPosicionado = numeroCartaPosicionado;
 	}
 
+	/**
+	 * Getter del inventario del personaje
+	 * @return El inventario que tiene el personaje
+	 */
 	public ArrayList<Carta> getInventario() {
 		return inventario;
 	}
 
+	/**
+	 * Setter del inventario del personaje
+	 * @param inventario El inventario del personaje
+	 */
 	public void setInventario(ArrayList<Carta> inventario) {
 		this.inventario = inventario;
 	}
 
+	/**
+	 * Getter del contador de la energía que tiene el personaje
+	 * @return La energía que tiene el personaje
+	 */
 	public short getContadorEnergia() {
 		return contadorEnergia;
 	}
 
+	/**
+	 * Setter del contador de la energía que tiene el personaje
+	 * @param contadorEnergia El contador de energía del personaje
+	 */
 	public void setContadorEnergia(short contadorEnergia) {
 		this.contadorEnergia = contadorEnergia;
 	}
 	
+	/**
+	 * Función que reestablece el contador de energía del personaje a la energía que tiene inicialmente al iniciar el juego
+	 */
 	public void restablecerEnergia() {
 		this.contadorEnergia = this.energiaInicial;
 	}
 	
-	
-	
+	/**
+	 * Función que devuelve el coste de energía extra (o de menos) dependiendo de las cartas de estado que tenga el personaje
+	 * (esto haría que le costase más energía realizar las acciones, porque tener estados es una consecuencia negativa
+	 * para el personaje) y dependiendo de la habilidad que tenga el personaje (por ejemplo, si el personaje tiene la habilidad
+	 * de 'escalar', las acciones de ese tipo le va a costar 1 menos de enetgía).
+	 * @param accion La acción de la que se quiere saber el coste
+	 * @return El coste de energía que le costaría al personaje realizar la acción.
+	 */
 	public short dameCosteModificado(Accion accion) {
 		short costeModificado = 0;
 		for (CartaEstado cartaEstado : estadosPersonaje) {
@@ -201,6 +266,10 @@ public class Personaje {
 		return costeModificado;
 	}
 	
+	/**
+	 * Función que nos devuelve el número de cartas de engranaje que posee el personaje en su inventario.
+	 * @return El número de engranajes que tiene el personaje.
+	 */
 	public int dameNumeroDeEngranajes() {
 		ArrayList<Carta> cartasInventario = this.getInventario();
 		int contadorCartasEngranaje = 0;
@@ -216,17 +285,26 @@ public class Personaje {
 		return contadorCartasEngranaje;
 	}
 	
-	
+	/**
+	 * Getter de los estados del personaje
+	 * @return Nos devuelve los estados del personaje
+	 */
 	public ArrayList<CartaEstado> getEstadosPersonaje() {
 		return estadosPersonaje;
 	}
 
+	/**
+	 * Setter de los estados del personaje
+	 * @param estadosPersonaje Los estados del personaje
+	 */
 	public void setEstadosPersonaje(ArrayList<CartaEstado> estadosPersonaje) {
 		this.estadosPersonaje = estadosPersonaje;
 	}
 
-	
-	
+	/**
+	 * Función que dependiendo del coste de acción de cada carta, reduce esa cantidad de energía al personaje
+	 * @param accion La acción que va a realizar el personaje
+	 */
 	public void reduceEnergia(Accion accion) {
 		short costeModificado = this.dameCosteModificado(accion);
 		short costeEnergia = accion.getCosteAccion();
@@ -238,10 +316,17 @@ public class Personaje {
 		
 	}
 	
+	/**
+	 * Función Que aumenta X cantidad de energía al personaje
+	 * @param energia La cantidad de energía que va a aumentar el personaje
+	 */
 	public void aumentaEnergia(short energia) {
 		this.contadorEnergia += energia;
 	}
 
+	/**
+	 * ToString de la clase personaje, en la que se muestra el nombre y la carta donde está situado el personaje
+	 */
 	public String toString() {
 		return "Nuestro personaje " + this.getNombre() + " está en la carta número " + this.getNumeroCartaPosicionado();
 	}
