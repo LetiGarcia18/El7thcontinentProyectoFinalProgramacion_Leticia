@@ -325,7 +325,7 @@ public class Personaje {
 	}
 
 	/**
-	 * ToString de la clase personaje, en la que se muestra el nombre y la carta donde está situado el personaje
+	 * toString de la clase personaje, en la que se muestra el nombre y la carta donde está situado el personaje
 	 */
 	public String toString() {
 		return "Nuestro personaje " + this.getNombre() + " está en la carta número " + this.getNumeroCartaPosicionado();
