@@ -2,7 +2,7 @@ package pantallas;
 
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import elementosVisuales.BotonInicio;
+import elementosVisuales.BotonComun;
 import java.awt.GridBagLayout;
 
 import javax.swing.DebugGraphics;
@@ -37,7 +37,7 @@ public class MenuPrincipal extends JPanel{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JButton botonStart = new BotonInicio("Start");
+		JButton botonStart = new BotonComun("Start");
 		botonStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -52,7 +52,7 @@ public class MenuPrincipal extends JPanel{
 		gbc_botonStart.gridy = 15;
 		add(botonStart, gbc_botonStart);
 		
-		JButton botonExit = new BotonInicio("Exit");
+		JButton botonExit = new BotonComun("Exit");
 		botonExit.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
 		GridBagConstraints gbc_botonExit = new GridBagConstraints();
 		gbc_botonExit.fill = GridBagConstraints.BOTH;
@@ -68,7 +68,7 @@ public class MenuPrincipal extends JPanel{
 			}
 		});
 		
-		JButton botonReglas = new BotonInicio("Game Rules");
+		JButton botonReglas = new BotonComun("Game Rules");
 		botonReglas.setFont(new Font("Vladimir Script", Font.BOLD, 30));
 		GridBagConstraints gbc_botonReglas = new GridBagConstraints();
 		gbc_botonReglas.fill = GridBagConstraints.BOTH;

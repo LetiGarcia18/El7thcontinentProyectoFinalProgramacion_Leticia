@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import clases.Personaje;
-import elementosVisuales.BotonInicio;
+import elementosVisuales.BotonComun;
 
 public class PantallaHistoriaPersonaje extends JPanel {
 
@@ -36,7 +36,7 @@ public class PantallaHistoriaPersonaje extends JPanel {
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 		
-		JButton botonContinuar = new BotonInicio("Continue");
+		JButton botonContinuar = new BotonComun("Continue");
 		botonContinuar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

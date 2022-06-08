@@ -7,9 +7,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-public class BotonInicio extends JButton{
+public class BotonComun extends JButton{
 	
-	public BotonInicio(String m) {
+	public BotonComun(String m) {
 		super(m);
 		estiloPorDefecto();
 		addMouseListener(new MouseAdapter() {

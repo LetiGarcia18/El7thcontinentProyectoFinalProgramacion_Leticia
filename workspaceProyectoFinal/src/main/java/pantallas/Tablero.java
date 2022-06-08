@@ -49,8 +49,7 @@ import clases.CartaEvento;
 import clases.CartaTerreno;
 import clases.Consecuencia;
 import clases.Personaje;
-import elementosVisuales.BotonInicio;
-import elementosVisuales.BotonSalir;
+import elementosVisuales.BotonComun;
 import enums.TipoAccion;
 import enums.TipoConsecuencia;
 
@@ -101,9 +100,6 @@ public class Tablero extends JPanel {
 		imagenFondo = new ImageIcon("./imagenesFondo/mar.png").getImage();
 
 		setLayout(null);
-
-		JButton botonSalir = new BotonSalir("Exit");
-		add(botonSalir);
 
 		JLabel labelPersonaje = new JLabel("Character: " + personaje.getNombre());
 		labelPersonaje.setHorizontalAlignment(SwingConstants.RIGHT);

@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import elementosVisuales.BotonInicio;
+import elementosVisuales.BotonComun;
 
 public class PantallaVictoria extends JPanel{
 	
@@ -36,7 +36,7 @@ public class PantallaVictoria extends JPanel{
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JButton botonBye = new BotonInicio("Exit");
+		JButton botonBye = new BotonComun("Exit");
 		botonBye.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

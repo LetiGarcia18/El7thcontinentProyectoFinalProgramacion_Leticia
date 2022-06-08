@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
-import elementosVisuales.BotonInicio;
+import elementosVisuales.BotonComun;
 
 public class PantallaReglasJuego extends JPanel{
 	
@@ -38,7 +38,7 @@ public class PantallaReglasJuego extends JPanel{
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 		
-		JButton botonVolver = new BotonInicio("Return");
+		JButton botonVolver = new BotonComun("Return");
 		botonVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

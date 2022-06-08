@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import elementosVisuales.BotonInicio;
+import elementosVisuales.BotonComun;
 
 public class PantallaGameOver extends JPanel{
 	private Ventana ventana;
@@ -30,7 +30,7 @@ public class PantallaGameOver extends JPanel{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JButton botonSalir = new BotonInicio("Ok...");
+		JButton botonSalir = new BotonComun("Ok...");
 		botonSalir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

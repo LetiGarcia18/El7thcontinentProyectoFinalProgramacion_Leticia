@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import elementosVisuales.BotonInicio;
+import elementosVisuales.BotonComun;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -36,7 +36,7 @@ public class PantallaHistoriaFinal extends JPanel {
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JButton botonEscape = new BotonInicio("Escape from the island...");
+		JButton botonEscape = new BotonComun("Escape from the island...");
 		botonEscape.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
