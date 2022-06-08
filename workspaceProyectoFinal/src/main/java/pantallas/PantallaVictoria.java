@@ -14,12 +14,21 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import elementosVisuales.BotonComun;
-
+/**
+ * Clase PantallaVictoria que hereda de JPanel. Va a representar la pantalla final del juego, cuando se gana la partida.
+ * @author Leticia
+ *
+ */
 public class PantallaVictoria extends JPanel{
-	
+	/** La ventana que contiene el JPanel del menú principal **/
 	private Ventana ventana;
+	/** La imagen que va a tener de fondo la pantalla de menú principal**/
 	private Image imagenFondo;
-	
+	/**
+	 * Constructor de la clase PantallaVictoria, que se le va a pasar por parámetros el objeto ventana. En este constructor se va a poner una imagen de fondo, 
+	 * y un boton de "Exit", para salir del programa. 
+	 * @param v La ventanan que va a contener el JPanel.
+	 */
 	public PantallaVictoria(Ventana v) {
 
 		this.ventana = v;
@@ -52,7 +61,10 @@ public class PantallaVictoria extends JPanel{
 		add(botonBye, gbc_botonBye);
 
 	}
-
+	
+	/**
+	 * Función que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
+	*/
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
