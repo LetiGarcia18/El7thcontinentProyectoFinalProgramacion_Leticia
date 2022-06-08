@@ -6,7 +6,11 @@ package excepciones;
  *
  */
 public class CharacterDoesNotExistException extends Exception{
+	/**
+	 * Constructor de la excepción. Se le pasa por parámetros el mensaje que queramos que se vea al lanzar la excepción
+	 * @param mensaje
+	 */
 	public CharacterDoesNotExistException(String mensaje) {
-		super("That character does not exist");
+		super(mensaje);
 	}
 }
