@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import clases.Accion;
 import clases.CartaTerreno;
 import excepciones.CharacterDoesNotExistException;
-import pantallas.Splash;
+import pantallas.PantallaDeCarga;
 import pantallas.Ventana;
 /**
  * Clase Principal donde se encuentra el Main del programa.
@@ -47,8 +47,8 @@ public class Main {
 			nombrePersonaje = "Ferdinand";
 		}
 		
-		/*Splash miSplash = new Splash();
-		miSplash.setVisible(true);*/
+		/*PantallaDeCarga pantallaCarga = new PantallaDeCarga();
+		pantallaCarga.setVisible(true);*/
 		
 		try {
 			Ventana ventana = new Ventana(nombrePersonaje);
