@@ -107,7 +107,10 @@ public class Accion {
 		this.dificultadAccion = dificultadAccion;
 	}
 	
-	
+	/**
+	 * Getter de las consecuencias positivas
+	 * @return Nos devuelve las consecuencias positivas
+	 */
 	public ArrayList<Consecuencia> getConsecuenciasPositivas() {
 		return consecuenciasPositivas;
 	}
@@ -121,8 +124,8 @@ public class Accion {
 	}
 
 	/**
-	 * Setter de las consecuencias negativas
-	 * @return Las consecuencias negativas
+	 * Getter de las consecuencias negativas
+	 * @return Nos devuelve las consecuencias negativas
 	 */
 	public ArrayList<Consecuencia> getConsecuenciasNegativas() {
 		return consecuenciasNegativas;
@@ -137,8 +140,8 @@ public class Accion {
 	}
 
 	/*
-	 * toString de la clase Acción. nos muestra el id de la acción, el tipo, la descripción de la misma, y las consecuencias positivas
-	 * y negativas que pudiera tener esa acción
+	 * Función toString de la clase Acción. Nos devuelve una String con el id de la acción, el tipo, la descripción de la misma, 
+	 * y las consecuencias positivas y negativas que pudiera tener esa acción
 	 */
 	@Override
 	public String toString() {
@@ -157,8 +160,5 @@ public class Accion {
 		+ consecuenciasNegativasString;
 	}
 
-
-	
-	
 
 }

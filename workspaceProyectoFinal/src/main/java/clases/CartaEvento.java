@@ -1,7 +1,7 @@
 package clases;
 /**
- * Clase CartaEvento que va a representar las cartas de tipo evento que van a ir surgiendo como consecuencia de la 
- * resolución de las acciones
+ * Clase CartaEvento que hereda de la super clase CartaEnMapa y va a representar las cartas de tipo evento que van a ir 
+ * surgiendo como consecuencia de la resolución de las acciones
  * @author Leticia
  *
  */
@@ -32,7 +32,7 @@ public class CartaEvento extends CartaEnMapa{
 
 	/**
 	 * Getter del id de la carta asociada a la carta de evento
-	 * @return La carta asociada a la carta de evento
+	 * @return Nos devuelve la carta asociada a la carta de evento
 	 */
 	public int getIdCartaAsociada() {
 		return idCartaAsociada;
@@ -48,7 +48,7 @@ public class CartaEvento extends CartaEnMapa{
 
 	/**
 	 * Getter del id de la acción que desactiva la carta evento
-	 * @return El id de la acción que desactiva la carta evento
+	 * @return Nos devuelve el id de la acción que desactiva la carta evento
 	 */
 	public int getIdAccionDesactivada() {
 		return idAccionDesactivada;

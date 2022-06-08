@@ -131,7 +131,7 @@ public class Carta {
 
 	/**
 	 * Función que nos dice si la carta está en mesa o no (true: está en mesa, false: no está en la mesa)
-	 * @return Si está o no en la mesa
+	 * @return Nos deuelve un booleando, True si está en la mesa y False si no en la mesa
 	 */
 	public boolean estaEnMesa() {
 		return estaEnMesa;
@@ -206,7 +206,8 @@ public class Carta {
 	
 
 	/**
-	 * toString de la clase Carta, donde se muestra el número de carta, la ruta de la imagen y las acciones que tiene la carta
+	 * Función toString de la clase Carta, donde nos devuelve una String con el número de carta, la ruta de la imagen 
+	 * y las acciones que tiene la carta
 	 */
 	public String toString() {
 		String accionesTexto = "";
@@ -218,9 +219,6 @@ public class Carta {
 		}
 		return "[" + this.numeroCarta + "] ruta: " + this.rutaImagen + " Acciones: " + accionesTexto;
 	}
-	
-	
-	
 	
 
 }

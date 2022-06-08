@@ -1,6 +1,6 @@
 package clases;
 /**
- * Clase que hereda de la super clase Carta y va a representar los estados del personaje
+ * Clase que hereda de la super clase Carta y va a representar los estados del personaje.
  * @author Leticia
  *
  */

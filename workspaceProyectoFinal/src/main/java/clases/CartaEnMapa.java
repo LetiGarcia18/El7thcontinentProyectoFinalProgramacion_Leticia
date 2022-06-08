@@ -1,6 +1,6 @@
 package clases;
 /**
- * Super clase que a su vez hereda de la super Clase Carta. 
+ * Super clase que a su vez hereda de la super Clase Carta. Esta clase va a representar las cartas que están en el tablero.
  * @author Leticia
  *
  */

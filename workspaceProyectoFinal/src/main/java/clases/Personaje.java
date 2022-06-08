@@ -175,7 +175,7 @@ public class Personaje {
 
 	/**
 	 * Getter de la habilidad que tiene el personaje
-	 * @return La habilidad del personaje
+	 * @return Nos devuelve la habilidad del personaje
 	 */
 	public TipoAccion getHabilidad() {
 		return habilidad;
@@ -191,7 +191,7 @@ public class Personaje {
 
 	/**
 	 * Getter del número de la carta donde se va a situar el personaje
-	 * @return El número de la carta donde se va a situar el personaje
+	 * @return Nos devuelve el número de la carta donde se va a situar el personaje
 	 */
 	public String getNumeroCartaPosicionado() {
 		return numeroCartaPosicionado;
@@ -207,7 +207,7 @@ public class Personaje {
 
 	/**
 	 * Getter del inventario del personaje
-	 * @return El inventario que tiene el personaje
+	 * @return Nos devuelve el inventario que tiene el personaje
 	 */
 	public ArrayList<Carta> getInventario() {
 		return inventario;
@@ -223,7 +223,7 @@ public class Personaje {
 
 	/**
 	 * Getter del contador de la energía que tiene el personaje
-	 * @return La energía que tiene el personaje
+	 * @return Nos devuelve la energía que tiene el personaje
 	 */
 	public short getContadorEnergia() {
 		return contadorEnergia;
@@ -250,7 +250,7 @@ public class Personaje {
 	 * para el personaje) y dependiendo de la habilidad que tenga el personaje (por ejemplo, si el personaje tiene la habilidad
 	 * de 'escalar', las acciones de ese tipo le va a costar 1 menos de enetgía).
 	 * @param accion La acción de la que se quiere saber el coste
-	 * @return El coste de energía que le costaría al personaje realizar la acción.
+	 * @return Nos devuelve el coste de energía que le costaría al personaje realizar la acción.
 	 */
 	public short dameCosteModificado(Accion accion) {
 		short costeModificado = 0;
@@ -268,7 +268,7 @@ public class Personaje {
 	
 	/**
 	 * Función que nos devuelve el número de cartas de engranaje que posee el personaje en su inventario.
-	 * @return El número de engranajes que tiene el personaje.
+	 * @return Nos devuelve el número de engranajes que tiene el personaje.
 	 */
 	public int dameNumeroDeEngranajes() {
 		ArrayList<Carta> cartasInventario = this.getInventario();
@@ -325,7 +325,8 @@ public class Personaje {
 	}
 
 	/**
-	 * toString de la clase personaje, en la que se muestra el nombre y la carta donde está situado el personaje
+	 * Función toString de la clase personaje, que nos va a devolver una String con el nombre y la carta donde está situado 
+	 * el personaje
 	 */
 	public String toString() {
 		return "Nuestro personaje " + this.getNombre() + " está en la carta número " + this.getNumeroCartaPosicionado();
