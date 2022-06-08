@@ -13,10 +13,23 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import elementosVisuales.BotonComun;
 
+/**
+ * Clase PantallaGameOver que hereda de la clase JPanel, que va a representar la pantalla que aparecerá en el juego si nuestro 
+ * personaje se queda sin energía, por lo tanto, se terminará el juego.
+ * @author Leticia
+ *
+ */
 public class PantallaGameOver extends JPanel{
+	/** La ventana que contiene el JPanel del la pantalla de Game Over **/
 	private Ventana ventana;
+	/** La imagen que va a tener de fondo la pantalla de Game Over**/
 	private Image imagenFondo;
 	
+	/**
+	 * Constructor de la clase PantallaGameOver, a la cual se le va a pasar por parámetros el objeto ventana. En este constructor
+	 * se le pone una imagen de fondo a la pantalla, y un botón que te llevará de regreso a la pantalla de Menú principal. 
+	 * @param v a ventanan que va a contener el JPanel.
+	 */
 	public PantallaGameOver(Ventana v) {
 		this.ventana = v;
 		
@@ -46,6 +59,10 @@ public class PantallaGameOver extends JPanel{
 		add(botonSalir, gbc_botonStart);
 	}
 	
+	/**
+	 * Función que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
+	 * 
+	*/
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null); 
 	}
