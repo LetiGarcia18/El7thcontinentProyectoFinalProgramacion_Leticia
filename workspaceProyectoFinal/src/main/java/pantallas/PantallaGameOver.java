@@ -61,7 +61,6 @@ public class PantallaGameOver extends JPanel{
 	
 	/**
 	 * Función que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
-	 * 
 	*/
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null); 
