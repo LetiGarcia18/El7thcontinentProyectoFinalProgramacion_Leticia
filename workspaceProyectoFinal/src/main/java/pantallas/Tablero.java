@@ -191,9 +191,9 @@ public class Tablero extends JPanel {
 		imagen.setBounds(posicionX, posicionY, tamanioPersonaje, tamanioPersonaje);
 		add(imagen);
 
-		JLabel energiaPersonaje = new JLabel("Energía: " + personaje.getContadorEnergia());
-		energiaPersonaje.setFont(new Font("Rockwell", Font.BOLD, 18));
-		energiaPersonaje.setBounds(600, 5, 183, 29);
+		JLabel energiaPersonaje = new JLabel("Energy: " + personaje.getContadorEnergia());
+		energiaPersonaje.setFont(new Font("Rockwell", Font.BOLD, 30));
+		energiaPersonaje.setBounds(80, 5, 400, 50);
 		add(energiaPersonaje);
 		
 		
