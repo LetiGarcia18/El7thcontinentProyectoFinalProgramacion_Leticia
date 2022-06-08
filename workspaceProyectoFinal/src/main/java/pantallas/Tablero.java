@@ -155,7 +155,6 @@ public class Tablero extends JPanel {
 				posicionXCartaInventario += tamanioCartaInventario + 10;
 			}
 		}
-		
 	}
 
 	public void dibujaCarta(Carta carta, int posicionX, int posicionY, int anchoCasilla) {
@@ -170,7 +169,7 @@ public class Tablero extends JPanel {
 			add(imagen);
 			if(carta.getClass() == CartaEstado.class) {
 				CartaEstado cartaEstado = (CartaEstado) carta;
-				JLabel textoEstado = new JLabel(cartaEstado.getTextoEstado());
+				JLabel textoEstado = new JLabel(cartaEstado.getTituloEstado());
 				textoEstado.setBounds(posicionX + 30, (int)(posicionY - anchoCasilla/1.5), anchoCasilla, anchoCasilla);
 				add(textoEstado);
 			}
