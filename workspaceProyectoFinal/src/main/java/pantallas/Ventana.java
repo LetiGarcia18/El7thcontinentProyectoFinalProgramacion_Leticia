@@ -57,14 +57,12 @@ public class Ventana extends JFrame {
 
 		// this.setUndecorated(true);
 		this.setSize(1500, 800);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Para que me salga en pantalla
-		// completa.
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.setLocationRelativeTo(null);
 		this.setTitle("The 7th continent");
 		this.setIconImage(new ImageIcon("./iconos/iconoIsla.png").getImage());
 		this.setAlwaysOnTop(true);
-		// this.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new
-		// ImageIcon("./iconos/cursor.png").getImage(),new Point(0,0),"custom cursor"));
+		this.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("./iconos/engranaje1.png").getImage(),new Point(0,0),"custom cursor"));
 		this.setResizable(false); // No deja cambiar el tamaño de la ventana
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
@@ -76,11 +74,11 @@ public class Ventana extends JFrame {
 
 	public void cambiarAPantalla(String nombrePantalla) {
 		Iterator it = this.pantallas.values().iterator();
-		while (it.hasNext()) { // Con esto recorremos todas las pantallas y ponemos su visible a falso
+		while (it.hasNext()) { 
 			JPanel actual = (JPanel) it.next();
 			actual.setVisible(false);
 		}
-		this.pantallas.get(nombrePantalla).setVisible(true); // Esta nos muestra la pantalla que queremos
+		this.pantallas.get(nombrePantalla).setVisible(true); 
 		this.setContentPane(this.pantallas.get(nombrePantalla));
 		if (nombrePantalla.equals("game over")) {
 			personaje.restablecerEnergia();
