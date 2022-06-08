@@ -47,7 +47,7 @@ public class PantallaGameOver extends JPanel{
 		botonSalir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("menuInicio"); //Con esto ya podemos cambiar a otra pantalla dándole al botón de registro
+				ventana.cambiarAPantalla("menuInicio"); 
 			}
 		});
 		botonSalir.setFont(new Font("Vladimir Script", Font.PLAIN, 40));

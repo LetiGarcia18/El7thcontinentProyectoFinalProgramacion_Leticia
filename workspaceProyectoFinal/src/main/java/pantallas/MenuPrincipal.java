@@ -28,9 +28,9 @@ public class MenuPrincipal extends JPanel{
 	
 
 	/**
-	 * Constructor de la clase MenuPrincipal, donde se le pasa por parámetros el objeto ventana. En este constructor se va a ver una imagen de fondo, y tres 
-	 * botones. Un boton de Start, para empezar el juego, que nos va a llevar a otra pantalla donde nos saldrá la historia del
-	 * personaje. Un botón de Exit, para salir del programa. Y un botón de Games rules, donde nos va a llevar a una pantalla donde se nos
+	 * Constructor de la clase MenuPrincipal, donde se le pasa por parámetros el objeto ventana. En este constructor se va a poner una imagen de fondo, 
+	 * y tres botones. Un boton de "Start", para empezar el juego, que nos va a llevar a otra pantalla donde nos saldrá la historia del
+	 * personaje. Un botón de "Exit", para salir del programa. Y un botón de "Games rules", que nos va a llevar a una pantalla donde se nos
 	 * explican las reglas del juego.
 	 * @param v La ventanan que va a contener el JPanel.
 	 */
@@ -99,7 +99,6 @@ public class MenuPrincipal extends JPanel{
 	
 	/**
 	 * Función que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
-	 * 
 	*/
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null); 

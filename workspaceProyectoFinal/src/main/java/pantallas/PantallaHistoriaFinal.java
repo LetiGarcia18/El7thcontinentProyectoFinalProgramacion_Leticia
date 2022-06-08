@@ -14,12 +14,22 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+/**
+ * Clase PantallaHistoriaFinal que va a heredar de JPanel. Va a representar la pantalla que aparecerá cuando el personaje gane la partida.
+ * @author Leticia
+ *
+ */
 public class PantallaHistoriaFinal extends JPanel {
-
+	/** La ventana que contiene el JPanel del la pantalla con la historia final **/
 	private Ventana ventana;
+	/** La imagen que va a tener de fondo la pantalla de la historia final**/
 	private Image imagenFondo;
 
+	/**
+	 * Constructor de la clase PantallaHistoriaFinal, donde se le pasa por parámetros el objeto ventana. En este constructor se va a 
+	 * poner una imagen de fondo, y un botón. El botón será un botón que diga "Continue" que nos llevará a la pantalla de victoria del juego.
+	 * @param v La ventanan que va a contener el JPanel.
+	 */
 	public PantallaHistoriaFinal(Ventana v) {
 
 		this.ventana = v;
@@ -40,8 +50,7 @@ public class PantallaHistoriaFinal extends JPanel {
 		botonEscape.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("pantallaVictoria"); // Con esto ya podemos cambiar a otra pantalla dándole al
-																// botón de registro
+				ventana.cambiarAPantalla("pantallaVictoria"); 
 			}
 		});
 		botonEscape.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
@@ -54,6 +63,9 @@ public class PantallaHistoriaFinal extends JPanel {
 
 	}
 
+	/**
+	 * Función que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
+	 */
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
