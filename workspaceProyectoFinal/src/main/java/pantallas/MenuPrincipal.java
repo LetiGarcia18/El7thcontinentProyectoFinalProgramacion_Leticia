@@ -130,6 +130,7 @@ public class MenuPrincipal extends JPanel{
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             gainControl.setValue(-20.0f);
             clip.start();
+            clip.loop(UNDEFINED_CONDITION);
             
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             ex.printStackTrace();

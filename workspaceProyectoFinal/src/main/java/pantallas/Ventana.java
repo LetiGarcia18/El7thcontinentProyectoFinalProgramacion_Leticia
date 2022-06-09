@@ -2,40 +2,24 @@ package pantallas;
 
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.io.File;
-import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JSplitPane;
-import java.awt.BorderLayout;
-import java.awt.Canvas;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BoxLayout;
-import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
-import java.awt.Component;
-import javax.swing.JTree;
 import clases.Carta;
 import clases.CartaEnMapa;
-import clases.CartaEstado;
 import clases.CartaEvento;
 import clases.CartaTerreno;
 import clases.Personaje;
 import enums.TipoAccion;
 import excepciones.CharacterDoesNotExistException;
 import utils.UtilsDB;
-import javax.swing.JProgressBar;
 
 public class Ventana extends JFrame {
 	private HashMap<String, JPanel> pantallas;
@@ -66,7 +50,7 @@ public class Ventana extends JFrame {
 		pantallas.put("usaAuriculares", new PantallaUsoAuriculares(this));
 
 
-		// this.setUndecorated(true);
+
 		this.setSize(1500, 800);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.setLocationRelativeTo(null);
