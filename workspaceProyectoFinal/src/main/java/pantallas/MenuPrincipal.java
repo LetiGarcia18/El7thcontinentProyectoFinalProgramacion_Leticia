@@ -1,6 +1,7 @@
 package pantallas;
 
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import elementosVisuales.BotonComun;
 import java.awt.GridBagLayout;
@@ -14,6 +15,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DebugGraphics;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
@@ -61,14 +64,14 @@ public class MenuPrincipal extends JPanel{
 		botonStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("historiaPersonaje"); 
+				ventana.cambiarAPantalla("usaAuriculares"); 
 				ReproducirSonido("./musica/music.wav");
 			}
 		});
 		botonStart.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
 		GridBagConstraints gbc_botonStart = new GridBagConstraints();
 		gbc_botonStart.fill = GridBagConstraints.BOTH;
-		gbc_botonStart.insets = new Insets(90, 100, -9, 100);
+		gbc_botonStart.insets = new Insets(90, 100, 5, 100);
 		gbc_botonStart.gridx = 9;
 		gbc_botonStart.gridy = 15;
 		add(botonStart, gbc_botonStart);
@@ -95,7 +98,7 @@ public class MenuPrincipal extends JPanel{
 		gbc_botonReglas.fill = GridBagConstraints.BOTH;
 		gbc_botonReglas.insets = new Insets(0, 0, 0, 0);
 		gbc_botonReglas.gridx = 9;
-		gbc_botonReglas.gridy = 0;
+		gbc_botonReglas.gridy = 4;
 		add(botonReglas, gbc_botonReglas);
 	 
 		botonReglas.addMouseListener(new MouseAdapter() {
@@ -103,7 +106,7 @@ public class MenuPrincipal extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				ventana.cambiarAPantalla("reglas");
 			}
-		});
+		});		
 		
 	}
 	
@@ -125,8 +128,9 @@ public class MenuPrincipal extends JPanel{
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-10.0f);
+            gainControl.setValue(-20.0f);
             clip.start();
+            
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             ex.printStackTrace();
         }
