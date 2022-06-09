@@ -136,4 +136,14 @@ public class MenuPrincipal extends JPanel{
         }
     }
 
+	public Image getImagenFondo() {
+		return imagenFondo;
+	}
+
+	public void setImagenFondo(Image imagenFondo) {
+		this.imagenFondo = imagenFondo;
+	}
+	
+	
+
 }
