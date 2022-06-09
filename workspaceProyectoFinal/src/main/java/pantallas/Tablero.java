@@ -106,13 +106,13 @@ public class Tablero extends JPanel {
 		JLabel labelPersonaje = new JLabel("Character: " + personaje.getNombre());
 		labelPersonaje.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelPersonaje.setIcon(new ImageIcon("cartasPersonaje\\characterToken2.png"));
-		labelPersonaje.setBounds(650, 20, 400, 80);
-		labelPersonaje.setFont(new Font("Rockwell", Font.PLAIN, 24));
+		labelPersonaje.setBounds(950, 0, 400, 65);
+		labelPersonaje.setFont(new Font("Rockwell", Font.BOLD, 30));
 		add(labelPersonaje);
 		
 		JLabel labelInventario = new JLabel(" _______________________ Inventory ____________________________");
 		labelInventario.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelInventario.setIcon(new ImageIcon("./iconos/maleta2.png"));
+		labelInventario.setIcon(new ImageIcon("./iconos/mochila.png"));
 		labelInventario.setBounds(750, 260, 800, 80);
 		labelInventario.setFont(new Font("Rockwell", Font.BOLD, 20));
 		add(labelInventario);
@@ -223,7 +223,8 @@ public class Tablero extends JPanel {
 
 		JLabel energiaPersonaje = new JLabel("Energy: " + personaje.getContadorEnergia());
 		energiaPersonaje.setFont(new Font("Rockwell", Font.BOLD, 30));
-		energiaPersonaje.setBounds(400, 5, 400, 50);
+		energiaPersonaje.setIcon(new ImageIcon("./iconos/energy.png"));
+		energiaPersonaje.setBounds(20, 5, 400, 50);
 		add(energiaPersonaje);
 
 	}
