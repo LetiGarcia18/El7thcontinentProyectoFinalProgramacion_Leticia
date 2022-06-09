@@ -15,7 +15,12 @@ import javax.swing.JPanel;
 
 import clases.Personaje;
 import elementosVisuales.BotonComun;
-
+/**
+ * Clase PantallaHistoriaPersonaje que hereda de JPanel, la cual va a representar la pantalla donde se contará la historia del 
+ * personaje.
+ * @author Leticia
+ *
+ */
 public class PantallaHistoriaPersonaje extends JPanel {
 
 	private Ventana ventana;
@@ -54,6 +59,9 @@ public class PantallaHistoriaPersonaje extends JPanel {
 		
 	}
 	
+	/**
+	 * Función que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
+	*/
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
