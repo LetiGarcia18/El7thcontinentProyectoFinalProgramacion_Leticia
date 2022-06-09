@@ -1,45 +1,19 @@
 package pantallas;
 
 import javax.swing.JPanel;
-import javax.swing.JInternalFrame;
-import javax.swing.JSplitPane;
-import java.awt.Color;
-import java.awt.Canvas;
-import javax.swing.JDesktopPane;
-import java.awt.CardLayout;
-import java.awt.BorderLayout;
-import javax.swing.JTextPane;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JScrollBar;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
 import javax.swing.JComboBox;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 
 import clases.Accion;
 import clases.Carta;
@@ -49,33 +23,18 @@ import clases.CartaEvento;
 import clases.CartaTerreno;
 import clases.Consecuencia;
 import clases.Personaje;
-import elementosVisuales.BotonComun;
 import enums.TipoAccion;
 import enums.TipoConsecuencia;
 
-import javax.swing.JSeparator;
+
 import javax.swing.SwingConstants;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
-import java.awt.Insets;
-import java.awt.Panel;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 
-import net.miginfocom.swing.MigLayout;
-import utils.UtilsDB;
-
-import javax.swing.JProgressBar;
-import javax.swing.border.BevelBorder;
-import java.awt.FlowLayout;
-import java.awt.Button;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
 
 public class Tablero extends JPanel {
 
@@ -112,7 +71,7 @@ public class Tablero extends JPanel {
 		
 		JLabel labelInventario = new JLabel(" _______________________ Inventory ____________________________");
 		labelInventario.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelInventario.setIcon(new ImageIcon("./iconos/mochila.png"));
+		labelInventario.setIcon(new ImageIcon("./iconos/maleta.png"));
 		labelInventario.setBounds(750, 260, 800, 80);
 		labelInventario.setFont(new Font("Rockwell", Font.BOLD, 20));
 		add(labelInventario);
@@ -459,9 +418,6 @@ public class Tablero extends JPanel {
 				break;
 			case GANAR:
 				if (contadorCartasEngranaje == 2) {
-					JOptionPane.showMessageDialog(ventana,
-							"You have found the two pieces to repair the submarine! Congratulations, you win!",
-							"YOU WIN", JOptionPane.INFORMATION_MESSAGE);
 					hasGanado = true;
 					ventana.cambiarAPantalla("pantallaHistoriaFinal");
 				} else {
