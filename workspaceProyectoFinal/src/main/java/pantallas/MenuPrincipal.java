@@ -39,11 +39,11 @@ public class MenuPrincipal extends JPanel{
 	
 
 	/**
-	 * Constructor de la clase MenuPrincipal, donde se le pasa por parámetros el objeto ventana. En este constructor se va a poner una imagen de fondo, 
-	 * y tres botones. Un boton de "Start", para empezar el juego, que nos va a llevar a otra pantalla donde nos saldrá la historia del
-	 * personaje. Al pulsar dicho botón, también va a comenzar a reproducirse una canción de fondo, que se estará reproduciendo
-	 * todo el rato, a lo largo del juego, hasta qe cerremos el programa. Un botón de "Exit", para salir del programa. 
-	 * Y un botón de "Games rules", que nos va a llevar a una pantalla donde se nos explican las reglas del juego.
+	 * Constructor de la clase MenuPrincipal, donde se le pasa por parámetros el objeto ventana. En este constructor se va a poner una 
+	 * imagen de fondo, y tres botones. Un boton de "Start", para empezar el juego, que nos va a llevar a otra pantalla donde nos saldrá 
+	 * una imagen gif recomendándonos el uso de auriculares durante el juego. Al pulsar dicho botón, también va a comenzar a reproducirse 
+	 * una canción de fondo, que se estará reproduciendo todo el rato, a lo largo del juego, hasta qe cerremos el programa. Un botón de "Exit", 
+	 * para salir del programa. Y un botón de "Games rules", que nos va a llevar a una pantalla donde se nos explican las reglas del juego.
 	 * @param v La ventanan que va a contener el JPanel.
 	 */
 	public MenuPrincipal(Ventana v) {
