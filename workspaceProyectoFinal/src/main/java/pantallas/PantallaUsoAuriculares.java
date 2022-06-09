@@ -1,7 +1,5 @@
 package pantallas;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,19 +13,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import elementosVisuales.BotonComun;
-
 public class PantallaUsoAuriculares extends JPanel{
 	/** La ventana que contiene el JPanel del menú principal **/
 	private Ventana ventana;
-	/** La imagen que va a tener de fondo la pantalla de menú principal**/
-	private Image imagenFondo;
 	
+	/**
+	 * Constructor de la clase PantallaUsoAuriculares, donde se le pasa por parámetros el objeto ventana. En este constructor va a 
+	 * aparecer un gif como fondo de pantalla, indicando que es recomendable el uso de auriculares, ya que el juego, va a contener
+	 * música.
+	 * Constará también de un boton de "Okey", para empezar el juego, que nos va a llevar a otra pantalla donde nos saldrá la historia del
+	 * personaje. 
+	 * @param v La ventanan que va a contener el JPanel.
+	 */
 	public PantallaUsoAuriculares(Ventana v) {
 		
 		this.ventana = v;
-		
-		//imagenFondo = new ImageIcon("./imagenesFondo/headphones.gif").getImage();
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		
@@ -53,6 +53,9 @@ public class PantallaUsoAuriculares extends JPanel{
 		add(botonOk, gbc_botonOk);
 	}
 	
+	/**
+	 * Función que permite que se ponga como fondo de pantalla una imagen .gif
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 	    super.paintComponent(g);
