@@ -40,7 +40,7 @@ public class PantallaHistoriaPersonaje extends JPanel {
 		botonContinuar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.dibujaTablero();
+				ventana.cambiarAPantalla("historiaPrincipal"); 
 			}
 		});
 		botonContinuar.setFont(new Font("Vladimir Script", Font.PLAIN, 40));

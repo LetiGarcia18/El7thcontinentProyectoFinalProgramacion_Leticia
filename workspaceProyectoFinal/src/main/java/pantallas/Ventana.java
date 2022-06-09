@@ -2,6 +2,8 @@ package pantallas;
 
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,6 +15,12 @@ import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BoxLayout;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
@@ -54,6 +62,8 @@ public class Ventana extends JFrame {
 		pantallas.put("historiaPersonaje", new PantallaHistoriaPersonaje(this, this.personaje));
 		pantallas.put("pantallaHistoriaFinal", new PantallaHistoriaFinal(this));
 		pantallas.put("pantallaVictoria", new PantallaVictoria(this));
+		pantallas.put("historiaPrincipal", new PantallaHistoriaInicial(this));
+
 
 		// this.setUndecorated(true);
 		this.setSize(1500, 800);
@@ -205,6 +215,9 @@ public class Ventana extends JFrame {
 	public void setPantallas(HashMap<String, JPanel> pantallas) {
 		this.pantallas = pantallas;
 	}
+	
+	
+	
 
 	
 	
