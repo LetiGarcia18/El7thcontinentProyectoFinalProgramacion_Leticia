@@ -1,8 +1,6 @@
 package pantallas;
 
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 import elementosVisuales.BotonComun;
 import java.awt.GridBagLayout;
 
@@ -12,10 +10,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.DebugGraphics;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -111,14 +107,14 @@ public class MenuPrincipal extends JPanel{
 	}
 	
 	/**
-	 * Función que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
+	 * Función pública que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
 	*/
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null); 
 	}
 	
 	/**
-	 * Función que va a permitir reproducir sonido pasándole por parámetros la ruta del audio.
+	 * Función pública que va a permitir reproducir sonido pasándole por parámetros la ruta del audio.
 	 * @param nombreSonido La ruta del audio.
 	 */
 	public void ReproducirSonido(String nombreSonido) {
@@ -135,16 +131,6 @@ public class MenuPrincipal extends JPanel{
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             ex.printStackTrace();
         }
-    }
-
-	public Image getImagenFondo() {
-		return imagenFondo;
-	}
-
-	public void setImagenFondo(Image imagenFondo) {
-		this.imagenFondo = imagenFondo;
-	}
-	
-	
+    }	
 
 }

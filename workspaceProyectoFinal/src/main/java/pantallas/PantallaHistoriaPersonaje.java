@@ -22,11 +22,20 @@ import elementosVisuales.BotonComun;
  *
  */
 public class PantallaHistoriaPersonaje extends JPanel {
-
+	/** La ventana que contiene el JPanel del menú principal **/
 	private Ventana ventana;
+	/** La imagen que va a tener de fondo la pantalla de menú principal**/
 	private Image imagenFondo;
+	/** EL personaje del juego **/
 	private Personaje personaje;
 
+	/**
+	 * Constructor de PantallaHistoriaPersonaje en el cual se le pasa por parámetros la ventana que va a contener esta pantalla JPanel
+	 * y el personaje del juego. Esta pantalla va a contener la historia del personaje, y un botón de continuar el cual nos va a 
+	 * llevar a otra pantalla, en concreto a la pantalla de la historia principal del juego.
+	 * @param v La ventanan que va a contener el JPanel.
+	 * @param personaje El personaje del juego
+	 */
 	public PantallaHistoriaPersonaje(Ventana v, Personaje personaje) {
 		this.ventana=v;
 		this.personaje = personaje;
@@ -60,13 +69,10 @@ public class PantallaHistoriaPersonaje extends JPanel {
 	}
 	
 	/**
-	 * Función que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
+	 * Función pública que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
 	*/
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
-	
-
-	
 
 }

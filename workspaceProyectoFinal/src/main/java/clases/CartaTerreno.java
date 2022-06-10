@@ -1,19 +1,4 @@
 package clases;
-
-import java.io.File;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-
-import enums.TipoAccion;
-import enums.TipoConsecuencia;
-import utils.UtilsDB;
 /**
  * Clase CartaTerreno que hereda de la super clase CartaEnMapa, la cual va a representar las cartas de terreno en el tablero.
  * @author letic

@@ -3,7 +3,6 @@ package clases;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -130,7 +129,7 @@ public class Carta {
 	}
 
 	/**
-	 * Función que nos dice si la carta está en mesa o no (true: está en mesa, false: no está en la mesa)
+	 * Función pública que nos dice si la carta está en mesa o no (true: está en mesa, false: no está en la mesa)
 	 * @return Nos deuelve un booleando, True si está en la mesa y False si no en la mesa
 	 */
 	public boolean estaEnMesa() {
@@ -146,7 +145,7 @@ public class Carta {
 	}
 
 	/**
-	 * Función que se conecta a la BBDD y nos carga las acciones que tiene la carta. Dichas acciones las va almacenando en 
+	 * Función pública que se conecta a la BBDD y nos carga las acciones que tiene la carta. Dichas acciones las va almacenando en 
 	 * el HashMap de acciones de la carta. A su vez, carga las consecuencias que tiene cada acción, y según sean consecuencias 
 	 * positivas o negativas, llama a la función correspondiente de agregar consecuencias a la acción.
 	 * 
@@ -219,6 +218,5 @@ public class Carta {
 		}
 		return "[" + this.numeroCarta + "] ruta: " + this.rutaImagen + " Acciones: " + accionesTexto;
 	}
-	
 
 }

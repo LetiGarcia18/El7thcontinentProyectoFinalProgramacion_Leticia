@@ -21,12 +21,29 @@ import enums.TipoAccion;
 import excepciones.CharacterDoesNotExistException;
 import utils.UtilsDB;
 
+/**
+ * Clase Ventana que hereda de JFrame, que va a contener todas las pantallas del juego.
+ * @author Leticia
+ *
+ */
 public class Ventana extends JFrame {
+	/** Colección que contiene todas las pantallas del juego **/
 	private HashMap<String, JPanel> pantallas;
+	/** Colección que contiene todas las cartas que están situadas en el mapa del juego **/
 	private ArrayList<CartaEnMapa> cartasEnMapa;
+	/** Colección que contiene todas las cartas del juego **/
 	private ArrayList<Carta> cartas;
+	/** Variable que representa al personaje del juego **/
 	private Personaje personaje;
 
+	/**
+	 * Consutructor de la clase Ventana, la cual va a lanzar una excepción si no encuentra el nombre del personaje en la BBDD,
+	 * de ahí que se le pase el nombre del personaje por parámetros. 
+	 * En este contructor se van a cargar desde BBDD las cartas de Terreno, las cartas de evento, al personaje, las cartas de 
+	 * estado del personaje, y las cartas de inventario del personaje.
+	 * @param nombre El nombre del personaje
+	 * @throws CharacterDoesNotExistException Excepción que se lanza cuando no encuentra el nombre del personaje en BBDD
+	 */
 	public Ventana(String nombre) throws CharacterDoesNotExistException {
 
 		cartasEnMapa = new ArrayList<CartaEnMapa>();
@@ -49,8 +66,6 @@ public class Ventana extends JFrame {
 		pantallas.put("historiaPrincipal", new PantallaHistoriaInicial(this));
 		pantallas.put("usaAuriculares", new PantallaUsoAuriculares(this));
 
-
-
 		this.setSize(1500, 800);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.setLocationRelativeTo(null);
@@ -67,6 +82,12 @@ public class Ventana extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Función pública que permite cambiar de pantalla, pasándole por parámetros el nombre de la pantalla a la que se quiere cambiar. 
+	 * Esta función va a recorrer el HashMap de pantallas y va a poner invisible la pantalla que esté en ese momento visible, 
+	 * y a continuación va a poner visible la pantalla a la que se quiera cambiar.
+	 * @param nombrePantalla El nombre de la pantalla a la que se quiere cambiar. 
+	 */
 	public void cambiarAPantalla(String nombrePantalla) {
 		Iterator it = this.pantallas.values().iterator();
 		while (it.hasNext()) { 
@@ -81,6 +102,11 @@ public class Ventana extends JFrame {
 		}
 	}
 
+	/**
+	 * Función pública que nos va a dibujar el tablero, que representa la pantalla principal del juego, la cual va a tener toda la interactividad.
+	 * Esta función va a iterar por el HashMap de pantallas, va a poner invisible la pantalla de tablero, pero a la vez la va a poner
+	 * visible esa misma ventana del tablero. 
+	 */
 	public void dibujaTablero() {
 
 		Iterator it = this.pantallas.values().iterator();
@@ -94,6 +120,9 @@ public class Ventana extends JFrame {
 		this.setContentPane(this.pantallas.get("tablero"));
 	}
 
+	/**
+	 * Función privada que va a cargar las cartas de terreno de la BBDD. 
+	 */
 	private void cargaCartasTerreno() {
 
 		Statement smt = UtilsDB.conectarBD();
@@ -121,6 +150,10 @@ public class Ventana extends JFrame {
 
 	}
 
+	/**
+	 * Función privada que va a cargar las acciones de BBDD de las cartas que haya en el tablero, de las cartas de los estados del 
+	 * personaje, y de las cartas del inventario llamando a otra función que es la que se conecta a la BBDD.
+	 */
 	private void cargarAcciones() {
 		for (Carta carta : cartasEnMapa) {
 			carta.cargarAcciones();
@@ -136,6 +169,9 @@ public class Ventana extends JFrame {
 
 	}
 
+	/**
+	 * Función privada que va a cargar de BBDD las cartas de evento del juego. 
+	 */
 	private void cargaCartasEvento() {
 
 		Statement smt = UtilsDB.conectarBD();
@@ -164,6 +200,12 @@ public class Ventana extends JFrame {
 		UtilsDB.desconectarBD();
 	}
 	
+	/**
+	 * Función pública que va a cargar el personaje de la BBDD. Se le pasa por parámetros el nombre del personaje, y si lo encuentra 
+	 * te carga todos sus datos y se crea un objeto Personaje, y si no encuentra el nombre del personaje en la BBDD, lanza una excepción.
+	 * @param nombrePersonaje El nombre del personaje
+	 * @throws CharacterDoesNotExistException Excepción que se lanzará si no encuentra el nombre del personaje en la BBDD.
+	 */
 	public void cargaPersonaje(String nombrePersonaje) throws CharacterDoesNotExistException {
 
 		Statement smt = UtilsDB.conectarBD();
@@ -179,9 +221,7 @@ public class Ventana extends JFrame {
 				String rutaCartaHistoria = cursorPersonaje.getString("rutaCartaHistoria");
 				String rutaIconoPersonaje = cursorPersonaje.getString("rutaIconoPersonaje");
 
-				this.personaje = new Personaje(id, nombre, TipoAccion.valueOf(habilidad), rutaCartaHistoria,
-						rutaIconoPersonaje);
-			
+				this.personaje = new Personaje(id, nombre, TipoAccion.valueOf(habilidad), rutaCartaHistoria, rutaIconoPersonaje);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,18 +233,20 @@ public class Ventana extends JFrame {
 		}
 	}
 
+	/**
+	 * Getter del HashMap de las pantallas
+	 * @return Las pantallas que tenga el HashMap
+	 */
 	public HashMap<String, JPanel> getPantallas() {
 		return pantallas;
 	}
 
+	/**
+	 * Setter del HashMap de pantallas
+	 * @param pantallas Un HashMap con las pantallas
+	 */
 	public void setPantallas(HashMap<String, JPanel> pantallas) {
 		this.pantallas = pantallas;
 	}
 	
-	
-	
-
-	
-	
-
 }

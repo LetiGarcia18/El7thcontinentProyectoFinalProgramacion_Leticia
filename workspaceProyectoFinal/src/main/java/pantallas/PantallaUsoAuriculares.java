@@ -12,7 +12,11 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
+/**
+ * Clase PantallaUsoAuriculares que hereda de JPanel y va a representar la pantalla que avisa del uso de auriculares
+ * @author Leticia
+ *
+ */
 public class PantallaUsoAuriculares extends JPanel{
 	/** La ventana que contiene el JPanel del menú principal **/
 	private Ventana ventana;
@@ -54,7 +58,7 @@ public class PantallaUsoAuriculares extends JPanel{
 	}
 	
 	/**
-	 * Función que permite que se ponga como fondo de pantalla una imagen .gif
+	 * Función pública que permite que se ponga como fondo de pantalla una imagen .gif
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {

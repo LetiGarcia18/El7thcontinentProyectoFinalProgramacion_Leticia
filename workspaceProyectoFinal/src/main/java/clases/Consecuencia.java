@@ -126,7 +126,4 @@ public class Consecuencia {
 				+ ", accion_id: " + accionId + ", cartaObjetivo: " + cartaObjetivo;
 	}
 	
-	
-	
-	
 }

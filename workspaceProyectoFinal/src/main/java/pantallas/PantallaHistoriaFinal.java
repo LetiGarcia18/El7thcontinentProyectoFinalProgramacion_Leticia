@@ -64,7 +64,7 @@ public class PantallaHistoriaFinal extends JPanel {
 	}
 
 	/**
-	 * Función que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
+	 * Función pública que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
 	 */
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);

@@ -36,21 +36,37 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Graphics;
 
+
+/**
+ * Clase Tablero, que hereda de JPanel y va a representar el tablero de juego del programa.
+ * @author Leticia
+ *
+ */
 public class Tablero extends JPanel {
-
+	/** La ventana que contiene el JPanel del tablero **/
 	private Ventana ventana;
+	/** Representa el margen derecho que van a tener algunos elementos de la pantalla**/
 	private int margenDerecho = 20;
+	/** ArrayList de las cartas que hay en el mapa **/
 	private ArrayList<CartaEnMapa> cartasEnMapa;
+	/** El personaje del juego **/
 	private Personaje personaje;
+	/** Un botón desplegable donde van a aparecer los números de las cartas **/
 	private JComboBox comboBoxNumeroCarta;
+	/** random que se utilizará a la hora de sacar un número aleatorio entre 0 y 6 para comprobar si se ha superado la dificultad de una acción**/
 	private Random random;
+	/** La imagen que va a tener de fondo la pantalla del tablero **/
 	private Image imagenFondo;
+	/** Booleano que nos indicará con true si hemos ganado la partida. Se inicializa a false **/
 	private boolean hasGanado = false;
-
-	int altoBoton = 35;
-	int anchoBoton = 130;
-	int margenEntreBotones = 40;
-	int posicionYBotones = 470;
+	/** Representa el alto de los botones de esta pantalla **/
+	private int altoBoton = 35;
+	/** Representa el ancho de los botones de esta pantalla **/
+	private int anchoBoton = 130;
+	/** Representa el margen que hay entre los botones de esta pantalla **/
+	private int margenEntreBotones = 40;
+	/** Representa el valor de la posición Y de los botones **/
+	private int posicionYBotones = 470;
 
 	public Tablero(Ventana v, ArrayList<CartaEnMapa> cartasEnMapa, Personaje personaje) {
 

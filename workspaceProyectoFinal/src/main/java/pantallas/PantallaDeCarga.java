@@ -6,8 +6,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 /**
- * Clase Splash que hereda de la clase JDialog, que va a representar una pantalla de carga al inicializar el juego
- * @author letic
+ * Clase PantallaDeCarga que hereda de la clase JDialog, que va a representar una pantalla de carga al inicializar el juego
+ * @author Leticia
  *
  */
 public class PantallaDeCarga extends JDialog {
@@ -33,7 +33,7 @@ public class PantallaDeCarga extends JDialog {
 	}
 
 	/**
-	 * Función que va a controlar la velocidad de la barra de progreso de la pantalla de carga
+	 * Función privada que va a controlar la velocidad de la barra de progreso de la pantalla de carga
 	 */
 	private void inicialHilo() {
 		Thread hilo = new Thread(new Runnable() {
@@ -63,7 +63,7 @@ public class PantallaDeCarga extends JDialog {
 	}
 
 	/**
-	 * Función que va a inicializar la pantalla de carga. Se le da un aspecto y un tamaño a la misma. 
+	 * Función privada que va a inicializar la pantalla de carga. Se le da un aspecto y un tamaño a la misma. 
 	 */
 	private void inicializar() {
 		SplashScreen = new JLabel("Cargando...");

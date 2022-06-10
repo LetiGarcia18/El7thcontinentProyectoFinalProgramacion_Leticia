@@ -12,7 +12,7 @@ import excepciones.CharacterDoesNotExistException;
 import pantallas.PantallaDeCarga;
 import pantallas.Ventana;
 /**
- * Clase Principal donde se encuentra el Main del programa.
+ * Clase Principal donde se encuentra el Main del programa the7thContinent.
  * @author Leticia
  *
  */

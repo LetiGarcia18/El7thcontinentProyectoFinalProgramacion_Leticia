@@ -3,14 +3,12 @@ package clases;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import enums.TipoAccion;
 import utils.UtilsDB;
 
 /**
- * Clase Personaje, en la cual va a ser posible crear al personaje, cargar sus estados y su inventario de la BBDD
+ * Clase Personaje,  que va a representar al personaje del juego, en la cual va a ser posible crear al personaje, 
+ * cargar sus estados y su inventario de la BBDD
  * @author Leticia
  *
  */
@@ -61,7 +59,7 @@ public class Personaje {
 	
 	
 	/**
-	 * Método público en el cual se cargan de BBDD las cartas de estado que puede tener el personaje.
+	 * Función pública en el cual se cargan de BBDD las cartas de estado que puede tener el personaje.
 	 */
 	public void cargaCartasEstado() {
 		Statement smt = UtilsDB.conectarBD();
@@ -87,7 +85,7 @@ public class Personaje {
 	}
 	
 	/**
-	 * Método público en el cual se cargan de BBDD las cartas de inventario que puede tener el personaje.
+	 * Función pública en el cual se cargan de BBDD las cartas de inventario que puede tener el personaje.
 	 */
 	public void cargaCartasInventario() {
 		Statement smt = UtilsDB.conectarBD();
@@ -238,14 +236,14 @@ public class Personaje {
 	}
 	
 	/**
-	 * Función que reestablece el contador de energía del personaje a la energía que tiene inicialmente al iniciar el juego
+	 * Función pública que reestablece el contador de energía del personaje a la energía que tiene inicialmente al iniciar el juego
 	 */
 	public void restablecerEnergia() {
 		this.contadorEnergia = this.energiaInicial;
 	}
 	
 	/**
-	 * Función que devuelve el coste de energía extra (o de menos) dependiendo de las cartas de estado que tenga el personaje
+	 * Función pública que devuelve el coste de energía extra (o de menos) dependiendo de las cartas de estado que tenga el personaje
 	 * (esto haría que le costase más energía realizar las acciones, porque tener estados es una consecuencia negativa
 	 * para el personaje) y dependiendo de la habilidad que tenga el personaje (por ejemplo, si el personaje tiene la habilidad
 	 * de 'escalar', las acciones de ese tipo le va a costar 1 menos de enetgía).
@@ -267,7 +265,7 @@ public class Personaje {
 	}
 	
 	/**
-	 * Función que nos devuelve el número de cartas de engranaje que posee el personaje en su inventario.
+	 * Función pública que nos devuelve el número de cartas de engranaje que posee el personaje en su inventario.
 	 * @return Nos devuelve el número de engranajes que tiene el personaje.
 	 */
 	public int dameNumeroDeEngranajes() {
@@ -302,7 +300,7 @@ public class Personaje {
 	}
 
 	/**
-	 * Función que dependiendo del coste de acción de cada carta, reduce esa cantidad de energía al personaje
+	 * Función pública que dependiendo del coste de acción de cada carta, reduce esa cantidad de energía al personaje
 	 * @param accion La acción que va a realizar el personaje
 	 */
 	public void reduceEnergia(Accion accion) {
@@ -317,7 +315,7 @@ public class Personaje {
 	}
 	
 	/**
-	 * Función Que aumenta X cantidad de energía al personaje
+	 * Función pública que aumenta X cantidad de energía al personaje
 	 * @param energia La cantidad de energía que va a aumentar el personaje
 	 */
 	public void aumentaEnergia(short energia) {

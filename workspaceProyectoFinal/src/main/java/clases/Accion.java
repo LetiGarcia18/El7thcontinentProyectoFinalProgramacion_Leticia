@@ -1,10 +1,9 @@
 package clases;
 
-import java.sql.SQLException;
-import java.sql.Statement;
+
 import java.util.ArrayList;
 import enums.TipoAccion;
-import utils.UtilsDB;
+
 /**
  * Clase que representa las acciones que puede realizar el personaje. Las acciones se encuentra en los distintos tipos de carta.
  * @author Leticia
@@ -132,7 +131,7 @@ public class Accion {
 	}
 
 	/**
-	 * Función que añade una consecuencia negativa a la hora de resolver una acción
+	 * Función pública que añade una consecuencia negativa a la hora de resolver una acción
 	 * @param consecuencia La consecuencia negativa que va a tener una acción
 	 */
 	public void agregaConsecuenciaNegativa(Consecuencia consecuencia) {

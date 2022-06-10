@@ -38,7 +38,7 @@ public class BotonComun extends JButton{
 	}
 	
 	/**
-	 * Función que devuelve el estilo del botón a su estilo original. 
+	 * Función privada que devuelve el estilo del botón a su estilo original. 
 	 */
 	private void estiloPorDefecto() {
 		this.setForeground(new Color(247, 224, 138));
