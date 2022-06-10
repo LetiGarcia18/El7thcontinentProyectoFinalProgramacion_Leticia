@@ -29,7 +29,7 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		String nombrePersonaje = "";
+		String nombrePersonaje = "cancamuso";
 		
 		for (byte i = 0; i < args.length; i++) {
 			if (args[i].equals("-nombre")) {
@@ -42,18 +42,17 @@ public class Main {
     			System.exit(0);
 			}
 		}
-		
-		if(nombrePersonaje.equals("") || (!nombrePersonaje.equals("Ferdinand") || !nombrePersonaje.equals("duck"))) {
-			nombrePersonaje = "Ferdinand";
-		}
-		
-		/*PantallaDeCarga pantallaCarga = new PantallaDeCarga();
-		pantallaCarga.setVisible(true);*/
-		
+				
 		try {
 			Ventana ventana = new Ventana(nombrePersonaje);
 		} catch (CharacterDoesNotExistException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Character doesn't exist", JOptionPane.ERROR_MESSAGE);
+			try {
+				Ventana ventana=new Ventana("Ferdinand");
+			} catch (CharacterDoesNotExistException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		
