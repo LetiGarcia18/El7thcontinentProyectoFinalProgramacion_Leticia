@@ -49,9 +49,7 @@ import java.awt.Graphics;
 public class Tablero extends JPanel {
 	/** La ventana que contiene el JPanel del tablero **/
 	private Ventana ventana;
-	/**
-	 * Representa el margen derecho que van a tener algunos elementos de la pantalla
-	 **/
+	/** Representa el margen derecho que van a tener algunos elementos de la pantalla **/
 	private int margenDerecho;
 	/** ArrayList de las cartas que hay en el mapa **/
 	private ArrayList<CartaEnMapa> cartasEnMapa;
@@ -59,17 +57,13 @@ public class Tablero extends JPanel {
 	private Personaje personaje;
 	/** Un botón desplegable donde van a aparecer los números de las cartas **/
 	private JComboBox comboBoxNumeroCarta;
-	/**
-	 * random que se utilizará a la hora de sacar un número aleatorio entre 0 y 6
-	 * para comprobar si se ha superado la dificultad de una acción
-	 **/
+	/** random que se utilizará a la hora de sacar un número aleatorio entre 0 y 6
+	 * para comprobar si se ha superado la dificultad de una acción **/
 	private Random random;
 	/** La imagen que va a tener de fondo la pantalla del tablero **/
 	private Image imagenFondo;
-	/**
-	 * Booleano que nos indicará con true si hemos ganado la partida. Se inicializa
-	 * a false inicialmente
-	 **/
+	/** Booleano que nos indicará con true si hemos ganado la partida. Se inicializa
+	 * a false inicialmente **/
 	private boolean hasGanado;
 	/** Representa el alto de los botones de esta pantalla **/
 	private int altoBoton;
@@ -419,7 +413,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que va a dubujar la acción en el Tablero de juego. Se le va a
+	 * Función pública que va a dibujar la acción en el Tablero de juego. Se le va a
 	 * pasar por parámetros la acción a dibujar, y las cartas adyacentes de la carta
 	 * donde se encuentra la acción. En esta función va a comprobar si el ArrayList
 	 * de cartas adyacentes no está vacío, si no lo está va a ir dibujando las
@@ -520,6 +514,27 @@ public class Tablero extends JPanel {
 		}
 	}
 
+	/**
+	 * Función pública que resuelve las acciones de cada carta. Se le pasa por
+	 * parámetros la acción a resolver y lanza una excepción debido a que dentro de
+	 * esta función, se llama a otra que crea un File y se escribe en él. Esta
+	 * función saltará cuando exista algún problema con el File. Lo primero que se
+	 * resuelve en esta función es la reducción de energía del personaje, ya que
+	 * todas las acciones van a tener un coste de energía siempre. A continuación se
+	 * resuelve la dificultad de la acción con un número aleatorio entre 0 y 6; si
+	 * se saca el mismo valor que la dificultad de la acción o superior, se supera
+	 * la acción. Si se supera la dificultad, se llama a la función que resuelve las
+	 * consecuencias positivas que tiene la resolución de la acción, y si no se
+	 * supera, se llama a la función que resuelve las consecuencias negativas que
+	 * tiene la acción. Por último, comprueba que si no se ha ganado se vuelva a
+	 * dibujar el tablero, y se comprueba que el personaje tenga más de 0 de
+	 * energía, si no se acaba automáticamente la partida.
+	 * 
+	 * @param accion La acción que se quiere resolver
+	 * @throws IOException Excepción que se lanzará si existe algún problema con el
+	 *                     File que se crea y escribe en las funciones que se llaman
+	 *                     dentro de esta función
+	 */
 	public void resolverAccion(Accion accion) throws IOException {
 		personaje.reduceEnergia(accion);
 
@@ -550,14 +565,35 @@ public class Tablero extends JPanel {
 
 	}
 
+	/**
+	 * Función pública en la que se obtiene de manera aleatoria la tirada de
+	 * dificultad, para comprobar si se supera la dificultad de las acciones o no.
+	 * Si se saca el mismo valor o superior, que el valor de la dificultad de la
+	 * acción, la acción se superará positivamente.
+	 * 
+	 * @return El número aleatorio que ha salido.
+	 */
 	public short obtenerTiradaDificultad() {
 		return (short) (random.nextInt(6) + 1);
 	}
 
+	/**
+	 * Función pública que nos permite dibujar y pintar los componentes de esta
+	 * pantalla con Swing.
+	 */
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
 
+	/**
+	 * Función privada que devuelve las cartas adyacentes a la carta donde se
+	 * encuentra el personaje situado en ese momento. Se le pasa por parámetros la
+	 * carta en la que está en ese momento el personaje.
+	 * 
+	 * @param cartaActual La carta en la que está en ese momento el personaje.
+	 * @return Un ArrayList con las cartas adyacentes a la carta donde se encuentra
+	 *         el personaje situado en ese momento.
+	 */
 	private ArrayList<CartaEnMapa> dameCartasAdyacentes(CartaEnMapa cartaActual) {
 		ArrayList<CartaEnMapa> cartasAdyacentes = new ArrayList<CartaEnMapa>();
 		for (CartaEnMapa cartaEnMapa : cartasEnMapa) {
@@ -574,6 +610,26 @@ public class Tablero extends JPanel {
 		return cartasAdyacentes;
 	}
 
+	/**
+	 * Función pública que resuelve las consecuencias de las acciones. Se le pasa
+	 * por parámetros un ArrayList con todas las consecuencias posibles. La función
+	 * lanzará una excepción, debido a que dentro de esta función se crea y se
+	 * escribe en un File. Existen 5 tipos de consecuencia: 
+	 * - Desplazarse: moverse a otra carta 
+	 * - Restaurar: que el personaje recupere energía gracias a la comida que encuentra 
+	 * - Traer carta: Se trae una nueva carta al tablero de juego. 
+	 * - Quitar carta: Se va una carta que ya estaba en el tablero de juego. 
+	 * - Ganar: consecuencia que se cumple solo si el personaje tiene en su inventario 
+	 * las dos cartas de engranajes.
+	 * 
+	 * Mientras las consecuencias se van resolviendo, se crea un File donde se van a
+	 * ir escribiendo todas y cada una de las consecuencias que ocurren en el juego
+	 * hasta que este termina (o bien ganando o bien perdiendo la partida).
+	 * 
+	 * @param consecuencias Las consecuencias de las acciones
+	 * @throws IOException Excepción que saltará si ocurre algún problema con el
+	 *                     File que se crea
+	 */
 	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) throws IOException {
 		int contadorCartasEngranaje = personaje.dameNumeroDeEngranajes();
 		String ruta = "./resumenPartida.txt";
@@ -584,7 +640,7 @@ public class Tablero extends JPanel {
 		FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
 		PrintWriter pw = null;
 		pw = new PrintWriter(fw);
-		//BufferedWriter bw = new BufferedWriter(fw);
+		// BufferedWriter bw = new BufferedWriter(fw);
 		for (Consecuencia consecuencia : consecuencias) {
 			String numeroCarta;
 			Carta carta;
@@ -641,15 +697,7 @@ public class Tablero extends JPanel {
 				break;
 
 			}
-			/*try {
-				// Cierra instancias de FileWriter y BufferedWriter
-				if (bw != null)
-					bw.close();
-				if (fw != null)
-					fw.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}*/
+			
 		}
 
 	}
