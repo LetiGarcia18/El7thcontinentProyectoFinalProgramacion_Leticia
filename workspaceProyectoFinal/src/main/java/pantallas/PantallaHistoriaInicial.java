@@ -15,32 +15,37 @@ import javax.swing.JPanel;
 
 import elementosVisuales.BotonComun;
 
-public class PantallaHistoriaInicial extends JPanel{
+public class PantallaHistoriaInicial extends JPanel {
 	/** La ventana que contiene el JPanel del menú principal **/
 	private Ventana ventana;
-	/** La imagen que va a tener de fondo la pantalla de menú principal**/
+	/** La imagen que va a tener de fondo la pantalla de menú principal **/
 	private Image imagenFondo;
-	
+
 	/**
-	 * Constructor de la clase PantallaHistoriaInicial donde se le pasa por parámetros el objeto ventana. En este constructor se va a
-	 * mostrar la historia principal del juego, con una imagen que se pondrá de fondo de la pantalla. También aparecerá un botón "Continue"
-	 * que nos llevará a la pantalla del tablero de juego, donde comenzaremos la partida.
+	 * Constructor de la clase PantallaHistoriaInicial donde se le pasa por
+	 * parámetros el objeto ventana. En este constructor se va a mostrar la historia
+	 * principal del juego, con una imagen que se pondrá de fondo de la pantalla.
+	 * También aparecerá un botón "Continue" que nos llevará a la pantalla del
+	 * tablero de juego, donde comenzaremos la partida.
+	 * 
 	 * @param v La ventanan que va a contener el JPanel.
 	 */
 	public PantallaHistoriaInicial(Ventana v) {
-		
+
 		this.ventana = v;
-		
+
 		imagenFondo = new ImageIcon("./imagenesFondo/historiaPrincipal.png").getImage();
-		
+
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, -46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, -46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
+				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JButton botonContinuar = new BotonComun("Continue");
 		botonContinuar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -56,12 +61,13 @@ public class PantallaHistoriaInicial extends JPanel{
 		gbc_botonContinuar.gridy = 15;
 		add(botonContinuar, gbc_botonContinuar);
 	}
-	
+
 	/**
-	 * Función pública que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
-	*/
+	 * Función pública que nos permite dibujar y pintar los componentes de esta
+	 * pantalla con Swing.
+	 */
 	public void paintComponent(Graphics g) {
-		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null); 
+		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
 
 }

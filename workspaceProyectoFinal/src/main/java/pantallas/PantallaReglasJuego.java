@@ -14,27 +14,33 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import elementosVisuales.BotonComun;
+
 /**
- * Clase PantallaReglasJuego que hereda de JPanel y va a representar a la pantalla que contiene las reglas del juego.
+ * Clase PantallaReglasJuego que hereda de JPanel y va a representar a la
+ * pantalla que contiene las reglas del juego.
+ * 
  * @author Leticia
  *
  */
-public class PantallaReglasJuego extends JPanel{
+public class PantallaReglasJuego extends JPanel {
 	/** La ventana que contiene el JPanel del menú principal **/
 	private Ventana ventana;
-	/** La imagen que va a tener de fondo la pantalla de menú principal**/
+	/** La imagen que va a tener de fondo la pantalla de menú principal **/
 	private Image imagenFondo;
-	
+
 	/**
-	 * Constructor de la clase PantallaReglasJuego, que se le va  a pasar por parámetros el objeto ventana.En este constructor se va a poner una imagen de fondo, 
-	 * y un botón, en el que pondrá "Return", y nos llevará de regreso a la pantalla del Menú principal.
+	 * Constructor de la clase PantallaReglasJuego, que se le va a pasar por
+	 * parámetros el objeto ventana.En este constructor se va a poner una imagen de
+	 * fondo, y un botón, en el que pondrá "Return", y nos llevará de regreso a la
+	 * pantalla del Menú principal.
+	 * 
 	 * @param v La ventanan que va a contener el JPanel.
 	 */
 	public PantallaReglasJuego(Ventana v) {
-		
+
 		this.ventana = v;
 		imagenFondo = new ImageIcon("./imagenesFondo/bookRules.png").getImage();
-		
+
 		GridBagLayout gridBagLayout = new GridBagLayout();
 
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, -46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -44,7 +50,7 @@ public class PantallaReglasJuego extends JPanel{
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JButton botonVolver = new BotonComun("Return");
 		botonVolver.addMouseListener(new MouseAdapter() {
 			@Override
@@ -59,13 +65,13 @@ public class PantallaReglasJuego extends JPanel{
 		gbc_botonVolver.gridx = 9;
 		gbc_botonVolver.gridy = 15;
 		add(botonVolver, gbc_botonVolver);
-		
-		
+
 	}
-	
+
 	/**
-	 * Función pública que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
-	*/
+	 * Función pública que nos permite dibujar y pintar los componentes de esta
+	 * pantalla con Swing.
+	 */
 	public void paintComponent(Graphics g) {
 		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}

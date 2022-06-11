@@ -9,13 +9,9 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -49,7 +45,7 @@ public class PantallaHistoriaPersonaje extends JPanel {
 	 * 
 	 * @param v         La ventanan que va a contener el JPanel.
 	 * @param personaje El personaje del juego
-	 * @throws IOException
+	 * @throws IOException Excepción que se lanzará si no encuentra el archivo .txt
 	 */
 	public PantallaHistoriaPersonaje(Ventana v, Personaje personaje) throws IOException {
 		this.ventana = v;
@@ -105,7 +101,7 @@ public class PantallaHistoriaPersonaje extends JPanel {
 		while ((ret = obj.readLine()) != null) {
 			return ret;
 		}
-		
+
 		return null;
 	}
 

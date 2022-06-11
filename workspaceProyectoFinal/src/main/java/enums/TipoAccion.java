@@ -1,6 +1,9 @@
 package enums;
+
 /**
- * Enum TipoAccion que va a representar las acciones que pueden tener las cartas del juego. 
+ * Enum TipoAccion que va a representar las acciones que pueden tener las cartas
+ * del juego.
+ * 
  * @author Leticia
  *
  */
@@ -8,7 +11,7 @@ public enum TipoAccion {
 	/** Acción de comer **/
 	EAT,
 	/** Acción de moverse **/
-	MOVE, 
+	MOVE,
 	/** Acción de investigar **/
 	INVESTIGATE,
 	/** Acción de escalar **/
@@ -23,9 +26,9 @@ public enum TipoAccion {
 	SWIM,
 	/** Accion de tirar **/
 	PULL,
-	/** Acción de equilibrarse**/
+	/** Acción de equilibrarse **/
 	BALANCE,
-	/** Acción de manipular**/
+	/** Acción de manipular **/
 	HANDLE,
 	/** Acción de pensar **/
 	THINK,
@@ -33,5 +36,5 @@ public enum TipoAccion {
 	HEAL,
 	/** Acción de cantar **/
 	SING
-	
+
 }

@@ -1,6 +1,9 @@
 package enums;
+
 /**
- * Enum TipoConsecuencia que va a representar las consecuencias de las acciones que se van a ir realizando durante el juego.
+ * Enum TipoConsecuencia que va a representar las consecuencias de las acciones
+ * que se van a ir realizando durante el juego.
+ * 
  * @author Leticia
  *
  */

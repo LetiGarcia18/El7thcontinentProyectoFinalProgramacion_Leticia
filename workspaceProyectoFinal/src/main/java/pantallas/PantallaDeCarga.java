@@ -5,8 +5,11 @@ import java.awt.Font;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+
 /**
- * Clase PantallaDeCarga que hereda de la clase JDialog, que va a representar una pantalla de carga al inicializar el juego
+ * Clase PantallaDeCarga que hereda de la clase JDialog, que va a representar
+ * una pantalla de carga al inicializar el juego
+ * 
  * @author Leticia
  *
  */
@@ -19,8 +22,10 @@ public class PantallaDeCarga extends JDialog {
 	private JLabel porcentaje;
 
 	/**
-	 * Constructor de la clase PantallaDeCarga, donde se va a llamar a una función que va a inicializar la pantalla, y a su vez 
-	 * se va a llamar a otra función que es la que controle la velocidad de la barra de progreso de la pantalla de carga
+	 * Constructor de la clase PantallaDeCarga, donde se va a llamar a una función
+	 * que va a inicializar la pantalla, y a su vez se va a llamar a otra función
+	 * que es la que controle la velocidad de la barra de progreso de la pantalla de
+	 * carga
 	 */
 	public PantallaDeCarga() {
 		inicializar();
@@ -33,29 +38,30 @@ public class PantallaDeCarga extends JDialog {
 	}
 
 	/**
-	 * Función privada que va a controlar la velocidad de la barra de progreso de la pantalla de carga
+	 * Función privada que va a controlar la velocidad de la barra de progreso de la
+	 * pantalla de carga
 	 */
 	private void inicialHilo() {
 		Thread hilo = new Thread(new Runnable() {
-			int x = 0; 
+			int x = 0;
 
 			public void run() {
-				
+
 				try {
-					while(x <= 100) {
+					while (x <= 100) {
 						barraProgreso.setValue(x);
 						porcentaje.setText(x + "%");
 						x++;
 						Thread.sleep(9);
 					}
-					
+
 					dispose();
 					Ventana ventana = new Ventana("");
 					ventana.setVisible(true);
-				}catch (Exception e) {
+				} catch (Exception e) {
 					System.out.println("Excepción " + e.getMessage());
 				}
-				
+
 			}
 
 		});
@@ -63,7 +69,8 @@ public class PantallaDeCarga extends JDialog {
 	}
 
 	/**
-	 * Función privada que va a inicializar la pantalla de carga. Se le da un aspecto y un tamaño a la misma. 
+	 * Función privada que va a inicializar la pantalla de carga. Se le da un
+	 * aspecto y un tamaño a la misma.
 	 */
 	private void inicializar() {
 		SplashScreen = new JLabel("Cargando...");
