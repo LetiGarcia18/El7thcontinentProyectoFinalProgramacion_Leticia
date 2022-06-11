@@ -27,6 +27,8 @@ public class Accion {
 	private ArrayList<Consecuencia> consecuenciasPositivas;
 	/** Las consecuencias negativas que tendrá la acción al ser resuelta **/
 	private ArrayList<Consecuencia> consecuenciasNegativas;
+	/** La ruta del icono de la acción **/
+	private String rutaIconoAccion;
 
 	/**
 	 * Constructor de la clase Accion. En él se va a crear el objeto acción, que va
@@ -42,7 +44,7 @@ public class Accion {
 	 * @param numeroCarta      El número de carta donde se encuentra dicha acción
 	 */
 	public Accion(int id, TipoAccion tipoAccion, String descripcion, short costeAccion, short dificultadAccion,
-			String numeroCarta) {
+			String numeroCarta, String rutaIconoAccion) {
 		this.id = id;
 		this.tipoAccion = tipoAccion;
 		this.descripcion = descripcion;
@@ -51,6 +53,7 @@ public class Accion {
 		this.numeroCarta = numeroCarta;
 		this.consecuenciasPositivas = new ArrayList<Consecuencia>();
 		this.consecuenciasNegativas = new ArrayList<Consecuencia>();
+		this.rutaIconoAccion = rutaIconoAccion;
 
 	}
 
@@ -151,6 +154,22 @@ public class Accion {
 	 */
 	public void agregaConsecuenciaNegativa(Consecuencia consecuencia) {
 		this.consecuenciasNegativas.add(consecuencia);
+	}
+	
+	/**
+	 * Getter de la ruta del icono de la acción
+	 * @return Nos devuelve la ruta del icono de la acción
+	 */
+	public String getRutaIconoAccion() {
+		return rutaIconoAccion;
+	}
+
+	/**
+	 * Setter de la ruta del icono de la acción
+	 * @param rutaIconoAccion La ruta del icono de la acción
+	 */
+	public void setRutaIconoAccion(String rutaIconoAccion) {
+		this.rutaIconoAccion = rutaIconoAccion;
 	}
 
 	/*

@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 
 
 import excepciones.CharacterDoesNotExistException;
-import pantallas.PantallaDeCarga;
 import pantallas.Ventana;
 
 /**
@@ -33,7 +32,6 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-
 		String nombrePersonaje = "cancamuso";
 
 		for (byte i = 0; i < args.length; i++) {
@@ -47,9 +45,9 @@ public class Main {
 				System.exit(0);
 			}
 		}
-
+		
 		try {
-			PantallaDeCarga pc = new PantallaDeCarga();
+			
 			Ventana ventana = new Ventana(nombrePersonaje);
 		} catch (CharacterDoesNotExistException | IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Character doesn't exist", JOptionPane.ERROR_MESSAGE);
@@ -60,6 +58,8 @@ public class Main {
 				e1.printStackTrace();
 			}
 		}
+
+		
 
 	}
 

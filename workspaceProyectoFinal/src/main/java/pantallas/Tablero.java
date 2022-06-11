@@ -98,8 +98,8 @@ public class Tablero extends JPanel {
 		random = new Random();
 		this.margenDerecho = 20;
 		this.hasGanado = false;
-		this.altoBoton = 35;
-		this.anchoBoton = 130;
+		this.altoBoton = 37;
+		this.anchoBoton = 150;
 		this.margenEntreBotones = 40;
 		this.posicionYBotones = 470;
 		imagenFondo = new ImageIcon("./imagenesFondo/isla.jpg").getImage();
@@ -472,10 +472,17 @@ public class Tablero extends JPanel {
 			labelCosteAccion.setBounds(1040, this.posicionYBotones, 183, 29);
 			add(labelCosteAccion);
 
+			ImageIcon iconobtn = new ImageIcon(accion.getRutaIconoAccion());
 			botonAccion.setText(tipoAccion.toString());
-			botonAccion.setFont(new Font("Rockwell", Font.PLAIN, 13));
+			botonAccion.setFont(new Font("Rockwell", Font.PLAIN, 11));
 			botonAccion.setBounds(posicionX, this.posicionYBotones, this.anchoBoton, this.altoBoton);
 			botonAccion.setToolTipText(accion.getDescripcion());
+			botonAccion.setIcon(iconobtn);
+			botonAccion.setIconTextGap(2);
+			botonAccion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+			botonAccion.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+			botonAccion.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+			botonAccion.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
 			botonAccion.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {

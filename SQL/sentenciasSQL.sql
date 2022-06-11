@@ -18,7 +18,8 @@ create table accion(
 	 descripcion varchar(250) not null,
      costeAccion numeric(4),
      dificultadAccion numeric(5),
-     carta_num varchar(5) not null
+     carta_num varchar(5) not null,
+     iconoAccion varchar(500)
 );
 
 create table consecuencia(
@@ -66,10 +67,10 @@ create table personaje(
     rutaIconoPersonaje varchar(500),
     rutaHistoriaPersonajeTxt varchar(900)
 );
-SELECT * FROM the7thcontinent.cartasterreno where numeroCarta = '005';
-SELECT * FROM the7thcontinent.accion where carta_num = '024';
-SELECT * FROM the7thcontinent.consecuencia where accion_id = 20;
-SELECT * FROM the7thcontinent.cartasevento where numeroCarta = '018';
+SELECT * FROM the7thcontinent.cartasterreno where id = 6;
+SELECT * FROM the7thcontinent.accion where carta_num = '006g';
+SELECT * FROM the7thcontinent.consecuencia where accion_id = 14;
+SELECT * FROM the7thcontinent.cartasevento where numeroCarta = '012';
 SELECT * FROM the7thcontinent.cartasestado;
 SELECT * FROM the7thcontinent.personaje;
 
@@ -104,39 +105,39 @@ INSERT INTO cartasInventario (id, numeroCarta, rutaImagen, textoCarta) VALUES
 
 
 #Inserción acciones
-INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, carta_num) VALUES
-(1, 'MOVE', 'Move to another terrain', 2, 0, '015'),
-(2, 'SEARCH', 'Examine', 0, 0, '015'),
-(3, 'MOVE', 'Move to another terrain', 1, 0, '009'),
-(4, 'OBSERVE', 'Observe something', 1, 0, '009'),
-(5, 'MOVE', 'Move to another terrain', 1, 0, '007'),
-(6, 'OBSERVE', 'Observe something', 0 ,0, '007'),
-(7, 'INVESTIGATE', 'Explore this area', 1, 0, '007'),
-(8, 'MOVE', 'Move to another terrain', 2 ,0, '004'),
-(9, 'INVESTIGATE', 'Explore this area', 1 ,0, '004'),
-(10, 'MOVE', 'Move to another terrain', 1 ,0, '010'),
-(11, 'INVESTIGATE', 'Explore this area', 1 ,0, '010'),
-(12, 'MOVE', 'Move to another terrain', 2 ,0, '006'),
-(13, 'OBSERVE', 'Observe something', 1 ,0, '006'),
-(14, 'SEARCH', 'Examine', 0 ,0, '006'),
-(15, 'CLIMB', 'Show off your physical prowess.', 1 ,2, '005'),
-(16, 'MOVE', 'Move to another terrain', 0, 0, '010g'),
-(17, 'HEAL', 'Heal yourself.', 2 ,3, '104'),
-(18, 'EAT', 'Restore your energy', 0 ,0, '001'),
-(19, 'HANDLE', 'Take this', 1 ,0, '037'),
-(20, 'MOVE', 'Move to another terrain', 2 , 0, '024'),
-(21, 'SEARCH', 'Examine', 0 , 0, '024'),
-(22, 'SWIM', 'Jump into the water', 3 , 2, '018'),
-(23, 'SEARCH', 'Examine', 1, 0, '011'),
-(24, 'BALANCE', 'Balance yourself', 1, 3, '031'),
-(25, 'HUNT', 'Wait for your prey', 2, 2, '012'),
-(26, 'PULL', 'Use your strength', 1, 1, '022'),
-(27, 'HEAL', 'Heal yourself', 2, 4, '108'),
-(29, 'SING', 'Play music', 1, 4, '107'),
-(30, 'THINK', 'Calmly meditate', 1, 3, '103'),
-(31, 'MOVE', 'Move to another terrain', 2 ,0, '006g'),
-(32, 'OBSERVE', 'Observe something', 1 ,0, '006g'),
-(33, 'SEARCH', 'Examine', 0 ,0, '006g')
+INSERT INTO accion (id, tipo, descripcion, costeAccion, dificultadAccion, carta_num, iconoAccion) VALUES
+(1, 'MOVE', 'Move to another terrain', 2, 0, '015', './iconosAcciones/move.png'),
+(2, 'SEARCH', 'Examine', 0, 0, '015', './iconosAcciones/search.png'),
+(3, 'MOVE', 'Move to another terrain', 1, 0, '009', './iconosAcciones/move.png'),
+(4, 'OBSERVE', 'Observe something', 1, 0, '009', './iconosAcciones/observe.png'),
+(5, 'MOVE', 'Move to another terrain', 1, 0, '007', './iconosAcciones/move.png'),
+(6, 'OBSERVE', 'Observe something', 0 ,0, '007', './iconosAcciones/observe.png'),
+(7, 'INVESTIGATE', 'Explore this area', 1, 0, '007', './iconosAcciones/investigate.png'),
+(8, 'MOVE', 'Move to another terrain', 2 ,0, '004', './iconosAcciones/move.png'),
+(9, 'INVESTIGATE', 'Explore this area', 1 ,0, '004', './iconosAcciones/investigate.png'),
+(10, 'MOVE', 'Move to another terrain', 1 ,0, '010', './iconosAcciones/move.png'),
+(11, 'INVESTIGATE', 'Explore this area', 1 ,0, '010', './iconosAcciones/investigate.png'),
+(12, 'MOVE', 'Move to another terrain', 2 ,0, '006', './iconosAcciones/move.png'),
+(13, 'OBSERVE', 'Observe something', 1 ,0, '006', './iconosAcciones/observe.png'),
+(14, 'SEARCH', 'Examine', 0 ,0, '006', './iconosAcciones/search.png'),
+(15, 'CLIMB', 'Show off your physical prowess.', 1 ,2, '005', './iconosAcciones/climb.png'),
+(16, 'MOVE', 'Move to another terrain', 0, 0, '010g', './iconosAcciones/move.png'),
+(17, 'HEAL', 'Heal yourself.', 2 ,3, '104', './iconosAcciones/heal.png'),
+(18, 'EAT', 'Restore your energy', 0 ,0, '001', './iconosAcciones/eat.png'),
+(19, 'HANDLE', 'Take this', 1 ,0, '037', './iconosAcciones/handle.png'),
+(20, 'MOVE', 'Move to another terrain', 2 , 0, '024', './iconosAcciones/move.png'),
+(21, 'SEARCH', 'Examine', 0 , 0, '024', './iconosAcciones/search.png'),
+(22, 'SWIM', 'Jump into the water', 3 , 2, '018', './iconosAcciones/swim.png'),
+(23, 'SEARCH', 'Examine', 1, 0, '011', './iconosAcciones/search.png'),
+(24, 'BALANCE', 'Balance yourself', 1, 3, '031', './iconosAcciones/balance.png'),
+(25, 'HUNT', 'Wait for your prey', 2, 2, '012', './iconosAcciones/hunt.png'),
+(26, 'PULL', 'Use your strength', 1, 1, '022', './iconosAcciones/pull.png'),
+(27, 'HEAL', 'Heal yourself', 2, 4, '108', './iconosAcciones/heal.png'),
+(29, 'SING', 'Play music', 1, 4, '107', './iconosAcciones/sing.png'),
+(30, 'THINK', 'Calmly meditate', 1, 3, '103', './iconosAcciones/think.png'),
+(31, 'MOVE', 'Move to another terrain', 2 ,0, '006g', './iconosAcciones/move.png'),
+(32, 'OBSERVE', 'Observe something', 1 ,0, '006g', './iconosAcciones/observe.png'),
+(33, 'SEARCH', 'Examine', 0 ,0, '006g', './iconosAcciones/search.png')
 ;
 
 
@@ -215,5 +216,5 @@ INSERT INTO cartasEvento (id, numeroCarta, rutaImagen, textoCarta, posicionX, po
 #Insercción personajes
 INSERT INTO personaje (id, nombre, habilidad, rutaCartaHistoria, rutaIconoPersonaje, rutaHistoriaPersonajeTxt) VALUES
 (1, 'Ferdinand', 'INVESTIGATE', 'cartasPersonaje/character1Story.png', 'cartasPersonaje/characterToken2.png', './cartasPersonaje/historiaFerdinand.txt'),
-(2, 'Mary Kingsley', 'SEARCH', 'iconos/duck.png', 'iconos/duck.png', './cartasPersonaje/historiaMary.txt');
+(2, 'Mary Kingsley', 'SEARCH', 'cartasPersonaje/characterStory02.png', 'cartasPersonaje/characterToken02.png', './cartasPersonaje/historiaMary.txt');
 

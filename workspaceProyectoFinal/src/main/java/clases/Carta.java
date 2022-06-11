@@ -188,9 +188,10 @@ public class Carta {
 				short costeAccion = cursorAcciones.getShort("costeAccion");
 				short dificultadAccion = cursorAcciones.getShort("dificultadAccion");
 				String cartaNum = cursorAcciones.getString("carta_num");
+				String rutaIconoAccion = cursorAcciones.getString("iconoAccion");
 
 				Accion actual = new Accion(id, TipoAccion.valueOf(tipoAccion), descripcion, costeAccion,
-						dificultadAccion, cartaNum);
+						dificultadAccion, cartaNum, rutaIconoAccion);
 				acciones.put(actual.getId(), actual);
 			}
 		} catch (SQLException e) {

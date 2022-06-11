@@ -81,7 +81,7 @@ public class PantallaHistoriaPersonaje extends JPanel {
 		botonVerFile.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(ventana, historia, "Story", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(ventana, historia, "Story in spanish", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		botonVerFile.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
