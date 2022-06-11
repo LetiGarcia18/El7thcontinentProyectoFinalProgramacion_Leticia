@@ -1,6 +1,8 @@
 package principal;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -23,9 +25,9 @@ public class Main {
 	 * defecto a uno de los personajes para que el programa se pueda seguir
 	 * ejecutando. Los nombres de los personaje son Ferdinand y Mary Kingsley
 	 * 
-	 * En el Main también se crea el objeto Ventana, pasándole por parámetros el
-	 * nombre del personaje, y este objeto es el que hará que nuestro programa se
-	 * vea visualmente.
+	 * En el Main también se crea el objeto Ventana (este objeto es el que hará 
+	 * que nuestro programa se vea visualmente), pasándole por parámetros el
+	 * nombre del personaje y un archivo de texto (File).
 	 * 
 	 * @param args Array de String donde se le introduce como argumentos de programa
 	 *             el nombre del personaje del juego.
@@ -46,13 +48,22 @@ public class Main {
 			}
 		}
 		
+		String ruta = "./resumenPartida.txt";
+		File file = new File(ruta);
 		try {
 			
-			Ventana ventana = new Ventana(nombrePersonaje);
+			if (!file.exists()) {
+				file.createNewFile();
+			}else {
+				PrintWriter writer = new PrintWriter(file); 
+				writer.print(""); 
+				writer.close();
+			}
+			Ventana ventana = new Ventana(nombrePersonaje, file);
 		} catch (CharacterDoesNotExistException | IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Character doesn't exist", JOptionPane.ERROR_MESSAGE);
 			try {
-				Ventana ventana = new Ventana("Ferdinand");
+				Ventana ventana = new Ventana("Ferdinand", file);
 			} catch (CharacterDoesNotExistException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -2,6 +2,7 @@ package pantallas;
 
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -41,24 +42,34 @@ public class Ventana extends JFrame {
 	private ArrayList<Carta> cartas;
 	/** Variable que representa al personaje del juego **/
 	private Personaje personaje;
+	/**
+	 * Archivo de texto en el que se van a ir escribiendo las consecuencias de las
+	 * acciones que se produzcan durante la partida
+	 **/
+	private File file;
 
 	/**
-	 * Consutructor de la clase Ventana, la cual va a lanzar una excepción si no
-	 * encuentra el nombre del personaje en la BBDD, de ahí que se le pase el nombre
-	 * del personaje por parámetros. En este contructor se van a cargar desde BBDD
-	 * las cartas de Terreno, las cartas de evento, al personaje, las cartas de
-	 * estado del personaje, y las cartas de inventario del personaje.
+	 * Consutructor de la clase Ventana, la cual va puede lanzar dos excepciones,
+	 * una si no encuentra el nombre del personaje en la BBDD u otra, si se produce
+	 * algún problema con el archivo de texto. En este contructor se van a cargar
+	 * desde BBDD las cartas de Terreno, las cartas de evento, al personaje, las
+	 * cartas de estado del personaje, y las cartas de inventario del personaje.
 	 * 
 	 * @param nombre El nombre del personaje
-	 * @throws CharacterDoesNotExistException Excepción que se lanza cuando no
+	 * @param file   Archivo de texto en el que se van a ir escribiendo las
+	 *               consecuencias de las acciones que se produzcan durante la
+	 *               partida
+	 * @throws CharacterDoesNotExistException Excepción que se lanzará cuando no
 	 *                                        encuentra el nombre del personaje en
 	 *                                        BBDD
-	 * @throws IOException
+	 * @throws IOException                    Excepción que se lanzará cando exista
+	 *                                        algún problema con el archivo de texto
 	 */
-	public Ventana(String nombre) throws CharacterDoesNotExistException, IOException {
+	public Ventana(String nombre, File file) throws CharacterDoesNotExistException, IOException {
 
 		cartasEnMapa = new ArrayList<CartaEnMapa>();
 		cartas = new ArrayList<Carta>();
+		this.file = file;
 		cargaCartasTerreno();
 		cargaCartasEvento();
 		cargaPersonaje(nombre);
@@ -71,10 +82,12 @@ public class Ventana extends JFrame {
 		pantallas.put("menuInicio", new MenuPrincipal(this, "./imagenesFondo/mapa.jpg"));
 		pantallas.put("game over", new PantallaGameOver(this, "./imagenesFondo/gameOver.png"));
 		pantallas.put("reglas", new PantallaReglasJuego(this, "./imagenesFondo/bookRules.png"));
-		pantallas.put("historiaPersonaje", new PantallaHistoriaPersonaje(this, personaje.getRutaImagenHistoria(), this.personaje));
+		pantallas.put("historiaPersonaje",
+				new PantallaHistoriaPersonaje(this, personaje.getRutaImagenHistoria(), this.personaje));
 		pantallas.put("pantallaHistoriaFinal", new PantallaHistoriaFinal(this, "./imagenesFondo/fondoNegro.jpg"));
 		pantallas.put("pantallaVictoria", new PantallaVictoria(this, "./imagenesFondo/victory.png"));
-		pantallas.put("historiaPrincipal", new PantallaHistoriaInicial(this, "./imagenesFondo/historiaPrincipal.png"));
+		pantallas.put("historiaPrincipal",
+				new PantallaHistoriaInicial(this, "./imagenesFondo/historiaPrincipal.png", file));
 		pantallas.put("usaAuriculares", new PantallaUsoAuriculares(this));
 
 		this.setSize(1500, 800);
@@ -119,11 +132,14 @@ public class Ventana extends JFrame {
 
 	/**
 	 * Función pública que nos va a dibujar el tablero, que representa la pantalla
-	 * principal del juego, la cual va a tener toda la interactividad. Esta función
-	 * va a iterar por el HashMap de pantallas, va a poner invisible la pantalla de
-	 * tablero, pero a la vez la va a poner visible esa misma ventana del tablero.
+	 * principal del juego, la cual va a tener toda la interactividad. A esta
+	 * función se le pasa por parámetro el archivo de texto en el que se van a ir
+	 * escribiendo las consecuencias de las acciones que se produzcan durante la
+	 * partida. Esta función va a iterar por el HashMap de pantallas, va a poner
+	 * invisible la pantalla de tablero, pero a la vez la va a poner visible esa
+	 * misma ventana del tablero.
 	 */
-	public void dibujaTablero() {
+	public void dibujaTablero(File file) {
 
 		Iterator it = this.pantallas.values().iterator();
 		while (it.hasNext()) {
@@ -131,7 +147,7 @@ public class Ventana extends JFrame {
 			actual.setVisible(false);
 		}
 
-		pantallas.put("tablero", new Tablero(this, cartasEnMapa, personaje));
+		pantallas.put("tablero", new Tablero(this, cartasEnMapa, personaje, file));
 		this.pantallas.get("tablero").setVisible(true);
 		this.setContentPane(this.pantallas.get("tablero"));
 	}

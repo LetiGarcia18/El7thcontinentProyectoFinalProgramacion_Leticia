@@ -49,7 +49,9 @@ import java.awt.Graphics;
 public class Tablero extends JPanel {
 	/** La ventana que contiene el JPanel del tablero **/
 	private Ventana ventana;
-	/** Representa el margen derecho que van a tener algunos elementos de la pantalla **/
+	/**
+	 * Representa el margen derecho que van a tener algunos elementos de la pantalla
+	 **/
 	private int margenDerecho;
 	/** ArrayList de las cartas que hay en el mapa **/
 	private ArrayList<CartaEnMapa> cartasEnMapa;
@@ -57,13 +59,17 @@ public class Tablero extends JPanel {
 	private Personaje personaje;
 	/** Un botón desplegable donde van a aparecer los números de las cartas **/
 	private JComboBox comboBoxNumeroCarta;
-	/** random que se utilizará a la hora de sacar un número aleatorio entre 0 y 6
-	 * para comprobar si se ha superado la dificultad de una acción **/
+	/**
+	 * random que se utilizará a la hora de sacar un número aleatorio entre 0 y 6
+	 * para comprobar si se ha superado la dificultad de una acción
+	 **/
 	private Random random;
 	/** La imagen que va a tener de fondo la pantalla del tablero **/
 	private Image imagenFondo;
-	/** Booleano que nos indicará con true si hemos ganado la partida. Se inicializa
-	 * a false inicialmente **/
+	/**
+	 * Booleano que nos indicará con true si hemos ganado la partida. Se inicializa
+	 * a false inicialmente
+	 **/
 	private boolean hasGanado;
 	/** Representa el alto de los botones de esta pantalla **/
 	private int altoBoton;
@@ -73,22 +79,31 @@ public class Tablero extends JPanel {
 	private int margenEntreBotones;
 	/** Representa el valor de la posición Y de los botones **/
 	private int posicionYBotones;
+	/**
+	 * Archivo de texto en el que se van a ir escribiendo las consecuencias de las
+	 * acciones que se produzcan durante la partida
+	 **/
+	private File file;
 
 	/**
 	 * Constructor de Tablero, al cual se le pasa por parámetros la ventana que va a
 	 * contener el JPanel de Tablero, un ArrayList con las cartas que va a haber en
-	 * el mapa, y el personaje. En este constructor se va a dibujar el tablero. Van
-	 * a aparecer en la parte central/izquierda las cartas de terreno iniciales, el
-	 * token del personaje, en la parte lateral derecha van a aparecer distintos
-	 * JLabel actuando de separadores entre las cartas de estado del personaje, el
-	 * inventario del personaje y las acciones que va a poner ir realizando el
-	 * personaje
+	 * el mapa, el personaje y un archivo de texto en el que se van a ir escribiendo
+	 * las consecuencias de las acciones que se produzcan durante la partida. En
+	 * este constructor se va a dibujar el tablero. Van a aparecer en la parte
+	 * central izquierda las cartas de terreno iniciales, el token del personaje, en
+	 * la parte lateral derecha van a aparecer distintos JLabel actuando de
+	 * separadores entre las cartas de estado del personaje, el inventario del
+	 * personaje y las distintas acciones que va a poner ir realizando el personaje
 	 * 
 	 * @param v            La ventanan que va a contener el JPanel.
 	 * @param cartasEnMapa Las cartas que van a aparecer en el tablero.
 	 * @param personaje    El personaje del juego
+	 * @param file         Archivo de texto en el que se van a ir escribiendo las
+	 *                     consecuencias de las acciones que se produzcan durante la
+	 *                     partida
 	 */
-	public Tablero(Ventana v, ArrayList<CartaEnMapa> cartasEnMapa, Personaje personaje) {
+	public Tablero(Ventana v, ArrayList<CartaEnMapa> cartasEnMapa, Personaje personaje, File file) {
 
 		this.ventana = v;
 		this.cartasEnMapa = cartasEnMapa;
@@ -101,6 +116,7 @@ public class Tablero extends JPanel {
 		this.margenEntreBotones = 40;
 		this.posicionYBotones = 470;
 		imagenFondo = new ImageIcon("./imagenesFondo/isla.jpg").getImage();
+		this.file = file;
 
 		setLayout(null);
 
@@ -149,7 +165,7 @@ public class Tablero extends JPanel {
 		int margenSuperior = 0;
 		dibujaEnMapaPersonaje(cartaActual, anchoCasilla, tamanioPersonaje, margenIzquierdo, margenSuperior);
 		dibujaCartas(anchoCasilla, margenIzquierdo, margenSuperior);
-		dibujarAcciones();
+		dibujarAcciones(file);
 
 	}
 
@@ -350,9 +366,11 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que nos va a dibujar las acciones en el tablero. Primero, va
-	 * a utilizar la funcion dameCartaEnMapaConNumero para ver en qué carta se
-	 * encuentra el personaje, y también va a utilizar la función
+	 * Función pública que nos va a dibujar las acciones en el tablero. Se le va a
+	 * pasar por parámetros un archivo de texto en el que se van a ir escribiendo
+	 * las consecuencias de las acciones que se produzcan durante la partida.
+	 * Primero, va a utilizar la función dameCartaEnMapaConNumero para ver en qué
+	 * carta se encuentra el personaje, y también va a utilizar la función
 	 * dameCartasAdyacentes , que va a devolver las cartas adyacentes a la carta
 	 * donde está posicionado el personaje. Una vez realizado esto, llamando a sus
 	 * correspondientes funciones, se van a dibujar las acciones de la carta en la
@@ -361,24 +379,27 @@ public class Tablero extends JPanel {
 	 * personaje tiene estados, también se dibujarán las acciones de las cartas de
 	 * esos estados y si el personaje tiene inventario, se dibujarán las acciones de
 	 * las cartas de inventario.
+	 * 
+	 * @param file Archivo de texto en el que se van a ir escribiendo las
+	 *             consecuencias de las acciones que se produzcan durante la partida
 	 */
-	public void dibujarAcciones() {
+	public void dibujarAcciones(File file) {
 		CartaEnMapa cartaActual = dameCartaEnMapaConNumero(this.personaje.getNumeroCartaPosicionado());
 		ArrayList<CartaEnMapa> cartasAdyacentes = dameCartasAdyacentes(cartaActual);
 
 		// Carta de terreno
-		dibujarAccionesDeCarta(cartaActual, cartasAdyacentes);
+		dibujarAccionesDeCarta(cartaActual, cartasAdyacentes, file);
 
 		// Cartas de evento
 		for (CartaEnMapa cartaAdyacente : cartasAdyacentes) {
-			dibujarAccionesDeCarta(cartaAdyacente, null);
+			dibujarAccionesDeCarta(cartaAdyacente, null, file);
 		}
 
 		// Cartas de estado
 		ArrayList<CartaEstado> estadosPersonaje = personaje.getEstadosPersonaje();
 		for (Carta carta : estadosPersonaje) {
 			if (carta.estaEnMesa()) {
-				dibujarAccionesDeCarta(carta, null);
+				dibujarAccionesDeCarta(carta, null, file);
 			}
 		}
 
@@ -386,52 +407,61 @@ public class Tablero extends JPanel {
 		ArrayList<Carta> inventario = personaje.getInventario();
 		for (Carta cartaInventario : inventario) {
 			if (cartaInventario.estaEnMesa()) {
-				dibujarAccionesDeCarta(cartaInventario, null);
+				dibujarAccionesDeCarta(cartaInventario, null, file);
 			}
 		}
 	}
 
 	/**
 	 * Función pública que va a dibujar las acciones de cada carta. Se le va a pasar
-	 * por parámetros la carta de la que se van a dibujar las acciones y las cartas
-	 * adyacentes que puedan tener acciones a dibujar. En esta función se iterará
-	 * por las acciones de la carta y se llamará a la función dibujarAccion para que
-	 * se vayan dibujando dichas acciones en el Tablero.
+	 * por parámetros la carta de la que se van a dibujar las acciones, las cartas
+	 * adyacentes que puedan tener acciones a dibujar y un archivo de texto en el
+	 * que se van a ir escribiendo las consecuencias de las acciones que se
+	 * produzcan durante la partida. En esta función se iterará por las acciones de
+	 * la carta y se llamará a la función dibujarAccion para que se vayan dibujando
+	 * dichas acciones en el Tablero.
 	 * 
 	 * @param carta            La carta de la que se van a dibujar las acciones
 	 * @param cartasAdyacentes Las cartas adyacentes a la carta de la que se van a
 	 *                         dibujar las acciones.
+	 * @param file             Archivo de texto en el que se van a ir escribiendo
+	 *                         las consecuencias de las acciones que se produzcan
+	 *                         durante la partida
 	 */
-	public void dibujarAccionesDeCarta(Carta carta, ArrayList<CartaEnMapa> cartasAdyacentes) {
+	public void dibujarAccionesDeCarta(Carta carta, ArrayList<CartaEnMapa> cartasAdyacentes, File file) {
 		HashMap<Integer, Accion> acciones = carta.getAcciones();
 		Iterator iterador = acciones.keySet().iterator();
 		while (iterador.hasNext()) {
 			int key = (Integer) iterador.next();
 			Accion accion = acciones.get(key);
-			dibujarAccion(accion, cartasAdyacentes);
+			dibujarAccion(accion, cartasAdyacentes, file);
 		}
 	}
 
 	/**
 	 * Función pública que va a dibujar la acción en el Tablero de juego. Se le va a
-	 * pasar por parámetros la acción a dibujar, y las cartas adyacentes de la carta
-	 * donde se encuentra la acción. En esta función va a comprobar si el ArrayList
-	 * de cartas adyacentes no está vacío, si no lo está va a ir dibujando las
-	 * acciones de las cartas adyacentes. Si esas acciones (las de las cartas
-	 * adyacentes) están dibujadas, se desactivará la acción de la carta donde se
-	 * encuentra el personaje, siendo imposible realizarla de nuevo. También se
-	 * dibujarán las acciones de la carta donde está situado el personaje. Se
-	 * representarán con un botón donde pondrá la acción de la que se trata, y al
-	 * lado de cada botón, aparecerá el coste y la dificultad que va a tener
-	 * resolver dicha acción. Para el caso de la acción MOVE, va a tener al lado del
-	 * botón, un botón desplegable donde aparecerán el número de todas las cartas de
-	 * terreno donde va a ser posible desplazarse.
+	 * pasar por parámetros la acción a dibujar, las cartas adyacentes de la carta
+	 * donde se encuentra la acción y un archivo de texto en el que se van a ir
+	 * escribiendo las consecuencias de las acciones que se produzcan durante la
+	 * partida. En esta función va a comprobar si el ArrayList de cartas adyacentes
+	 * no está vacío, si no lo está va a ir dibujando las acciones de las cartas
+	 * adyacentes. Si esas acciones (las de las cartas adyacentes) están dibujadas,
+	 * se desactivará la acción de la carta donde se encuentra el personaje, siendo
+	 * imposible realizarla de nuevo. También se dibujarán las acciones de la carta
+	 * donde está situado el personaje. Se representarán con un botón donde pondrá
+	 * la acción de la que se trata, y al lado de cada botón, aparecerá el coste y
+	 * la dificultad que va a tener resolver dicha acción. Para el caso de la acción
+	 * MOVE, va a tener al lado del botón, un botón desplegable donde aparecerán el
+	 * número de todas las cartas de terreno donde va a ser posible desplazarse.
 	 * 
 	 * @param accion           La acción que se va a dibujar
 	 * @param cartasAdyacentes Las cartas adyacentes de la carta donde se encuentra
 	 *                         la acción.
+	 * @param file             Archivo de texto en el que se van a ir escribiendo
+	 *                         las consecuencias de las acciones que se produzcan
+	 *                         durante la partida
 	 */
-	public void dibujarAccion(final Accion accion, ArrayList<CartaEnMapa> cartasAdyacentes) {
+	public void dibujarAccion(final Accion accion, ArrayList<CartaEnMapa> cartasAdyacentes, final File file) {
 		boolean estaDesactivada = false;
 
 		if (cartasAdyacentes != null) {
@@ -485,7 +515,7 @@ public class Tablero extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					try {
-						resolverAccion(accion);
+						resolverAccion(accion, file);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -516,26 +546,30 @@ public class Tablero extends JPanel {
 
 	/**
 	 * Función pública que resuelve las acciones de cada carta. Se le pasa por
-	 * parámetros la acción a resolver y lanza una excepción debido a que dentro de
-	 * esta función, se llama a otra que crea un File y se escribe en él. Esta
-	 * función saltará cuando exista algún problema con el File. Lo primero que se
-	 * resuelve en esta función es la reducción de energía del personaje, ya que
-	 * todas las acciones van a tener un coste de energía siempre. A continuación se
-	 * resuelve la dificultad de la acción con un número aleatorio entre 0 y 6; si
-	 * se saca el mismo valor que la dificultad de la acción o superior, se supera
-	 * la acción. Si se supera la dificultad, se llama a la función que resuelve las
-	 * consecuencias positivas que tiene la resolución de la acción, y si no se
-	 * supera, se llama a la función que resuelve las consecuencias negativas que
-	 * tiene la acción. Por último, comprueba que si no se ha ganado se vuelva a
-	 * dibujar el tablero, y se comprueba que el personaje tenga más de 0 de
-	 * energía, si no se acaba automáticamente la partida.
+	 * parámetros la acción a resolver y un archivo de texto en el que se van a ir
+	 * escribiendo las consecuencias de las acciones que se produzcan durante la
+	 * partida, y lanzará una excepción si se produce algún problema con dicho
+	 * archivo. Lo primero que se resuelve en esta función es la reducción de
+	 * energía del personaje, ya que todas las acciones van a tener un coste de
+	 * energía siempre. A continuación se resuelve la dificultad de la acción con un
+	 * número aleatorio entre 0 y 6; si se saca el mismo valor que la dificultad de
+	 * la acción o superior, se supera la acción. Si se supera la dificultad, se
+	 * llama a la función que resuelve las consecuencias positivas que tiene la
+	 * resolución de la acción, y si no se supera, se llama a la función que
+	 * resuelve las consecuencias negativas que tiene la acción. Por último,
+	 * comprueba que si no se ha ganado se vuelva a dibujar el tablero, y se
+	 * comprueba que el personaje tenga más de 0 de energía, si no se acaba
+	 * automáticamente la partida.
 	 * 
 	 * @param accion La acción que se quiere resolver
+	 * @param file   Archivo de texto en el que se van a ir escribiendo las
+	 *               consecuencias de las acciones que se produzcan durante la
+	 *               partida
 	 * @throws IOException Excepción que se lanzará si existe algún problema con el
 	 *                     File que se crea y escribe en las funciones que se llaman
 	 *                     dentro de esta función
 	 */
-	public void resolverAccion(Accion accion) throws IOException {
+	public void resolverAccion(Accion accion, File file) throws IOException {
 		personaje.reduceEnergia(accion);
 
 		short dificultadAccion = accion.getDificultadAccion();
@@ -544,17 +578,17 @@ public class Tablero extends JPanel {
 
 		if (tirada >= dificultadAccion) {
 			// EXITO
-			resolverConsecuencias(accion.getConsecuenciasPositivas());
+			resolverConsecuencias(accion.getConsecuenciasPositivas(), file);
 
 		} else {
 			// FRACASO
 			JOptionPane.showMessageDialog(ventana, "Difficulty not overcome with: " + tirada, "DIFFICULTY ROLL",
 					JOptionPane.INFORMATION_MESSAGE);
-			resolverConsecuencias(accion.getConsecuenciasNegativas());
+			resolverConsecuencias(accion.getConsecuenciasNegativas(), file);
 		}
 
 		if (!hasGanado) {
-			ventana.dibujaTablero();
+			ventana.dibujaTablero(file);
 
 			if (personaje.getContadorEnergia() <= 0) {
 				JOptionPane.showMessageDialog(ventana, "You have fainted. You've run out of energy...",
@@ -612,35 +646,37 @@ public class Tablero extends JPanel {
 
 	/**
 	 * Función pública que resuelve las consecuencias de las acciones. Se le pasa
-	 * por parámetros un ArrayList con todas las consecuencias posibles. La función
-	 * lanzará una excepción, debido a que dentro de esta función se crea y se
-	 * escribe en un File. Existen 5 tipos de consecuencia: 
+	 * por parámetros un ArrayList con todas las consecuencias posibles y un archivo
+	 * de texto en el que se van a ir escribiendo las consecuencias de las acciones
+	 * que se produzcan durante la partida. La función lanzará una excepción si
+	 * ocurre algún problema con ese archivo. 
+	 * Existen 5 tipos de consecuencia: 
 	 * - Desplazarse: moverse a otra carta 
 	 * - Restaurar: que el personaje recupere energía gracias a la comida que encuentra 
 	 * - Traer carta: Se trae una nueva carta al tablero de juego. 
 	 * - Quitar carta: Se va una carta que ya estaba en el tablero de juego. 
 	 * - Ganar: consecuencia que se cumple solo si el personaje tiene en su inventario 
-	 * las dos cartas de engranajes.
+	 *   las dos cartas de engranajes.
 	 * 
-	 * Mientras las consecuencias se van resolviendo, se crea un File donde se van a
-	 * ir escribiendo todas y cada una de las consecuencias que ocurren en el juego
-	 * hasta que este termina (o bien ganando o bien perdiendo la partida).
+	 * Mientras las consecuencias se van resolviendo, se van a ir escribiendo todas
+	 * y cada una de las consecuencias que ocurren en el juego hasta que este
+	 * termina (o bien ganando o bien perdiendo la partida). Una vez termine el
+	 * juego, el archivo quedará escrito con dichas consecuencias, pero al iniciar
+	 * de nuevo el programa, el archivo quedará de nuevo en blanco, para registrar
+	 * las consecuencias de la nueva partida
 	 * 
 	 * @param consecuencias Las consecuencias de las acciones
+	 * @param file          Archivo de texto en el que se van a ir escribiendo las
+	 *                      consecuencias de las acciones que se produzcan durante
+	 *                      la partida
 	 * @throws IOException Excepción que saltará si ocurre algún problema con el
-	 *                     File que se crea
+	 *                     archivo de texto
 	 */
-	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) throws IOException {
+	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias, File file) throws IOException {
 		int contadorCartasEngranaje = personaje.dameNumeroDeEngranajes();
-		String ruta = "./resumenPartida.txt";
-		File file = new File(ruta);
-		if (!file.exists()) {
-			file.createNewFile();
-		}
 		FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
 		PrintWriter pw = null;
 		pw = new PrintWriter(fw);
-		// BufferedWriter bw = new BufferedWriter(fw);
 		for (Consecuencia consecuencia : consecuencias) {
 			String numeroCarta;
 			Carta carta;
@@ -697,7 +733,7 @@ public class Tablero extends JPanel {
 				break;
 
 			}
-			
+
 		}
 
 	}
