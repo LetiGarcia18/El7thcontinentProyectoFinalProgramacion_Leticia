@@ -34,6 +34,7 @@ public class Personaje {
 	private short energiaInicial = 100;
 	/** Variable que va a almacenar la habilidad en la que es bueno nuestro personaje **/
 	private TipoAccion habilidad; 
+	private String rutaHistoriaPersonaje;
 
 	/**
 	 * Constructor de la clase personaje. Se le pasan por parámetros el id, el nombre, la habilidad, la ruta donde se encuentra
@@ -46,12 +47,13 @@ public class Personaje {
 	 * @param rutaImagenHistoria Variable que almacena la ruta de la imagen con la historia introductoria del personaje
 	 * @param rutaIconoPersonaje Variable que almacena el icono del personaje
 	 */
-	public Personaje(int id, String nombre, TipoAccion habilidad, String rutaImagenHistoria, String rutaIconoPersonaje) {
+	public Personaje(int id, String nombre, TipoAccion habilidad, String rutaImagenHistoria, String rutaIconoPersonaje, String rutaHistoriaPersonaje) {
 		this.id = id;
 		this.nombre = nombre;
 		this.habilidad = habilidad;
 		this.rutaImagenHistoria = rutaImagenHistoria;
 		this.rutaIconoPersonaje = rutaIconoPersonaje;
+		this.rutaHistoriaPersonaje = rutaHistoriaPersonaje;
 		this.contadorEnergia = energiaInicial;
 		this.estadosPersonaje = new ArrayList<CartaEstado>();
 		this.inventario = new ArrayList<Carta>();
@@ -170,6 +172,18 @@ public class Personaje {
 	public void setRutaImagenHistoria(String rutaImagenHistoria) {
 		this.rutaImagenHistoria = rutaImagenHistoria;
 	}
+	
+	
+
+	public String getRutaHistoriaPersonaje() {
+		return rutaHistoriaPersonaje;
+	}
+
+
+	public void setRutaHistoriaPersonaje(String rutaHistoriaPersonaje) {
+		this.rutaHistoriaPersonaje = rutaHistoriaPersonaje;
+	}
+
 
 	/**
 	 * Getter de la habilidad que tiene el personaje

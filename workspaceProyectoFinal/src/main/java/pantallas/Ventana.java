@@ -2,6 +2,7 @@ package pantallas;
 
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -43,8 +44,9 @@ public class Ventana extends JFrame {
 	 * estado del personaje, y las cartas de inventario del personaje.
 	 * @param nombre El nombre del personaje
 	 * @throws CharacterDoesNotExistException Excepción que se lanza cuando no encuentra el nombre del personaje en BBDD
+	 * @throws IOException 
 	 */
-	public Ventana(String nombre) throws CharacterDoesNotExistException {
+	public Ventana(String nombre) throws CharacterDoesNotExistException, IOException {
 
 		cartasEnMapa = new ArrayList<CartaEnMapa>();
 		cartas = new ArrayList<Carta>();
@@ -212,7 +214,7 @@ public class Ventana extends JFrame {
 
 		try {
 			ResultSet cursorPersonaje = smt
-					.executeQuery("select id, nombre, habilidad, rutaCartaHistoria, rutaIconoPersonaje from personaje where nombre = '"+nombrePersonaje+"'");
+					.executeQuery("select id, nombre, habilidad, rutaCartaHistoria, rutaIconoPersonaje, rutaHistoriaPersonajeTxt from personaje where nombre = '"+nombrePersonaje+"'");
 
 			while (cursorPersonaje.next()) {
 				int id = cursorPersonaje.getInt("id");
@@ -220,8 +222,9 @@ public class Ventana extends JFrame {
 				String habilidad = cursorPersonaje.getString("habilidad");
 				String rutaCartaHistoria = cursorPersonaje.getString("rutaCartaHistoria");
 				String rutaIconoPersonaje = cursorPersonaje.getString("rutaIconoPersonaje");
+				String rutaHistoriaPersonaje = cursorPersonaje.getString("rutaHistoriaPersonajeTxt");
 
-				this.personaje = new Personaje(id, nombre, TipoAccion.valueOf(habilidad), rutaCartaHistoria, rutaIconoPersonaje);
+				this.personaje = new Personaje(id, nombre, TipoAccion.valueOf(habilidad), rutaCartaHistoria, rutaIconoPersonaje, rutaHistoriaPersonaje);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -229,7 +232,7 @@ public class Ventana extends JFrame {
 		UtilsDB.desconectarBD();
 
 		if (this.personaje == null) {
-			throw new CharacterDoesNotExistException("No existe el personaje");
+			throw new CharacterDoesNotExistException("No existe el personaje que se ha introducido por argumentos de programa. Se escogerá a Ferdinand por defecto");
 		}
 	}
 

@@ -89,14 +89,15 @@ public class Tablero extends JPanel {
 		this.anchoBoton = 130;
 		this.margenEntreBotones = 40;
 		this.posicionYBotones = 470;
-		imagenFondo = new ImageIcon("./imagenesFondo/mar.png").getImage();
+		imagenFondo = new ImageIcon("./imagenesFondo/isla.jpg").getImage();
 
 		setLayout(null);
 
-		JLabel labelPersonaje = new JLabel("Character: " + personaje.getNombre());
+		JLabel labelPersonaje = new JLabel(personaje.getNombre() + ".  Good at: " + personaje.getHabilidad());
 		labelPersonaje.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelPersonaje.setIcon(new ImageIcon("cartasPersonaje\\characterToken2.png"));
-		labelPersonaje.setBounds(950, 0, 400, 65);
+		labelPersonaje.setIcon(new ImageIcon(personaje.getRutaIconoPersonaje()));
+		labelPersonaje.setBounds(720, 0, 800, 65);
+		labelPersonaje.setForeground(getBackground());
 		labelPersonaje.setFont(new Font("Rockwell", Font.BOLD, 30));
 		add(labelPersonaje);
 		
@@ -260,6 +261,7 @@ public class Tablero extends JPanel {
 		energiaPersonaje.setFont(new Font("Rockwell", Font.BOLD, 30));
 		energiaPersonaje.setIcon(new ImageIcon("./iconos/energy.png"));
 		energiaPersonaje.setBounds(20, 5, 400, 50);
+		energiaPersonaje.setForeground(getBackground());
 		add(energiaPersonaje);
 
 	}
@@ -457,7 +459,7 @@ public class Tablero extends JPanel {
 
 		} else {
 			// FRACASO
-			JOptionPane.showMessageDialog(ventana, "Dificultad no superada con: " + tirada, "TIRADA DIFICULTAD",
+			JOptionPane.showMessageDialog(ventana, "Difficulty not overcome with: " + tirada, "DIFFICULTY ROLL",
 					JOptionPane.INFORMATION_MESSAGE);
 			resolverConsecuencias(accion.getConsecuenciasNegativas());
 		}
@@ -539,7 +541,7 @@ public class Tablero extends JPanel {
 					hasGanado = true;
 					ventana.cambiarAPantalla("pantallaHistoriaFinal");
 				} else {
-					JOptionPane.showMessageDialog(ventana, "Oh... Keep looking", "NO WIN",
+					JOptionPane.showMessageDialog(ventana, "You still can't run away from the island. You have pieces left to find. Keep looking!", "DO NOT ESCAPE YET",
 							JOptionPane.INFORMATION_MESSAGE);
 
 				}

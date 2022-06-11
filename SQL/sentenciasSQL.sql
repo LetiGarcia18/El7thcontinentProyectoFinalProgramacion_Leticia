@@ -63,11 +63,12 @@ create table personaje(
     nombre varchar(40),
     habilidad varchar(100),
     rutaCartaHistoria varchar(500),
-    rutaIconoPersonaje varchar(500)
+    rutaIconoPersonaje varchar(500),
+    rutaHistoriaPersonajeTxt varchar(900)
 );
 SELECT * FROM the7thcontinent.cartasterreno where numeroCarta = '005';
-SELECT * FROM the7thcontinent.accion where carta_num = '018';
-SELECT * FROM the7thcontinent.consecuencia where accion_id = 7;
+SELECT * FROM the7thcontinent.accion where carta_num = '024';
+SELECT * FROM the7thcontinent.consecuencia where accion_id = 20;
 SELECT * FROM the7thcontinent.cartasevento where numeroCarta = '018';
 SELECT * FROM the7thcontinent.cartasestado;
 SELECT * FROM the7thcontinent.personaje;
@@ -189,7 +190,8 @@ INSERT INTO consecuencia (id, tipo, accion_id, esPositiva, cartaObjetivo) VALUES
 (49, 'TRAER_CARTA', 32, 1, '012'),
 (50, 'TRAER_CARTA', 33, 1, '016g'),
 (51, 'QUITAR_CARTA', 14, 1, '006'),
-(52, 'TRAER_CARTA', 14, 1, '006g')
+(52, 'TRAER_CARTA', 14, 1, '006g'),
+(53, 'DESPLAZARSE', 20, 1, null)
 ;
 
 #Inserción cartas evento
@@ -211,7 +213,7 @@ INSERT INTO cartasEvento (id, numeroCarta, rutaImagen, textoCarta, posicionX, po
 
 
 #Insercción personajes
-INSERT INTO personaje (id, nombre, habilidad, rutaCartaHistoria, rutaIconoPersonaje) VALUES
-(1, 'Ferdinand', 'INVESTIGATE', 'cartasPersonaje/character1Story.png', 'cartasPersonaje/characterToken2.png'),
-(2, 'duck', 'SEARCH', 'iconos/duck.png', 'iconos/duck.png');
+INSERT INTO personaje (id, nombre, habilidad, rutaCartaHistoria, rutaIconoPersonaje, rutaHistoriaPersonajeTxt) VALUES
+(1, 'Ferdinand', 'INVESTIGATE', 'cartasPersonaje/character1Story.png', 'cartasPersonaje/characterToken2.png', './cartasPersonaje/historiaFerdinand.txt'),
+(2, 'Mary Kingsley', 'SEARCH', 'iconos/duck.png', 'iconos/duck.png', './cartasPersonaje/historiaMary.txt');
 

@@ -1,5 +1,6 @@
 package principal;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class Main {
 	/**
 	 * Main del programa donde se le introduce como argumentos de programa al String[] args, el nombre del personaje.
 	 * El nombre se comprobará si está en BBDD, y si no lo está (o no se le dan argumentos de programa) cogerá por defecto
-	 * a uno de los personajes para que el programa se pueda seguir ejecutando.
+	 * a uno de los personajes para que el programa se pueda seguir ejecutando. Los nombres de los personaje son Ferdinand y Mary Kingsley
 	 * 
 	 * En el Main también se crea el objeto Ventana, pasándole por parámetros el nombre del personaje, y este objeto es el que
 	 * hará que nuestro programa se vea visualmente.
@@ -45,11 +46,11 @@ public class Main {
 				
 		try {
 			Ventana ventana = new Ventana(nombrePersonaje);
-		} catch (CharacterDoesNotExistException e) {
+		} catch (CharacterDoesNotExistException | IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Character doesn't exist", JOptionPane.ERROR_MESSAGE);
 			try {
 				Ventana ventana=new Ventana("Ferdinand");
-			} catch (CharacterDoesNotExistException e1) {
+			} catch (CharacterDoesNotExistException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
