@@ -73,7 +73,7 @@ public class Ventana extends JFrame {
 		pantallas.put("reglas", new PantallaReglasJuego(this));
 		pantallas.put("historiaPersonaje", new PantallaHistoriaPersonaje(this, this.personaje));
 		pantallas.put("pantallaHistoriaFinal", new PantallaHistoriaFinal(this));
-		pantallas.put("pantallaVictoria", new PantallaVictoria(this));
+		pantallas.put("pantallaVictoria", new PantallaVictoria(this, "./imagenesFondo/victory.png"));
 		pantallas.put("historiaPrincipal", new PantallaHistoriaInicial(this));
 		pantallas.put("usaAuriculares", new PantallaUsoAuriculares(this));
 

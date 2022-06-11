@@ -22,11 +22,7 @@ import elementosVisuales.BotonComun;
  * @author Leticia
  *
  */
-public class PantallaVictoria extends JPanel {
-	/** La ventana que contiene el JPanel del menú principal **/
-	private Ventana ventana;
-	/** La imagen que va a tener de fondo la pantalla de menú principal **/
-	private Image imagenFondo;
+public class PantallaVictoria extends Pantalla {
 
 	/**
 	 * Constructor de la clase PantallaVictoria, que se le va a pasar por parámetros
@@ -35,11 +31,9 @@ public class PantallaVictoria extends JPanel {
 	 * 
 	 * @param v La ventanan que va a contener el JPanel.
 	 */
-	public PantallaVictoria(Ventana v) {
-
-		this.ventana = v;
-
-		imagenFondo = new ImageIcon("./imagenesFondo/victory.png").getImage();
+	public PantallaVictoria(Ventana v, String rutaImagenFondo) {
+		super(v, rutaImagenFondo);
+		
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 
@@ -68,11 +62,6 @@ public class PantallaVictoria extends JPanel {
 
 	}
 
-	/**
-	 * Función pública que nos permite dibujar y pintar los componentes de esta
-	 * pantalla con Swing.
-	 */
-	public void paintComponent(Graphics g) {
-		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
-	}
+
+	
 }

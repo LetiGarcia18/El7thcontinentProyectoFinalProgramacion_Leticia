@@ -139,7 +139,7 @@ public class Personaje {
 				String rutaImagen = cursorCartaInventario.getString("rutaImagen");
 				String textoCarta = cursorCartaInventario.getString("textoCarta");
 
-				Carta cartaInventario = new Carta(id, numeroCarta, rutaImagen, textoCarta, false);
+				Carta cartaInventario = new Carta(id, numeroCarta, rutaImagen, textoCarta, true);
 				this.inventario.add(cartaInventario);
 			}
 		} catch (Exception e) {
