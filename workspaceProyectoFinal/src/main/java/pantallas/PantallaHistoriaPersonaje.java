@@ -22,35 +22,31 @@ import clases.Personaje;
 import elementosVisuales.BotonComun;
 
 /**
- * Clase PantallaHistoriaPersonaje que hereda de JPanel, la cual va a
- * representar la pantalla donde se contará la historia del personaje.
+ * Clase PantallaHistoriaPersonaje que hereda de la super clase Pantalla, la
+ * cual va a representar la pantalla donde se contará la historia del personaje.
  * 
  * @author Leticia
  *
  */
-public class PantallaHistoriaPersonaje extends JPanel {
-	/** La ventana que contiene el JPanel del menú principal **/
-	private Ventana ventana;
-	/** La imagen que va a tener de fondo la pantalla de menú principal **/
-	private Image imagenFondo;
+public class PantallaHistoriaPersonaje extends Pantalla {
 	/** EL personaje del juego **/
 	private Personaje personaje;
 
 	/**
 	 * Constructor de PantallaHistoriaPersonaje en el cual se le pasa por parámetros
-	 * la ventana que va a contener esta pantalla JPanel y el personaje del juego.
-	 * Esta pantalla va a contener la historia del personaje, y un botón de
-	 * continuar el cual nos va a llevar a otra pantalla, en concreto a la pantalla
-	 * de la historia principal del juego.
+	 * la ventana que va a contener esta pantalla JPanel, la ruta de la imagen del
+	 * fondo de la pantalla y el personaje del juego. Esta pantalla va a contener la
+	 * historia del personaje, y un botón de continuar el cual nos va a llevar a
+	 * otra pantalla, en concreto a la pantalla de la historia principal del juego.
 	 * 
-	 * @param v         La ventanan que va a contener el JPanel.
-	 * @param personaje El personaje del juego
+	 * @param v               La ventanan que va a contener el JPanel.
+	 * @param rutaImagenFondo La ruta de la imagen del fondo de la pantalla
+	 * @param personaje       El personaje del juego
 	 * @throws IOException Excepción que se lanzará si no encuentra el archivo .txt
 	 */
-	public PantallaHistoriaPersonaje(Ventana v, Personaje personaje) throws IOException {
-		this.ventana = v;
+	public PantallaHistoriaPersonaje(Ventana v, String rutaImagenFondo, Personaje personaje) throws IOException {
+		super(v, rutaImagenFondo);
 		this.personaje = personaje;
-		imagenFondo = new ImageIcon(personaje.getRutaImagenHistoria()).getImage();
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, -46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -65,7 +61,7 @@ public class PantallaHistoriaPersonaje extends JPanel {
 		botonContinuar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("historiaPrincipal");
+				getVentana().cambiarAPantalla("historiaPrincipal");
 			}
 		});
 		botonContinuar.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
@@ -81,7 +77,7 @@ public class PantallaHistoriaPersonaje extends JPanel {
 		botonVerFile.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(ventana, historia, "Story in spanish", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(getVentana(), historia, "Story in spanish", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		botonVerFile.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
@@ -94,7 +90,14 @@ public class PantallaHistoriaPersonaje extends JPanel {
 
 	}
 
-	public static String recorrer(File rutaArchivo) throws IOException {
+	/**
+	 * Función que devuelve una String con el texto que lee a partir de un archivo .txt
+	 * 
+	 * @param rutaArchivo La ruta donde se encuentra el archivo .txt
+	 * @return Una String con el contenido del archivo .txt
+	 * @throws IOException Excepción que saltará si no encuentra el archivo
+	 */
+	public String recorrer(File rutaArchivo) throws IOException {
 		String ret;
 		BufferedReader obj = new BufferedReader(new FileReader(rutaArchivo));
 
@@ -103,14 +106,6 @@ public class PantallaHistoriaPersonaje extends JPanel {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Función pública que nos permite dibujar y pintar los componentes de esta
-	 * pantalla con Swing.
-	 */
-	public void paintComponent(Graphics g) {
-		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
 
 }

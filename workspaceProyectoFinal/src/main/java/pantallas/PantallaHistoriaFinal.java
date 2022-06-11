@@ -16,31 +16,25 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Clase PantallaHistoriaFinal que va a heredar de JPanel. Va a representar la
- * pantalla que aparecerá cuando el personaje gane la partida.
+ * Clase PantallaHistoriaFinal que va a heredar de la super clase Pantalla. Va a
+ * representar la pantalla que aparecerá cuando el personaje gane la partida.
  * 
  * @author Leticia
  *
  */
-public class PantallaHistoriaFinal extends JPanel {
-	/** La ventana que contiene el JPanel del la pantalla con la historia final **/
-	private Ventana ventana;
-	/** La imagen que va a tener de fondo la pantalla de la historia final **/
-	private Image imagenFondo;
-
+public class PantallaHistoriaFinal extends Pantalla {
 	/**
 	 * Constructor de la clase PantallaHistoriaFinal, donde se le pasa por
-	 * parámetros el objeto ventana. En este constructor se va a poner una imagen de
-	 * fondo, y un botón. El botón será un botón que diga "Continue" que nos llevará
-	 * a la pantalla de victoria del juego.
+	 * parámetros el objeto ventana y la ruta de la imagen de fondo de la pantalla.
+	 * En este constructor se va a poner una imagen de fondo, y un botón. El botón
+	 * será un botón que diga "Continue" que nos llevará a la pantalla de victoria
+	 * del juego.
 	 * 
 	 * @param v La ventanan que va a contener el JPanel.
+	 * @param rutaImagenFondo La ruta de la imagen del fondo de la pantalla
 	 */
-	public PantallaHistoriaFinal(Ventana v) {
-
-		this.ventana = v;
-
-		imagenFondo = new ImageIcon("./imagenesFondo/fondoNegro.jpg").getImage();
+	public PantallaHistoriaFinal(Ventana v, String rutaImagenFondo) {
+		super(v, rutaImagenFondo);
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 
@@ -56,7 +50,7 @@ public class PantallaHistoriaFinal extends JPanel {
 		botonEscape.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("pantallaVictoria");
+				getVentana().cambiarAPantalla("pantallaVictoria");
 			}
 		});
 		botonEscape.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
@@ -67,14 +61,6 @@ public class PantallaHistoriaFinal extends JPanel {
 		gbc_botonEscape.gridy = 15;
 		add(botonEscape, gbc_botonEscape);
 
-	}
-
-	/**
-	 * Función pública que nos permite dibujar y pintar los componentes de esta
-	 * pantalla con Swing.
-	 */
-	public void paintComponent(Graphics g) {
-		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
 
 }

@@ -15,26 +15,21 @@ import javax.swing.JPanel;
 
 import elementosVisuales.BotonComun;
 
-public class PantallaHistoriaInicial extends JPanel {
-	/** La ventana que contiene el JPanel del menú principal **/
-	private Ventana ventana;
-	/** La imagen que va a tener de fondo la pantalla de menú principal **/
-	private Image imagenFondo;
+public class PantallaHistoriaInicial extends Pantalla {
 
 	/**
 	 * Constructor de la clase PantallaHistoriaInicial donde se le pasa por
-	 * parámetros el objeto ventana. En este constructor se va a mostrar la historia
-	 * principal del juego, con una imagen que se pondrá de fondo de la pantalla.
-	 * También aparecerá un botón "Continue" que nos llevará a la pantalla del
-	 * tablero de juego, donde comenzaremos la partida.
+	 * parámetros el objeto ventana y la ruta de la imagen de fondo de la pantalla.
+	 * En este constructor se va a mostrar la historia principal del juego, con una
+	 * imagen que se pondrá de fondo de la pantalla. También aparecerá un botón
+	 * "Continue" que nos llevará a la pantalla del tablero de juego, donde
+	 * comenzaremos la partida.
 	 * 
 	 * @param v La ventanan que va a contener el JPanel.
+	 * @param rutaImagenFondo La ruta de la imagen del fondo de la pantalla
 	 */
-	public PantallaHistoriaInicial(Ventana v) {
-
-		this.ventana = v;
-
-		imagenFondo = new ImageIcon("./imagenesFondo/historiaPrincipal.png").getImage();
+	public PantallaHistoriaInicial(Ventana v, String rutaImagenFondo) {
+		super(v, rutaImagenFondo);
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 
@@ -50,7 +45,7 @@ public class PantallaHistoriaInicial extends JPanel {
 		botonContinuar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.dibujaTablero();
+				getVentana().dibujaTablero();
 			}
 		});
 		botonContinuar.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
@@ -60,14 +55,6 @@ public class PantallaHistoriaInicial extends JPanel {
 		gbc_botonContinuar.gridx = 9;
 		gbc_botonContinuar.gridy = 15;
 		add(botonContinuar, gbc_botonContinuar);
-	}
-
-	/**
-	 * Función pública que nos permite dibujar y pintar los componentes de esta
-	 * pantalla con Swing.
-	 */
-	public void paintComponent(Graphics g) {
-		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null);
 	}
 
 }

@@ -22,50 +22,49 @@ import java.io.IOException;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Graphics;
+
 /**
- * Clase MenuPrincipal la cual hereda de JPanel, y va a representar la pantalla del menú de inicio del juego.
+ * Clase MenuPrincipal la cual hereda de Pantalla, y va a representar la
+ * pantalla del menú de inicio del juego.
+ * 
  * @author Leticia
  *
  */
-public class MenuPrincipal extends JPanel{
-	/** La ventana que contiene el JPanel del menú principal **/
-	private Ventana ventana;
-	/** La imagen que va a tener de fondo la pantalla de menú principal**/
-	private Image imagenFondo;
-	
+public class MenuPrincipal extends Pantalla {
 
 	/**
 	 * Constructor de la clase MenuPrincipal, donde se le pasa por parámetros el
-	 * objeto ventana. En este constructor se va a poner una imagen de fondo, y tres
-	 * botones. Un boton de "Start", para empezar el juego, que nos va a llevar a
-	 * otra pantalla donde nos saldrá una imagen gif recomendándonos el uso de
-	 * auriculares durante el juego. Al pulsar dicho botón, también va a comenzar a
-	 * reproducirse una canción de fondo, que se estará reproduciendo todo el rato,
-	 * a lo largo del juego, hasta qe cerremos el programa. Un botón de "Exit", para
-	 * salir del programa. Y un botón de "Games rules", que nos va a llevar a una
-	 * pantalla donde se nos explican las reglas del juego.
+	 * objeto ventana y la ruta de la imagen de fondo de la pantalla. En este
+	 * constructor se va a poner una imagen de fondo, y tres botones. Un boton de
+	 * "Start", para empezar el juego, que nos va a llevar a otra pantalla donde nos
+	 * saldrá una imagen gif recomendándonos el uso de auriculares durante el juego.
+	 * Al pulsar dicho botón, también va a comenzar a reproducirse una canción de
+	 * fondo, que se estará reproduciendo todo el rato, a lo largo del juego, hasta
+	 * qe cerremos el programa. Un botón de "Exit", para salir del programa. Y un
+	 * botón de "Games rules", que nos va a llevar a una pantalla donde se nos
+	 * explican las reglas del juego.
 	 * 
 	 * @param v La ventanan que va a contener el JPanel.
+	 * @param rutaImagenFondo La ruta de la imagen del fondo de la pantalla
 	 */
-	public MenuPrincipal(Ventana v) {
-		
-		this.ventana = v;
-		
-		imagenFondo = new ImageIcon("./imagenesFondo/mapa.jpg").getImage();
-		
+	public MenuPrincipal(Ventana v, String rutaImagenFondo) {
+		super(v, rutaImagenFondo);
+
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, -46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, -46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
+				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JButton botonStart = new BotonComun("Start");
 		botonStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("usaAuriculares"); 
+				getVentana().cambiarAPantalla("usaAuriculares");
 				ReproducirSonido("./musica/music.wav");
 			}
 		});
@@ -76,7 +75,7 @@ public class MenuPrincipal extends JPanel{
 		gbc_botonStart.gridx = 9;
 		gbc_botonStart.gridy = 15;
 		add(botonStart, gbc_botonStart);
-		
+
 		JButton botonExit = new BotonComun("Exit");
 		botonExit.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
 		GridBagConstraints gbc_botonExit = new GridBagConstraints();
@@ -85,14 +84,14 @@ public class MenuPrincipal extends JPanel{
 		gbc_botonExit.gridx = 9;
 		gbc_botonExit.gridy = 20;
 		add(botonExit, gbc_botonExit);
-		
+
 		botonExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.exit (0);
+				System.exit(0);
 			}
 		});
-		
+
 		JButton botonReglas = new BotonComun("Game Rules");
 		botonReglas.setFont(new Font("Vladimir Script", Font.BOLD, 30));
 		GridBagConstraints gbc_botonReglas = new GridBagConstraints();
@@ -101,41 +100,35 @@ public class MenuPrincipal extends JPanel{
 		gbc_botonReglas.gridx = 9;
 		gbc_botonReglas.gridy = 4;
 		add(botonReglas, gbc_botonReglas);
-	 
+
 		botonReglas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.cambiarAPantalla("reglas");
+				getVentana().cambiarAPantalla("reglas");
 			}
-		});		
-		
+		});
+
 	}
-	
+
 	/**
-	 * Función pública que nos permite dibujar y pintar los componentes de esta pantalla con Swing. 
-	*/
-	public void paintComponent(Graphics g) {
-		g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), null); 
-	}
-	
-	/**
-	 * Función pública que va a permitir reproducir sonido pasándole por parámetros la ruta del audio.
+	 * Función pública que va a permitir reproducir sonido pasándole por parámetros
+	 * la ruta del audio.
+	 * 
 	 * @param nombreSonido La ruta del audio.
 	 */
 	public void ReproducirSonido(String nombreSonido) {
-        try {
-            AudioInputStream audioInputStream = AudioSystem
-                    .getAudioInputStream(new File(nombreSonido));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-20.0f);
-            clip.start();
-            clip.loop(UNDEFINED_CONDITION);
-            
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-            ex.printStackTrace();
-        }
-    }	
+		try {
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido));
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-20.0f);
+			clip.start();
+			clip.loop(UNDEFINED_CONDITION);
+
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }

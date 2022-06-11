@@ -68,13 +68,13 @@ public class Ventana extends JFrame {
 		cargarAcciones();
 
 		pantallas = new HashMap<String, JPanel>();
-		pantallas.put("menuInicio", new MenuPrincipal(this));
-		pantallas.put("game over", new PantallaGameOver(this));
-		pantallas.put("reglas", new PantallaReglasJuego(this));
-		pantallas.put("historiaPersonaje", new PantallaHistoriaPersonaje(this, this.personaje));
-		pantallas.put("pantallaHistoriaFinal", new PantallaHistoriaFinal(this));
+		pantallas.put("menuInicio", new MenuPrincipal(this, "./imagenesFondo/mapa.jpg"));
+		pantallas.put("game over", new PantallaGameOver(this, "./imagenesFondo/gameOver.png"));
+		pantallas.put("reglas", new PantallaReglasJuego(this, "./imagenesFondo/bookRules.png"));
+		pantallas.put("historiaPersonaje", new PantallaHistoriaPersonaje(this, personaje.getRutaImagenHistoria(), this.personaje));
+		pantallas.put("pantallaHistoriaFinal", new PantallaHistoriaFinal(this, "./imagenesFondo/fondoNegro.jpg"));
 		pantallas.put("pantallaVictoria", new PantallaVictoria(this, "./imagenesFondo/victory.png"));
-		pantallas.put("historiaPrincipal", new PantallaHistoriaInicial(this));
+		pantallas.put("historiaPrincipal", new PantallaHistoriaInicial(this, "./imagenesFondo/historiaPrincipal.png"));
 		pantallas.put("usaAuriculares", new PantallaUsoAuriculares(this));
 
 		this.setSize(1500, 800);
@@ -88,7 +88,7 @@ public class Ventana extends JFrame {
 		this.setResizable(false); // No deja cambiar el tamaño de la ventana
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
-		this.setContentPane(new MenuPrincipal(this));
+		this.setContentPane(new MenuPrincipal(this, "./imagenesFondo/mapa.jpg"));
 		this.setContentPane(this.pantallas.get("menuInicio"));
 
 		this.setVisible(true);

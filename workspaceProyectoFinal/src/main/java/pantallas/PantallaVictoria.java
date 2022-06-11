@@ -16,8 +16,8 @@ import javax.swing.JPanel;
 import elementosVisuales.BotonComun;
 
 /**
- * Clase PantallaVictoria que hereda de JPanel. Va a representar la pantalla
- * final del juego, cuando se gana la partida.
+ * Clase PantallaVictoria que hereda de la super Clase Pantalla. Va a
+ * representar la pantalla final del juego, cuando se gana la partida.
  * 
  * @author Leticia
  *
@@ -26,14 +26,14 @@ public class PantallaVictoria extends Pantalla {
 
 	/**
 	 * Constructor de la clase PantallaVictoria, que se le va a pasar por parámetros
-	 * el objeto ventana. En este constructor se va a poner una imagen de fondo, y
-	 * un boton de "Exit", para salir del programa.
+	 * el objeto ventana y la ruta de la imagen de fondo de la pantalla. En este
+	 * constructor se va a poner una imagen de fondo, y un boton de "Exit", para
+	 * salir del programa.
 	 * 
 	 * @param v La ventanan que va a contener el JPanel.
 	 */
 	public PantallaVictoria(Ventana v, String rutaImagenFondo) {
 		super(v, rutaImagenFondo);
-		
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 
@@ -62,6 +62,4 @@ public class PantallaVictoria extends Pantalla {
 
 	}
 
-
-	
 }

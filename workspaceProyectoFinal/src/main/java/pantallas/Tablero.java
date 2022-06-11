@@ -7,7 +7,11 @@ import javax.swing.JButton;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -486,7 +490,12 @@ public class Tablero extends JPanel {
 			botonAccion.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					resolverAccion(accion);
+					try {
+						resolverAccion(accion);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 
@@ -511,7 +520,7 @@ public class Tablero extends JPanel {
 		}
 	}
 
-	public void resolverAccion(Accion accion) {
+	public void resolverAccion(Accion accion) throws IOException {
 		personaje.reduceEnergia(accion);
 
 		short dificultadAccion = accion.getDificultadAccion();
@@ -565,9 +574,17 @@ public class Tablero extends JPanel {
 		return cartasAdyacentes;
 	}
 
-	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) {
+	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) throws IOException {
 		int contadorCartasEngranaje = personaje.dameNumeroDeEngranajes();
-
+		String ruta = "./resumenPartida.txt";
+		File file = new File(ruta);
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+		FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+		PrintWriter pw = null;
+		pw = new PrintWriter(fw);
+		//BufferedWriter bw = new BufferedWriter(fw);
 		for (Consecuencia consecuencia : consecuencias) {
 			String numeroCarta;
 			Carta carta;
@@ -577,9 +594,13 @@ public class Tablero extends JPanel {
 			case DESPLAZARSE:
 				String numeroCartaSeleccionado = (String) comboBoxNumeroCarta.getSelectedItem();
 				personaje.setNumeroCartaPosicionado(numeroCartaSeleccionado);
+				pw.println(personaje.getNombre() + " se ha movido a la carta " + numeroCartaSeleccionado + "\n");
+				fw.close();
 				break;
 			case RESTAURAR:
 				personaje.aumentaEnergia((short) 12);
+				pw.println(personaje.getNombre() + " ha comido y se ha retaurado 12 de energía " + "\n");
+				fw.close();
 				break;
 			case TRAER_CARTA:
 				numeroCarta = consecuencia.getCartaObjetivo();
@@ -591,6 +612,8 @@ public class Tablero extends JPanel {
 				if (carta.getClass() == CartaTerreno.class) {
 					personaje.setNumeroCartaPosicionado(numeroCarta);
 				}
+				pw.println("Se ha añadido la carta " + numeroCarta + " al tablero de juego." + "\n");
+				fw.close();
 				break;
 			case QUITAR_CARTA:
 				numeroCarta = consecuencia.getCartaObjetivo();
@@ -599,7 +622,8 @@ public class Tablero extends JPanel {
 					carta = dameCartaEnPersonajeConNumero(numeroCarta);
 				}
 				carta.setEstaEnMesa(false);
-
+				pw.println("Se ha quitado la carta " + numeroCarta + " al tablero de juego." + "\n");
+				fw.close();
 				break;
 			case GANAR:
 				if (contadorCartasEngranaje == 2) {
@@ -611,11 +635,21 @@ public class Tablero extends JPanel {
 							"DO NOT ESCAPE YET", JOptionPane.INFORMATION_MESSAGE);
 
 				}
-
+				pw.println(personaje.getNombre() + " ha logrado reunir las piezas del submarino y escapar de la isla."
+						+ "\n");
+				fw.close();
 				break;
 
 			}
-
+			/*try {
+				// Cierra instancias de FileWriter y BufferedWriter
+				if (bw != null)
+					bw.close();
+				if (fw != null)
+					fw.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}*/
 		}
 
 	}
