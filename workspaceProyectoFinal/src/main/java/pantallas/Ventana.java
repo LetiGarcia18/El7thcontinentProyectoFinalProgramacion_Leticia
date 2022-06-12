@@ -87,7 +87,7 @@ public class Ventana extends JFrame {
 		pantallas.put("pantallaHistoriaFinal", new PantallaHistoriaFinal(this, "./imagenesFondo/fondoNegro.jpg"));
 		pantallas.put("pantallaVictoria", new PantallaVictoria(this, "./imagenesFondo/victory.png"));
 		pantallas.put("historiaPrincipal",
-				new PantallaHistoriaInicial(this, "./imagenesFondo/historiaPrincipal.png", file));
+				new PantallaHistoriaInicial(this, "./imagenesFondo/historiaPrincipal.png"));
 		pantallas.put("usaAuriculares", new PantallaUsoAuriculares(this));
 
 		this.setSize(1500, 800);
@@ -139,7 +139,7 @@ public class Ventana extends JFrame {
 	 * invisible la pantalla de tablero, pero a la vez la va a poner visible esa
 	 * misma ventana del tablero.
 	 */
-	public void dibujaTablero(File file) {
+	public void dibujaTablero() {
 
 		Iterator it = this.pantallas.values().iterator();
 		while (it.hasNext()) {
@@ -147,7 +147,7 @@ public class Ventana extends JFrame {
 			actual.setVisible(false);
 		}
 
-		pantallas.put("tablero", new Tablero(this, cartasEnMapa, personaje, file));
+		pantallas.put("tablero", new Tablero(this, cartasEnMapa, personaje));
 		this.pantallas.get("tablero").setVisible(true);
 		this.setContentPane(this.pantallas.get("tablero"));
 	}
@@ -235,7 +235,7 @@ public class Ventana extends JFrame {
 	}
 
 	/**
-	 * Función pública que va a cargar el personaje de la BBDD. Se le pasa por
+	 * Función privada que va a cargar el personaje de la BBDD. Se le pasa por
 	 * parámetros el nombre del personaje, y si lo encuentra te carga todos sus
 	 * datos y se crea un objeto Personaje, y si no encuentra el nombre del
 	 * personaje en la BBDD, lanza una excepción.
@@ -245,7 +245,7 @@ public class Ventana extends JFrame {
 	 *                                        encuentra el nombre del personaje en
 	 *                                        la BBDD.
 	 */
-	public void cargaPersonaje(String nombrePersonaje) throws CharacterDoesNotExistException {
+	private void cargaPersonaje(String nombrePersonaje) throws CharacterDoesNotExistException {
 
 		Statement smt = UtilsDB.conectarBD();
 
@@ -293,5 +293,15 @@ public class Ventana extends JFrame {
 	public void setPantallas(HashMap<String, JPanel> pantallas) {
 		this.pantallas = pantallas;
 	}
+
+	/**
+	 * Getter del archivo de texto
+	 * @return Nos devuelve el archivo de texto
+	 */
+	public File getFile() {
+		return file;
+	}
+	
+	
 
 }

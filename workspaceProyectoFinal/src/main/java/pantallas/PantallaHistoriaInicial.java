@@ -31,12 +31,9 @@ public class PantallaHistoriaInicial extends Pantalla {
 	 * 
 	 * @param v               La ventanan que va a contener el JPanel.
 	 * @param rutaImagenFondo La ruta de la imagen del fondo de la pantalla
-	 * @param file            Archivo de texto donde se va a ir registrando las
-	 *                        consecuencias de las acciones de la partida.
 	 */
-	public PantallaHistoriaInicial(Ventana v, String rutaImagenFondo, final File file) {
+	public PantallaHistoriaInicial(Ventana v, String rutaImagenFondo) {
 		super(v, rutaImagenFondo);
-		this.file = file;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, -46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -51,7 +48,7 @@ public class PantallaHistoriaInicial extends Pantalla {
 		botonContinuar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				getVentana().dibujaTablero(file);
+				getVentana().dibujaTablero();
 			}
 		});
 		botonContinuar.setFont(new Font("Vladimir Script", Font.PLAIN, 40));
