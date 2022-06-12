@@ -98,7 +98,7 @@ public class Ventana extends JFrame {
 		this.setAlwaysOnTop(true);
 		this.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("./iconos/mano1.png").getImage(),
 				new Point(0, 0), "custom cursor"));
-		this.setResizable(false); // No deja cambiar el tamaño de la ventana
+		this.setResizable(false); 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 		this.setContentPane(new MenuPrincipal(this, "./imagenesFondo/mapa.jpg"));

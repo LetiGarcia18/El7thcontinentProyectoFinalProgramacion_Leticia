@@ -11,10 +11,7 @@ import enums.TipoConsecuencia;
 import utils.UtilsDB;
 
 /**
- * Super clase Carta, en la cual se van a crear objetos que van a contener un
- * id, un número de carta, unas acciones asociadas a esa carta, la ruta de la
- * imagen de la carta, un pequeño texto que describe lo que ocurre en esa carta,
- * y si se encuentra en la mesa o no. Esta clase representa las cartas del juego.
+ * Super clase Carta, la cual va a representar las cartas del juego.
  * 
  * @author Leticia
  *

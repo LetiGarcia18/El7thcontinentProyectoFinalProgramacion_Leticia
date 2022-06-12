@@ -30,7 +30,7 @@ public class Main {
 	 * nombre del personaje y un archivo de texto (File).
 	 * 
 	 * @param args Array de String donde se le introduce como argumentos de programa
-	 *             el nombre del personaje del juego.
+	 *             el nombre del personaje del juego. Ej: -nombre Ferdinand
 	 */
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -69,8 +69,6 @@ public class Main {
 				e1.printStackTrace();
 			}
 		}
-
-		
 
 	}
 

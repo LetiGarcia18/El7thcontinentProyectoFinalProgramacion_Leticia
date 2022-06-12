@@ -1,8 +1,8 @@
 package clases;
 
 /**
- * Super clase que a su vez hereda de la super Clase Carta. Esta clase va a
- * representar las cartas que están en el tablero.
+ * Super clase CartaEnMapa que a su vez hereda de la super Clase Carta. Esta clase 
+ * va a representar las cartas que están en el tablero.
  * 
  * @author Leticia
  *

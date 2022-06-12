@@ -7,8 +7,6 @@ import javax.swing.JButton;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -161,7 +159,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que va a dibujar las cartas en el tablero de juego, donde se
+	 * Función privada que va a dibujar las cartas en el tablero de juego, donde se
 	 * le van a pasar por parámetros en ancho de la casilla (que representa el ancho
 	 * de la carta), el margen izquierdo, y el margen superior. Va a recorrer el
 	 * ArrayList de las cartasEnMapa y va a ir almacenando en la variable X la
@@ -180,7 +178,7 @@ public class Tablero extends JPanel {
 	 * @param margenIzquierdo El margen izquierdo que tendrán las cartas
 	 * @param margenSuperior  El margen superior que tendrán las cartas
 	 */
-	public void dibujaCartas(int anchoCasilla, int margenIzquierdo, int margenSuperior) {
+	private void dibujaCartas(int anchoCasilla, int margenIzquierdo, int margenSuperior) {
 		for (int i = 0; i < this.cartasEnMapa.size(); i++) {
 			CartaEnMapa cartaMapa = this.cartasEnMapa.get(i);
 			int posicionX = (cartaMapa.getPosicionX() * anchoCasilla) + margenIzquierdo;
@@ -211,7 +209,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que va a dibujar individualmente cada carta. Para ello, va a
+	 * Función privada que va a dibujar individualmente cada carta. Para ello, va a
 	 * coger la ruta de la imagen de cada carta, la escalará al tamaño adecuado, y
 	 * si se trata de cartas de estado, aparecerá un JLabel encima de cada carta de
 	 * estado con el título de los estados. Se le va a pasar por parámetros la carta
@@ -222,7 +220,7 @@ public class Tablero extends JPanel {
 	 * @param posicionY    La posición Y donde se dibujará la carta.
 	 * @param anchoCasilla El ancho que tendrá la carta.
 	 */
-	public void dibujaCarta(Carta carta, int posicionX, int posicionY, int anchoCasilla) {
+	private void dibujaCarta(Carta carta, int posicionX, int posicionY, int anchoCasilla) {
 		if (carta.estaEnMesa()) {
 			ImageIcon icon = new ImageIcon(carta.getRutaImagen());
 			Image imagenIcon = icon.getImage();
@@ -244,7 +242,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que va a dibujar al persona en el tablero de juego, donde se
+	 * Función privada que va a dibujar al persona en el tablero de juego, donde se
 	 * le van a pasar por parámetros la carta de terreno donde se va a posicionar el
 	 * personaje, el ancho de la casilla de la carta, el tamaño que tendrá el token
 	 * del personaje, el margen izquierdo que va a el token del personaje y el
@@ -259,7 +257,7 @@ public class Tablero extends JPanel {
 	 * @param margenSuperior   El margen superior que va a tener el token del
 	 *                         personaje
 	 */
-	public void dibujaEnMapaPersonaje(CartaEnMapa cartaTerreno, int anchoCasilla, int tamanioPersonaje,
+	private void dibujaEnMapaPersonaje(CartaEnMapa cartaTerreno, int anchoCasilla, int tamanioPersonaje,
 			int margenIzquierdo, int margenSuperior) {
 		int posicionX = (cartaTerreno.getPosicionX() * anchoCasilla) + margenIzquierdo;
 		int posicionY = (cartaTerreno.getPosicionY() * anchoCasilla) + margenSuperior;
@@ -267,7 +265,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que va a dubujar al personaje, donde se le va a pasar por
+	 * Función privada que va a dubujar al personaje, donde se le va a pasar por
 	 * parámetros la posición X e Y de la carta, el ancho de la carta, y el tamaño
 	 * del personaje. Se va a coger la ruta de la imagen del personaje, y se va a
 	 * escalar al tamaño adecuado que se quiere que tenga el token. Se dibujará
@@ -281,7 +279,7 @@ public class Tablero extends JPanel {
 	 * @param anchoCasilla     El ancho de la carta
 	 * @param tamanioPersonaje El tamaño que tendrá el token del personaje
 	 */
-	public void dibujaPersonaje(int posicionXCarta, int posicionYCarta, int anchoCasilla, int tamanioPersonaje) {
+	private void dibujaPersonaje(int posicionXCarta, int posicionYCarta, int anchoCasilla, int tamanioPersonaje) {
 		ImageIcon icon = new ImageIcon(this.personaje.getRutaIconoPersonaje());
 		Image imagenIcon = icon.getImage();
 		Image imagenIconConTamanio = imagenIcon.getScaledInstance(tamanioPersonaje, tamanioPersonaje,
@@ -357,7 +355,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que nos va a dibujar las acciones en el tablero. Primero, va
+	 * Función privada que nos va a dibujar las acciones en el tablero. Primero, va
 	 * a utilizar la función dameCartaEnMapaConNumero para ver en qué carta se
 	 * encuentra el personaje, y también va a utilizar la función
 	 * dameCartasAdyacentes , que va a devolver las cartas adyacentes a la carta
@@ -369,7 +367,7 @@ public class Tablero extends JPanel {
 	 * esos estados y si el personaje tiene inventario, se dibujarán las acciones de
 	 * las cartas de inventario.
 	 */
-	public void dibujarAcciones() {
+	private void dibujarAcciones() {
 		CartaEnMapa cartaActual = dameCartaEnMapaConNumero(this.personaje.getNumeroCartaPosicionado());
 		ArrayList<CartaEnMapa> cartasAdyacentes = dameCartasAdyacentes(cartaActual);
 
@@ -399,7 +397,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que va a dibujar las acciones de cada carta. Se le va a pasar
+	 * Función privada que va a dibujar las acciones de cada carta. Se le va a pasar
 	 * por parámetros la carta de la que se van a dibujar las acciones, y las cartas
 	 * adyacentes que puedan tener acciones a dibujar. En esta función se iterará
 	 * por las acciones de la carta y se llamará a la función dibujarAccion para que
@@ -409,7 +407,7 @@ public class Tablero extends JPanel {
 	 * @param cartasAdyacentes Las cartas adyacentes a la carta de la que se van a
 	 *                         dibujar las acciones.
 	 */
-	public void dibujarAccionesDeCarta(Carta carta, ArrayList<CartaEnMapa> cartasAdyacentes) {
+	private void dibujarAccionesDeCarta(Carta carta, ArrayList<CartaEnMapa> cartasAdyacentes) {
 		HashMap<Integer, Accion> acciones = carta.getAcciones();
 		Iterator iterador = acciones.keySet().iterator();
 		while (iterador.hasNext()) {
@@ -420,7 +418,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que va a dibujar la acción en el Tablero de juego. Se le va a
+	 * Función privada que va a dibujar la acción en el Tablero de juego. Se le va a
 	 * pasar por parámetros la acción a dibujar, y las cartas adyacentes de la carta
 	 * donde se encuentra la acción. En esta función va a comprobar si el ArrayList
 	 * de cartas adyacentes no está vacío, si no lo está va a ir dibujando las
@@ -438,7 +436,7 @@ public class Tablero extends JPanel {
 	 * @param cartasAdyacentes Las cartas adyacentes de la carta donde se encuentra
 	 *                         la acción.
 	 */
-	public void dibujarAccion(final Accion accion, ArrayList<CartaEnMapa> cartasAdyacentes) {
+	private void dibujarAccion(final Accion accion, ArrayList<CartaEnMapa> cartasAdyacentes) {
 		boolean estaDesactivada = false;
 
 		if (cartasAdyacentes != null) {
@@ -522,7 +520,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que resuelve las acciones de cada carta. Se le pasa por
+	 * Función privada que resuelve las acciones de cada carta. Se le pasa por
 	 * parámetros la acción a resolver. Lanzará una excepción si se produce algún
 	 * problema el archivo de texto. Lo primero que se resuelve en esta función es
 	 * la reducción de energía del personaje, ya que todas las acciones van a tener
@@ -540,7 +538,7 @@ public class Tablero extends JPanel {
 	 * @throws IOException Excepción que se lanzará si existe algún problema con el
 	 *                     fichero de texto.
 	 */
-	public void resolverAccion(Accion accion) throws IOException {
+	private void resolverAccion(Accion accion) throws IOException {
 		personaje.reduceEnergia(accion);
 
 		short dificultadAccion = accion.getDificultadAccion();
@@ -571,14 +569,14 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública en la que se obtiene de manera aleatoria la tirada de
+	 * Función privada en la que se obtiene de manera aleatoria la tirada de
 	 * dificultad, para comprobar si se supera la dificultad de las acciones o no.
 	 * Si se saca el mismo valor o superior, que el valor de la dificultad de la
 	 * acción, la acción se superará positivamente.
 	 * 
 	 * @return El número aleatorio que ha salido.
 	 */
-	public short obtenerTiradaDificultad() {
+	private short obtenerTiradaDificultad() {
 		return (short) (random.nextInt(6) + 1);
 	}
 
@@ -616,7 +614,7 @@ public class Tablero extends JPanel {
 	}
 
 	/**
-	 * Función pública que resuelve las consecuencias de las acciones. Se le pasa
+	 * Función private que resuelve las consecuencias de las acciones. Se le pasa
 	 * por parámetros un ArrayList con todas las consecuencias posibles. La función
 	 * lanzará una excepción si ocurre algún problema con el archivo de texto.
 	 * Existen 5 tipos de consecuencia: - Desplazarse: moverse a otra carta -
@@ -637,7 +635,7 @@ public class Tablero extends JPanel {
 	 * @throws IOException Excepción que saltará si ocurre algún problema con el
 	 *                     archivo de texto
 	 */
-	public void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) throws IOException {
+	private void resolverConsecuencias(ArrayList<Consecuencia> consecuencias) throws IOException {
 		int contadorCartasEngranaje = personaje.dameNumeroDeEngranajes();
 		FileWriter fw = new FileWriter(ventana.getFile().getAbsoluteFile(), true);
 		PrintWriter pw = new PrintWriter(fw);
@@ -688,8 +686,6 @@ public class Tablero extends JPanel {
 							"DO NOT ESCAPE YET", JOptionPane.INFORMATION_MESSAGE);
 
 				}
-				
-				
 				break;
 
 			}

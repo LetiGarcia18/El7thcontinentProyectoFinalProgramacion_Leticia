@@ -9,9 +9,8 @@ import javax.swing.JButton;
 
 /**
  * Clase BotonComun que va a heredar de JButton, y va a representar a la mayoría
- * de los botones que tengan interactividad en el juego, sobre todo los de las
- * pantallas de menú principal, la pantalla de reglas, la del final del juego,
- * etc.
+ * de los botones de las pantallas del juego, sobre todo los de las pantallas de
+ * menú principal, la pantalla de reglas, la del final del juego, etc.
  * 
  * @author Leticia
  *

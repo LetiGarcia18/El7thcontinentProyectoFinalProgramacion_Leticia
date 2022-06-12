@@ -111,12 +111,12 @@ public class MenuPrincipal extends Pantalla {
 	}
 
 	/**
-	 * Función pública que va a permitir reproducir sonido pasándole por parámetros
+	 * Función privada que va a permitir reproducir sonido pasándole por parámetros
 	 * la ruta del audio.
 	 * 
 	 * @param nombreSonido La ruta del audio.
 	 */
-	public void ReproducirSonido(String nombreSonido) {
+	private void ReproducirSonido(String nombreSonido) {
 		try {
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido));
 			Clip clip = AudioSystem.getClip();

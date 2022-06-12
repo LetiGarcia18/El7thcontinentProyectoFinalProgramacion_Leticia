@@ -41,9 +41,9 @@ public class Personaje {
 	private String rutaImagenHistoria;
 	/**
 	 * Variable que indica la energía que va a tener inicialmente el personaje
-	 * siempre que se inicie el juego. Va a comenzar siempre con 100 de energía
+	 * siempre que se inicie el juego. Va a comenzar siempre con 50 de energía
 	 **/
-	private short energiaInicial = 80;
+	private short energiaInicial = 50;
 	/**
 	 * Variable que va a almacenar la habilidad en la que es bueno nuestro
 	 * personaje. Según el tipo de habilidad en la que sea bueno, le costará -1 de
@@ -220,10 +220,18 @@ public class Personaje {
 		this.rutaImagenHistoria = rutaImagenHistoria;
 	}
 
+	/**
+	 * Getter de la ruta del fichero de texto que contiene la historia del personaje
+	 * @return la ruta del fichero de texto 
+	 */
 	public String getRutaHistoriaPersonaje() {
 		return rutaHistoriaPersonaje;
 	}
 
+	/**
+	 * Setter de la ruta del fichero de texto que contiene la historia del personaje
+	 * @param rutaHistoriaPersonaje la ruta del fichero de texto
+	 */
 	public void setRutaHistoriaPersonaje(String rutaHistoriaPersonaje) {
 		this.rutaHistoriaPersonaje = rutaHistoriaPersonaje;
 	}

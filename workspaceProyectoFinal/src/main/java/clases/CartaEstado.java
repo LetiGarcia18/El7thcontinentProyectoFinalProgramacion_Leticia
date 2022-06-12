@@ -1,8 +1,8 @@
 package clases;
 
 /**
- * Clase que hereda de la super clase Carta y va a representar los estados que
- * puede llegar a tener el personaje durante el juego
+ * Clase CartaEstado que hereda de la super clase Carta y va a representar 
+ * los estados que puede llegar a tener el personaje durante el juego
  * 
  * @author Leticia
  *

@@ -17,9 +17,6 @@ import javax.swing.JPanel;
 import elementosVisuales.BotonComun;
 
 public class PantallaHistoriaInicial extends Pantalla {
-	/**Archivo de texto donde se van a ir escribiendo las consecuencias de las
-	 * acciones que ocurran a lo largo de la partida **/
-	private File file;
 
 	/**
 	 * Constructor de la clase PantallaHistoriaInicial donde se le pasa por

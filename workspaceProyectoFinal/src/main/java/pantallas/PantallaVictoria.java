@@ -17,7 +17,8 @@ import elementosVisuales.BotonComun;
 
 /**
  * Clase PantallaVictoria que hereda de la super Clase Pantalla. Va a
- * representar la pantalla final del juego, cuando se gana la partida.
+ * representar la pantalla final del juego, la última de todas, cuando 
+ * se gana la partida.
  * 
  * @author Leticia
  *
