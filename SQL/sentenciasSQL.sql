@@ -67,10 +67,10 @@ create table personaje(
     rutaIconoPersonaje varchar(500),
     rutaHistoriaPersonajeTxt varchar(900)
 );
-SELECT * FROM the7thcontinent.cartasterreno where id = 6;
-SELECT * FROM the7thcontinent.accion where carta_num = '006g';
-SELECT * FROM the7thcontinent.consecuencia where accion_id = 14;
-SELECT * FROM the7thcontinent.cartasevento where numeroCarta = '012';
+SELECT * FROM the7thcontinent.cartasterreno;
+SELECT * FROM the7thcontinent.accion;
+SELECT * FROM the7thcontinent.consecuencia;
+SELECT * FROM the7thcontinent.cartasevento;
 SELECT * FROM the7thcontinent.cartasestado;
 SELECT * FROM the7thcontinent.personaje;
 
@@ -83,7 +83,7 @@ INSERT INTO cartasTerreno (id, rutaImagen, numeroCarta, textoCarta, posicionX, p
 (5, 'cartasTerreno/010.png', '010', 'Thick columns of yellowish smoke rise from cracks in the volcanic rock.', 3, 2, 1),
 (6, 'cartasTerreno/006.png', '006', 'There is no smoke here. Some moss and even a few bamboo-like canes grow in this area.', 2, 3, 1),
 (7, 'cartasTerreno/024.png', '024', 'The submarine is in the water. Now set off as quickly as you can, you never know what could happen.', 1, 2, 0),
-(8, 'cartasTerreno/010g.png', '010g', '', 3, 2, 0),
+(8, 'cartasTerreno/010g.png', '010g', 'You see the great abyss before you. It scares you just to think you might fall out there.', 3, 2, 0),
 (9, 'cartasTerreno/006.png', '006g', 'There is no smoke here. Some moss and even a few bamboo-like canes grow in this area.', 2, 3, 0)
 ;
 
